@@ -1,22 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Router } from "@reach/router";
-import NavBar from "./nav-bar/NavBar.jsx";
-import FiltrationStation from "./filtration-station/FiltrationStation.jsx";
-import AdminPortal from "./admin-portal/AdminPortal.jsx";
-import EntriesView from "./entries-view/EntriesView.jsx";
+import NavBar from "./nav-bar/NavBar";
+import AdminPortal from "./admin-portal/AdminPortal";
+import EntriesView from "./entries-view/EntriesView";
+import Footer from "./footer/Footer";
 
 class App extends React.Component {
   render() {
     return (
       <div id="main">
         <NavBar />
-        <FiltrationStation />
         <Router>
           <EntriesView path="/" />
-          <AdminPortal path="/admin/" />
+          <AdminPortal path="/admin" />
         </Router>
-        <h1>Well, at least React is working!</h1>
+        <Footer />
       </div>
     );
   }
