@@ -1,8 +1,8 @@
-## The source-code for my personal website
+# The source-code for my personal website
 
-_Author_: Ben Clark - April, 2019
+_Author: Ben Clark - April, 2019_
 
-# Setup
+### Setup
 
 This package really isn't set up very well for others to play with :/ You'll
 the api key for Firebase, which I'm not including in the repo... Not sure I'll
