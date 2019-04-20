@@ -1,14 +1,18 @@
 import React from "react";
+import PropTypes from "prop-types";
+import EditableEntry from "./EditableEntry";
 
 class EntryEditor extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { selectedEntry: null };
   }
 
   // LOL such helpful prop types...
-  propTypes = {
-    entries: Object,
-    user: Object
+  static propTypes = {
+    entries: PropTypes.array,
+    user: PropTypes.object,
+    loadEntry: PropTypes.func
   };
 
   handleKeySelect = event => {
@@ -17,16 +21,9 @@ class EntryEditor extends React.Component {
     }
   };
 
-  selectEntry = event => {
-    event.target.classList.add("selected");
-  };
-
   deleteEntry = () => {};
 
-  editEntry = () => {};
-
   render() {
-    // const { entries, user } = this.state;
     const { entries } = this.props;
     if (!entries) {
       return <div />;
@@ -36,21 +33,15 @@ class EntryEditor extends React.Component {
           <h2>Entries</h2>
           {entries.map((entry, i) => {
             return (
-              <div
+              <EditableEntry
+                loadEntry={this.props.loadEntry}
+                entry={entry}
                 key={
-                  entry.name == ""
+                  entry.Name == ""
                     ? `un-named-entry-${i}`
                     : `entry-${entry.name}-${i}`
                 }
-                className="entry"
-                role="button"
-                tabIndex={0}
-                onClick={this.selectEntry}
-                onKeyPress={this.handleKeySelect}
-              >
-                <span className="entry-name">{entry.name}</span>
-                <span className="entry-date">{entry.date}</span>
-              </div>
+              />
             );
           })}
         </div>
