@@ -24,8 +24,8 @@ class Editor extends React.Component {
       currentEntry[attr] = " ";
     });
 
-    // currentEntry.contents = "";
-    // currentEntry.isFeatured = false;
+    currentEntry["Contents"] = "";
+    currentEntry["Is Featured"] = false;
 
     this.state = { entryAttributes, currentEntry };
   }
@@ -51,6 +51,9 @@ class Editor extends React.Component {
       }
     });
 
+    newEntry["Is Featured"] = entry["Is Featured"];
+    newEntry["Contents"] = entry["Contents"];
+
     this.setState({ currentEntry: newEntry });
   };
 
@@ -59,12 +62,16 @@ class Editor extends React.Component {
     this.state.entryAttributes.map(attr => {
       newEntry[attr] = "";
     });
+    newEntry["Contents"] = "";
+    newEntry["Is Featured"] = false;
     this.setState({ currentEntry: newEntry });
     this.render();
   };
 
   handleChange = event => {
-    const { name, value } = event.target;
+    const target = event.target;
+    const name = target.name;
+    const value = target.type === "checkbox" ? target.checked : target.value;
     let newEntry = this.state.currentEntry;
     newEntry[name] = value;
     this.setState({ currentEntry: newEntry });

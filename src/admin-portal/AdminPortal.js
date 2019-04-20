@@ -20,7 +20,7 @@ class AdminPortal extends React.Component {
   render() {
     return (
       <div>
-        <h1>Welcome Back, Ben!</h1>
+        <h1 id="admin-welcom-message">Welcome Back, Ben!</h1>
         <Editor />
         <Login />
       </div>
