@@ -21,7 +21,7 @@ class Editor extends React.Component {
 
     let currentEntry = {};
     entryAttributes.map(attr => {
-      currentEntry[attr] = " ";
+      currentEntry[attr] = "";
     });
 
     currentEntry["Contents"] = "";
@@ -47,7 +47,7 @@ class Editor extends React.Component {
       if (entry[attr]) {
         newEntry[attr] = entry[attr];
       } else {
-        newEntry[attr] = " ";
+        newEntry[attr] = "";
       }
     });
 
