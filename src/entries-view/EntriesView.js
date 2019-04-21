@@ -9,26 +9,32 @@ import { tidyEntry } from "../utils";
 class EntriesView extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { entries: null };
   }
 
   unsubscribeFromFirestore = null;
+
+  setStateFromEntries = snapshot => {
+    const entries = snapshot.docs.map(doc => tidyEntry(doc));
+    this.setState({ entries });
+  };
 
   componentDidMount = async () => {
     this.unsubscribeFromFirestore = await firestore
       .collection("entries")
       .onSnapshot(snapshot => {
-        const entries = snapshot.docs.map(doc => tidyEntry(doc));
-        this.setState({ entries });
+        this.setStateFromEntries(snapshot);
       });
   };
 
   render() {
+    const { entries } = this.state;
     return (
       <div id="entries-container">
         <NavBar />
-        <CategoriesView categories={this.state.categories} />
-        <FeaturedEntries entries={this.state.featuredEntries} />
-        <OtherEntries entries={this.state.otherEntries} />
+        <CategoriesView categories={entries} />
+        <FeaturedEntries entries={entries} />
+        <OtherEntries entries={entries} />
         <div id="normal-entries" />
         <h1> Test, yep the entries will appear here!</h1>
       </div>

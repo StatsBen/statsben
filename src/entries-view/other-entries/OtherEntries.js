@@ -12,7 +12,7 @@ class OtherEntries extends React.Component {
   };
 
   render() {
-    return <div>{this.props.entries}</div>;
+    return <div>Other</div>;
   }
 }
 

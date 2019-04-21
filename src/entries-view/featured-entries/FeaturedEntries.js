@@ -12,7 +12,7 @@ class FeaturedEntries extends React.Component {
   };
 
   render() {
-    return <div>{this.props.entries}</div>;
+    return <div>Featured</div>;
   }
 }
 
