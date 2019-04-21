@@ -5,6 +5,7 @@ import "./categories-view.css";
 class CategoriesView extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { entries: null };
   }
 
   static propTypes = {

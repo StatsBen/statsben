@@ -9,32 +9,66 @@ import { tidyEntry } from "../utils";
 class EntriesView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { entries: null };
+    this.state = {
+      entries: null,
+      featuredEntries: null,
+      otherEntries: null,
+      activeCategory: null,
+      categories: [
+        "alpine",
+        "scrambling",
+        "hiking",
+        "running",
+        "project",
+        "other"
+      ]
+    };
   }
 
   unsubscribeFromFirestore = null;
 
-  setStateFromEntries = snapshot => {
-    const entries = snapshot.docs.map(doc => tidyEntry(doc));
-    this.setState({ entries });
+  // Filter entries by featured/not, and by active filter category then
+  // set the state based on those filtered entry lists
+  setStateFromEntries = entries => {
+    const category = this.state.activeCategory || null;
+
+    const featuredEntries = entries.filter(
+      entry =>
+        entry["Is Featured"] &&
+        (category ? entry["Category"].includes(category) : true)
+    );
+
+    const otherEntries = entries.filter(
+      entry =>
+        !entry["Is Featured"] &&
+        (category ? entry["Category"].includes(category) : true)
+    );
+
+    this.setState({ entries, featuredEntries, otherEntries });
+  };
+
+  setActiveCategory = newActive => {
+    this.setState({ activeCategory: newActive });
+    this.setStateFromEntries(this.state.entries);
   };
 
   componentDidMount = async () => {
     this.unsubscribeFromFirestore = await firestore
       .collection("entries")
       .onSnapshot(snapshot => {
-        this.setStateFromEntries(snapshot);
+        const entries = snapshot.docs.map(doc => tidyEntry(doc));
+        this.setStateFromEntries(entries);
       });
   };
 
   render() {
-    const { entries } = this.state;
+    const { categories, featuredEntries, otherEntries } = this.state;
     return (
       <div id="entries-container">
         <NavBar />
-        <CategoriesView categories={entries} />
-        <FeaturedEntries entries={entries} />
-        <OtherEntries entries={entries} />
+        <CategoriesView categories={categories} />
+        <FeaturedEntries entries={featuredEntries} />
+        <OtherEntries entries={otherEntries} />
         <div id="normal-entries" />
         <h1> Test, yep the entries will appear here!</h1>
       </div>
