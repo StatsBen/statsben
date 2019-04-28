@@ -2,7 +2,7 @@ import React from "react";
 import EntriesSelector from "./EntriesSelector";
 import WritingBox from "./WritingBox";
 import { firestore } from "../../authentication/firebase";
-import { tidyEntry } from "../../utils";
+import { tidyEntry, validateEntry } from "../../utils";
 
 class Editor extends React.Component {
   constructor(props) {
@@ -79,16 +79,31 @@ class Editor extends React.Component {
 
   submitNewEntry = event => {
     event.preventDefault();
-    firestore.collection("entries").add(this.state.currentEntry);
-    this.resetWriter();
+    let { errors, entry } = validateEntry(this.state.currentEntry);
+
+    if (errors.length) {
+      errors.map(err => alert(err.message));
+    } else {
+      firestore
+        .collection("entries")
+        .doc(entry.Name)
+        .set(entry);
+      this.resetWriter();
+    }
   };
 
-  // deleteEntry = event => {
-  //   // TODO
-  // };
+  deleteEntry = entryName => {
+    if (confirm("You sure, bro?")) {
+      firestore
+        .collection("entries")
+        .doc(entryName)
+        .delete();
+      this.resetWriter();
+    }
+  };
 
-  // updateEntry = event => {
-  //   // TODO
+  // updateEntry = entryName => {
+  //
   // };
 
   render() {
@@ -100,10 +115,12 @@ class Editor extends React.Component {
             resetWriter={this.resetWriter}
             handleChange={this.handleChange}
             submitNewEntry={this.submitNewEntry}
+            updateEntry={this.updateEntry}
           />
           <EntriesSelector
             entries={this.state.entries}
             loadEntry={this.loadEntry}
+            deleteEntry={this.deleteEntry}
           />
         </div>
       </div>

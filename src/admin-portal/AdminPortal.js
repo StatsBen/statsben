@@ -1,7 +1,8 @@
 import React from "react";
-import Login from "../authentication/Login";
+import Login from "./Login";
+import Logout from "./Logout";
 import Editor from "./editor/Editor";
-import { auth } from "../authentication/firebase";
+import { auth, signInWithGoogle, signOut } from "../authentication/firebase";
 
 class AdminPortal extends React.Component {
   constructor(props) {
@@ -17,12 +18,27 @@ class AdminPortal extends React.Component {
     );
   };
 
+  login = () => {
+    signInWithGoogle();
+  };
+
+  logout = () => {
+    signOut();
+  };
+
   render() {
+    const { user } = this.state;
     return (
       <div>
         <h1 id="admin-welcom-message">Welcome Back, Ben!</h1>
-        <Editor />
-        <Login />
+        {user ? (
+          <div>
+            <Editor />
+            <Logout logout={this.logout} />
+          </div>
+        ) : (
+          <Login login={this.login} />
+        )}
       </div>
     );
   }

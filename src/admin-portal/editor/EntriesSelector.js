@@ -12,7 +12,8 @@ class EntryEditor extends React.Component {
   static propTypes = {
     entries: PropTypes.array,
     user: PropTypes.object,
-    loadEntry: PropTypes.func
+    loadEntry: PropTypes.func,
+    deleteEntry: PropTypes.func
   };
 
   handleKeySelect = event => {
@@ -35,6 +36,7 @@ class EntryEditor extends React.Component {
             return (
               <EditableEntry
                 loadEntry={this.props.loadEntry}
+                deleteEntry={this.props.deleteEntry}
                 entry={entry}
                 key={
                   entry.Name == ""

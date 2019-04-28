@@ -7,13 +7,15 @@ class EditableEntry extends React.Component {
     this.state = {
       entry: props.entry,
       loadEntry: props.loadEntry,
+      deleteEntry: props.deleteEntry,
       popupIsVisible: false
     };
   }
 
   static propTypes = {
     entry: PropTypes.object,
-    loadEntry: PropTypes.func
+    loadEntry: PropTypes.func,
+    deleteEntry: PropTypes.func
   };
 
   handleKeypress = event => {
@@ -30,6 +32,10 @@ class EditableEntry extends React.Component {
     this.state.loadEntry(this.state.entry);
   };
 
+  deleteEntry = () => {
+    this.state.deleteEntry(this.state.entry.Name);
+  };
+
   render() {
     let popup = null;
 
@@ -37,7 +43,7 @@ class EditableEntry extends React.Component {
       popup = (
         <div id="pop-up-container">
           <button onClick={this.editEntry}>Edit</button>
-          <button>Delete</button>
+          <button onClick={this.deleteEntry}>Delete</button>
         </div>
       );
     }
@@ -52,7 +58,7 @@ class EditableEntry extends React.Component {
       >
         {popup}
         <span>Name: {this.props.entry.Name}&nbsp;</span>
-        <span>Date: {this.props.entry.Date}</span>
+        <span>Date: {this.props.entry.Date.toString()}</span>
       </div>
     );
   }
