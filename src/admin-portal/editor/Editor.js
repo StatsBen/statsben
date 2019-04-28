@@ -54,7 +54,11 @@ class Editor extends React.Component {
     newEntry["Is Featured"] = entry["Is Featured"];
     newEntry["Contents"] = entry["Contents"];
 
-    this.setState({ currentEntry: newEntry });
+    this.setState({
+      currentEntry: newEntry,
+      oldName: entry.Name,
+      revising: true
+    });
   };
 
   resetWriter = () => {
@@ -64,7 +68,7 @@ class Editor extends React.Component {
     });
     newEntry["Contents"] = "";
     newEntry["Is Featured"] = false;
-    this.setState({ currentEntry: newEntry });
+    this.setState({ currentEntry: newEntry, oldName: null, revising: false });
     this.render();
   };
 
@@ -102,9 +106,20 @@ class Editor extends React.Component {
     }
   };
 
-  // updateEntry = entryName => {
-  //
-  // };
+  updateEntry = event => {
+    event.preventDefault();
+    let { errors, entry } = validateEntry(this.state.currentEntry);
+
+    if (errors.length) {
+      errors.map(err => alert(err.message));
+    } else {
+      firestore
+        .collection("entries")
+        .doc(this.state.oldName)
+        .set({ ...entry });
+      this.resetWriter();
+    }
+  };
 
   render() {
     return (
@@ -116,6 +131,7 @@ class Editor extends React.Component {
             handleChange={this.handleChange}
             submitNewEntry={this.submitNewEntry}
             updateEntry={this.updateEntry}
+            revising={this.state.revising}
           />
           <EntriesSelector
             entries={this.state.entries}

@@ -8,9 +8,11 @@ class WritingBox extends React.Component {
 
   static propTypes = {
     currentEntry: PropTypes.object,
+    revising: PropTypes.bool,
     resetWriter: PropTypes.func,
     handleChange: PropTypes.func,
     submitNewEntry: PropTypes.func,
+    updateEntry: PropTypes.func,
     setIsFeatured: PropTypes.func
   };
 
@@ -80,7 +82,11 @@ class WritingBox extends React.Component {
           })}
 
           <input
-            onClick={this.props.submitNewEntry}
+            onClick={
+              this.props.revising
+                ? this.props.updateEntry
+                : this.props.submitNewEntry
+            }
             name="finish-button"
             type="submit"
             value="Commit"
