@@ -68,7 +68,7 @@ class Editor extends React.Component {
     this.state.entryAttributes.map(attr => {
       newEntry[attr] = "";
     });
-    newEntry["Contents"] = "";
+    newEntry["html"] = "";
     newEntry["Is Featured"] = false;
     this.setState({ currentEntry: newEntry, oldName: null, revising: false });
     this.render();
@@ -129,7 +129,7 @@ class Editor extends React.Component {
         <div id="main-editor">
           <h1>Make an Entry</h1>
 
-          <HTMLWriter />
+          <HTMLWriter handleChange={this.handleChange} />
           <TagsEditor />
 
           <DetailsEditor

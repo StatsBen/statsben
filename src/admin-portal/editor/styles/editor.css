@@ -1,0 +1,52 @@
+#html-editor {
+  display: block;
+  position: relative;
+  float: none;
+  clear: both;
+  width: 100%;
+}
+
+#html-left-pane {
+  display: block;
+  position: relative;
+  float: left;
+  width: 49%;
+}
+
+#html-left-pane label {
+  display: block;
+  position: relative;
+  width: 100%;
+  text-align: center;
+}
+
+#html-left-pane textarea {
+  display: block;
+  position: relative;
+  width: 99%;
+  height: 200px;
+  z-index: 99;
+  resize: vertical;
+}
+
+#html-right-pane {
+  display: block;
+  position: relative;
+  float: left;
+  margin-left: 1%;
+  width: 49%;
+}
+
+#html-right-pane span {
+  display: block;
+  position: relative;
+  width: 95%;
+  height: 190px;
+  padding: 2.5%;
+  bottom: 0;
+  resize: both;
+  border: thin solid #777777;
+  box-shadow: 0px 0px 5px #aaaaaa;
+  margin-top: 1em;
+  overflow: scroll;
+}
