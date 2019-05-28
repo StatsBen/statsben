@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-class WritingBox extends React.Component {
+class DetailsEditor extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -68,7 +68,6 @@ class WritingBox extends React.Component {
 
     return (
       <div id="writing-box">
-        <h1>Make an Entry</h1>
         <form>
           {Object.entries(currentEntry).map((attr, i) => {
             switch (attr[0]) {
@@ -80,21 +79,10 @@ class WritingBox extends React.Component {
                 return this.generateTextBox(attr[0], attr[1], i);
             }
           })}
-
-          <input
-            onClick={
-              this.props.revising
-                ? this.props.updateEntry
-                : this.props.submitNewEntry
-            }
-            name="finish-button"
-            type="submit"
-            value="Commit"
-          />
         </form>
       </div>
     );
   }
 }
 
-export default WritingBox;
+export default DetailsEditor;

@@ -1,8 +1,11 @@
 import React from "react";
-import EntriesSelector from "./EntriesSelector";
-import WritingBox from "./WritingBox";
+import DetailsEditor from "./DetailsEditor";
+import HTMLWriter from "./HTMLWriter";
+import TagsEditor from "./TagsEditor";
+import EntriesSelector from "./entries-selector/EntriesSelector";
 import { firestore } from "../../authentication/firebase";
 import { tidyEntry, validateEntry } from "../../utils";
+import "./styles/editor.css";
 
 class Editor extends React.Component {
   constructor(props) {
@@ -11,8 +14,6 @@ class Editor extends React.Component {
     let entryAttributes = [
       "Name",
       "Date",
-      "Grade",
-      "Types",
       "Color",
       "Theme",
       "Featured Text",
@@ -31,6 +32,7 @@ class Editor extends React.Component {
   }
 
   unsubscribeFromFirestore = null;
+
   componentDidMount = async () => {
     this.unsubscribeFromFirestore = await firestore
       .collection("entries")
@@ -125,7 +127,12 @@ class Editor extends React.Component {
     return (
       <div id="editor-container">
         <div id="main-editor">
-          <WritingBox
+          <h1>Make an Entry</h1>
+
+          <HTMLWriter />
+          <TagsEditor />
+
+          <DetailsEditor
             currentEntry={this.state.currentEntry}
             resetWriter={this.resetWriter}
             handleChange={this.handleChange}
@@ -133,6 +140,16 @@ class Editor extends React.Component {
             updateEntry={this.updateEntry}
             revising={this.state.revising}
           />
+
+          <input
+            onClick={
+              this.state.revising ? this.updateEntry : this.submitNewEntry
+            }
+            name="finish-button"
+            type="submit"
+            value="Commit"
+          />
+
           <EntriesSelector
             entries={this.state.entries}
             loadEntry={this.loadEntry}
