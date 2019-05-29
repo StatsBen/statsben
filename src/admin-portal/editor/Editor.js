@@ -1,5 +1,6 @@
 import React from "react";
 import DetailsEditor from "./DetailsEditor";
+import ImageUploader from "./ImageUploader";
 import HTMLWriter from "./HTMLWriter";
 import TagsEditor from "./TagsEditor";
 import EntriesSelector from "./entries-selector/EntriesSelector";
@@ -11,21 +12,14 @@ class Editor extends React.Component {
   constructor(props) {
     super(props);
 
-    let entryAttributes = [
-      "Name",
-      "Date",
-      "Color",
-      "Theme",
-      "Featured Text",
-      "Featured Photo"
-    ];
+    let entryAttributes = ["Name", "Date", "Color", "Theme", "Featured Text"];
 
     let currentEntry = {};
     entryAttributes.map(attr => {
       currentEntry[attr] = "";
     });
 
-    currentEntry["Contents"] = "";
+    currentEntry["html"] = "";
     currentEntry["Is Featured"] = false;
 
     this.state = { entryAttributes, currentEntry };
@@ -128,27 +122,32 @@ class Editor extends React.Component {
       <div id="editor-container">
         <div id="main-editor">
           <h1>Make an Entry</h1>
+          <form>
+            <DetailsEditor
+              currentEntry={this.state.currentEntry}
+              resetWriter={this.resetWriter}
+              handleChange={this.handleChange}
+              submitNewEntry={this.submitNewEntry}
+              updateEntry={this.updateEntry}
+              revising={this.state.revising}
+            />
 
-          <HTMLWriter handleChange={this.handleChange} />
-          <TagsEditor />
+            <ImageUploader />
+            <HTMLWriter
+              handleChange={this.handleChange}
+              contents={this.state.currentEntry.html}
+            />
+            <TagsEditor tags={[]} />
 
-          <DetailsEditor
-            currentEntry={this.state.currentEntry}
-            resetWriter={this.resetWriter}
-            handleChange={this.handleChange}
-            submitNewEntry={this.submitNewEntry}
-            updateEntry={this.updateEntry}
-            revising={this.state.revising}
-          />
-
-          <input
-            onClick={
-              this.state.revising ? this.updateEntry : this.submitNewEntry
-            }
-            name="finish-button"
-            type="submit"
-            value="Commit"
-          />
+            <input
+              name="finish-button"
+              type="submit"
+              value="Commit"
+              onClick={
+                this.state.revising ? this.updateEntry : this.submitNewEntry
+              }
+            />
+          </form>
 
           <EntriesSelector
             entries={this.state.entries}
