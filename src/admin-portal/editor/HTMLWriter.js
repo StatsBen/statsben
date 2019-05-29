@@ -17,15 +17,11 @@ class HTMLWriter extends React.Component {
     console.log();
   };
 
-  componentDidMount() {
-    this.setState({
-      preview: "nothing yet!"
-    });
-  }
+  componentDidMount() {}
 
   render() {
     return (
-      <div id="html-editor">
+      <div id="html-editor" className="editor-section">
         <div id="html-left-pane">
           <label htmlFor="html">Content Editor</label>
           <textarea
@@ -33,6 +29,7 @@ class HTMLWriter extends React.Component {
             name="html"
             type="textarea"
             onChange={this.updateHTML}
+            value={this.props.contents}
           />
         </div>
         <div id="html-right-pane">

@@ -1,9 +1,15 @@
-#html-editor {
+.editor-section {
   display: block;
   position: relative;
   float: none;
   clear: both;
-  width: 100%;
+  width: 90%;
+  margin: 50px 0 50px 0;
+  padding: 0 5% 50px 5%;
+  border-bottom: thin solid #bbbbbb;
+}
+
+#html-editor {
 }
 
 #html-left-pane {
