@@ -21,6 +21,7 @@ class Editor extends React.Component {
     currentEntry["html"] = "";
     currentEntry["tags"] = [];
     currentEntry["Is Featured"] = false;
+    currentEntry["Show By Default"] = true;
 
     this.state = { entryAttributes, currentEntry };
   }
@@ -47,8 +48,10 @@ class Editor extends React.Component {
       }
     });
 
+    newEntry["html"] = entry["html"];
+    newEntry["tags"] = entry["tags"];
     newEntry["Is Featured"] = entry["Is Featured"];
-    newEntry["Contents"] = entry["Contents"];
+    newEntry["Show By Default"] = entry["Show By Default"];
 
     this.setState({
       currentEntry: newEntry,
@@ -65,6 +68,7 @@ class Editor extends React.Component {
     newEntry["html"] = "";
     newEntry["tags"] = [];
     newEntry["Is Featured"] = false;
+    newEntry["Show By Default"] = true;
     this.setState({ currentEntry: newEntry, oldName: null, revising: false });
     this.render();
   };
@@ -168,14 +172,26 @@ class Editor extends React.Component {
               removeTag={this.removeTag}
             />
 
-            <input
-              name="finish-button"
-              type="submit"
-              value="Commit"
-              onClick={
-                this.state.revising ? this.updateEntry : this.submitNewEntry
-              }
-            />
+            <div className="editor-section">
+              <input
+                name="finish-button"
+                type="submit"
+                value="Commit"
+                className="entry-button"
+                onClick={
+                  this.state.revising ? this.updateEntry : this.submitNewEntry
+                }
+              />
+
+              <div
+                style={{
+                  position: "relative",
+                  float: "none",
+                  clear: "both",
+                  width: "100%"
+                }}
+              />
+            </div>
           </form>
 
           <EntriesSelector

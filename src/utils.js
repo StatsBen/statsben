@@ -12,7 +12,7 @@ export const tidyEntry = entry => {
   Object.entries(entryContents).map(propertiesPair => {
     let key = propertiesPair[0];
     let val = propertiesPair[1];
-    if (val && val != "") {
+    if (typeof val != "undefined") {
       if (val.seconds) {
         console.log("CONVERTING DATE!!!");
         tidiedEntry[key] = val.toDate().toString();
@@ -20,7 +20,7 @@ export const tidyEntry = entry => {
         tidiedEntry[key] = val;
       }
     } else {
-      tidiedEntry[key] = null;
+      tidiedEntry[key] = val;
     }
   });
 
