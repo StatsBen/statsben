@@ -1,6 +1,5 @@
 import React from "react";
 import DetailsEditor from "./DetailsEditor";
-import ImageUploader from "./ImageUploader";
 import HTMLWriter from "./HTMLWriter";
 import TagsEditor from "./TagsEditor";
 import EntriesSelector from "./entries-selector/EntriesSelector";
@@ -64,6 +63,7 @@ class Editor extends React.Component {
       newEntry[attr] = "";
     });
     newEntry["html"] = "";
+    newEntry["tags"] = [];
     newEntry["Is Featured"] = false;
     this.setState({ currentEntry: newEntry, oldName: null, revising: false });
     this.render();
@@ -156,8 +156,6 @@ class Editor extends React.Component {
               updateEntry={this.updateEntry}
               revising={this.state.revising}
             />
-
-            <ImageUploader />
 
             <HTMLWriter
               handleChange={this.handleChange}

@@ -7,8 +7,6 @@ export const tidyEntry = entry => {
     // Throw an error or something... TODO
   } else if (!entryContents.hasOwnProperty("date")) {
     // Do something BAD TODO
-  } else if (!entryContents.hasOwnProperty("contents")) {
-    // Do something BAD TODO
   }
 
   Object.entries(entryContents).map(propertiesPair => {
@@ -39,10 +37,6 @@ export const validateEntry = entry => {
 
   if (!entry.hasOwnProperty("Date")) {
     errors.push(new Error("Date is required, dummy! Try again..."));
-  }
-
-  if (!entry.hasOwnProperty("Contents")) {
-    errors.push(new Error("an entry has to have contents!"));
   }
 
   Object.entries(entry).map(propertiesPair => {
