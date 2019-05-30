@@ -20,6 +20,7 @@ class Editor extends React.Component {
     });
 
     currentEntry["html"] = "";
+    currentEntry["tags"] = [];
     currentEntry["Is Featured"] = false;
 
     this.state = { entryAttributes, currentEntry };
@@ -117,6 +118,30 @@ class Editor extends React.Component {
     }
   };
 
+  addTag = tag => {
+    // Maybe add some checks here to make sure it's real and works???
+    // Add a check for uniqueness too!
+    let newEntry = this.state.currentEntry;
+    newEntry.tags.push(tag);
+    this.setState({ currentEntry: newEntry });
+  };
+
+  removeTag = tagToKill => {
+    let allTags = this.state.currentEntry.tags;
+
+    let i = allTags.indexOf(tagToKill);
+
+    if (i < 0) {
+      // Error, tag not found :/ do something... TODO
+    }
+
+    allTags.splice(i, 1);
+
+    let newEntry = this.state.currentEntry;
+    newEntry.tags = allTags;
+    this.setState({ currentEntry: newEntry });
+  };
+
   render() {
     return (
       <div id="editor-container">
@@ -133,11 +158,17 @@ class Editor extends React.Component {
             />
 
             <ImageUploader />
+
             <HTMLWriter
               handleChange={this.handleChange}
               contents={this.state.currentEntry.html}
             />
-            <TagsEditor tags={[]} />
+
+            <TagsEditor
+              tags={this.state.currentEntry.tags}
+              addTag={this.addTag}
+              removeTag={this.removeTag}
+            />
 
             <input
               name="finish-button"
