@@ -9,7 +9,7 @@ class DetailsEditor extends React.Component {
   generateTextBox = (label, value, i) => {
     return (
       <div key={`${label}-${i}`} className="entry-attribute-form-element">
-        <label htmlFor={label}>{label}</label>
+        <label htmlFor={label}>{`${label}: `}</label>
         <input
           type="text"
           name={label}
@@ -23,7 +23,7 @@ class DetailsEditor extends React.Component {
   generateToggleButton = (label, value, i) => {
     return (
       <div key={`${label}-${i}`} className="entry-attribute-form-element">
-        <label htmlFor={label}>{label}</label>
+        <label htmlFor={label}>{`${label}: `}</label>
         <input
           type="checkbox"
           name={label}
@@ -47,10 +47,20 @@ class DetailsEditor extends React.Component {
               return;
             case "Is Featured":
               return this.generateToggleButton(attr[0], attr[1], i);
+            case "Show By Default":
+              return this.generateToggleButton(attr[0], attr[1], i);
             default:
               return this.generateTextBox(attr[0], attr[1], i);
           }
         })}
+        <div
+          style={{
+            position: "relative",
+            float: "none",
+            clear: "both",
+            width: "100%"
+          }}
+        />
       </div>
     );
   }

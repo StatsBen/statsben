@@ -22,7 +22,10 @@ class HTMLWriter extends React.Component {
   render() {
     return (
       <div id="html-editor" className="editor-section">
-        <div id="html-left-pane">
+        <div
+          id="html-left-pane"
+          className="entry-attribute-form-element html-pane"
+        >
           <label htmlFor="html">Content Editor</label>
           <textarea
             id="html-text-input"
@@ -32,7 +35,10 @@ class HTMLWriter extends React.Component {
             value={this.props.contents}
           />
         </div>
-        <div id="html-right-pane">
+        <div
+          id="html-right-pane"
+          className="entry-attribute-form-element html-pane"
+        >
           <span id="html-preview" />
         </div>
         <div id="clearfix" style={{ clear: "both", width: "100%" }}>

@@ -9,14 +9,36 @@
   border-bottom: thin solid #bbbbbb;
 }
 
-#html-editor {
+.entry-attribute-form-element {
+  position: relative;
+  float: left;
+  margin: 10px;
+  background: #eeeeee;
+  padding: 5px;
+  border-radius: 5px !important;
+  outline: thin solid #aaaaaa;
+  box-shadow: -2px 2px 5px #cccccc;
 }
 
-#html-left-pane {
+.entry-button {
   display: block;
   position: relative;
   float: left;
-  width: 49%;
+  margin: 10px;
+  padding: 5px;
+}
+
+.html-pane {
+  display: block;
+  position: relative;
+  float: left;
+  width: 46%;
+}
+
+@media (max-width: 900px) {
+  .html-pane {
+    width: 95%;
+  }
 }
 
 #html-left-pane label {
@@ -36,14 +58,10 @@
 }
 
 #html-right-pane {
-  display: block;
-  position: relative;
-  float: left;
   margin-left: 1%;
-  width: 49%;
 }
 
-#html-right-pane span {
+#html-right-pane span#html-preview {
   display: block;
   position: relative;
   width: 95%;
@@ -55,4 +73,8 @@
   box-shadow: 0px 0px 5px #aaaaaa;
   margin-top: 1em;
   overflow: scroll;
+}
+
+#html-preview {
+  background: #ffffff;
 }

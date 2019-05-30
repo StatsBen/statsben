@@ -5,9 +5,6 @@ class TagsEditor extends React.Component {
     super(props);
 
     this.state = { name: "", value: "" };
-    this.state.tags = props.tags.map(tag => {
-      tag.display = "none";
-    });
   }
 
   handleChange = event => {
@@ -104,23 +101,29 @@ class TagsEditor extends React.Component {
   render() {
     return (
       <div id="tags-editor" className="editor-section">
-        <div id="add-sub-form">
+        <div id="tags-sub-form">
           <h3>Tags Editor</h3>
-          <label htmlFor="tag-name">Tag Name: </label>
-          <input
-            name="tag-name"
-            type="text"
-            value={this.state.name}
-            onChange={this.handleChange}
-          />
-          <label htmlFor="tag-value">Tag Value: </label>
-          <input
-            name="tag-value"
-            type="text"
-            value={this.state.value}
-            onChange={this.handleChange}
-          />
-          <button onClick={this.handleAdd}>Add</button>
+          <div className="entry-attribute-form-element">
+            <label htmlFor="tag-name">Tag Name: </label>
+            <input
+              name="tag-name"
+              type="text"
+              value={this.state.name}
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="entry-attribute-form-element">
+            <label htmlFor="tag-value">Tag Value: </label>
+            <input
+              name="tag-value"
+              type="text"
+              value={this.state.value}
+              onChange={this.handleChange}
+            />
+          </div>
+          <button onClick={this.handleAdd} className="entry-button">
+            Add
+          </button>
         </div>
 
         {
@@ -130,6 +133,15 @@ class TagsEditor extends React.Component {
             })}
           </div>
         }
+
+        <div
+          style={{
+            position: "relative",
+            float: "none",
+            clear: "both",
+            width: "100%"
+          }}
+        />
       </div>
     );
   }
