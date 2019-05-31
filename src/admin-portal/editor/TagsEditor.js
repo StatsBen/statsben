@@ -61,10 +61,12 @@ class TagsEditor extends React.Component {
         style={{
           display: "none",
           position: "absolute",
-          width: "80px",
-          height: "20px",
-          left: this.state.x,
-          top: this.state.y
+          padding: "10px",
+          width: "110px",
+          height: "110px",
+          background: "#f4f4f4",
+          border: "#777777",
+          boxShadow: "-2px 2px 5px #bbbbbb"
         }}
       >
         <span>{`Edit ${name}?`}</span>
@@ -72,6 +74,7 @@ class TagsEditor extends React.Component {
         <button onClick={edit}>Edit</button>
         <button onClick={close}>Nah, NVM...</button>
         <button onClick={kill}>Delete</button>
+        <div style={{ float: "none", clear: "both", width: "100%" }} />
       </div>
     );
 

@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import moment from "moment";
 
 class EditableEntry extends React.Component {
   constructor(props) {
@@ -57,8 +58,33 @@ class EditableEntry extends React.Component {
         tabIndex={0}
       >
         {popup}
-        <span>Name: {this.props.entry.Name}&nbsp;</span>
-        <span>Date: {this.props.entry.Date.toString()}</span>
+        <div>
+          <span>
+            <strong>Name</strong>: {this.props.entry.Name}&nbsp;
+          </span>
+        </div>
+        <div>
+          <span>
+            <strong>Date</strong>:{" "}
+            {moment(new Date(this.props.entry.Date)).format("MMM Do YYYY")}
+          </span>
+        </div>
+        <div>
+          <span>
+            <strong>Featured</strong>:{" "}
+            {this.props.entry.isFeatured ? `Yes` : `No`}
+          </span>
+        </div>
+        {this.props.entry.tags.map(tag => {
+          return (
+            <div key={`editable-entry-tag-${tag.name}`}>
+              <span>
+                <strong>{tag.name}</strong>: {tag.value}
+              </span>
+            </div>
+          );
+        })}
+        <div style={{ float: "none", clear: "both", width: "100%" }} />
       </div>
     );
   }

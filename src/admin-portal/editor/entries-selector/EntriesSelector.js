@@ -46,6 +46,8 @@ class EntryEditor extends React.Component {
               />
             );
           })}
+
+          <div style={{ float: "none", clear: "both", width: "100%" }} />
         </div>
       );
     }

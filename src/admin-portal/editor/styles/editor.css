@@ -1,3 +1,38 @@
+button,
+input[type="submit"] {
+  display: block;
+  position: relative;
+  float: left;
+  margin: 10px;
+  padding: 5px;
+  background: #eeeeee;
+  font-weight: 700;
+  box-shadow: inset 0px 0px 6px #dddddd;
+  border-radius: 5px;
+}
+
+#admin-welcome-message {
+  display: block;
+  position: relative;
+  float: right;
+}
+
+#main-editor {
+  float: none;
+  clear: both;
+}
+
+#main-editor h1 {
+  display: block;
+  position: relative;
+  float: left;
+  width: 100%;
+  margin: 50px 0 50px 0;
+  padding: 0 0 10px 0;
+  border-bottom: 7px solid #dddddd;
+  text-align: center;
+}
+
 .editor-section {
   display: block;
   position: relative;
@@ -16,16 +51,8 @@
   background: #eeeeee;
   padding: 5px;
   border-radius: 5px !important;
-  outline: thin solid #aaaaaa;
+  border: thin solid #aaaaaa;
   box-shadow: -2px 2px 5px #cccccc;
-}
-
-.entry-button {
-  display: block;
-  position: relative;
-  float: left;
-  margin: 10px;
-  padding: 5px;
 }
 
 .html-pane {
@@ -77,4 +104,40 @@
 
 #html-preview {
   background: #ffffff;
+}
+
+#entries-container {
+  width: 90%;
+  padding: 5%;
+  margin-bottom: 100px;
+}
+
+div.entry {
+  float: left;
+  padding: 10px;
+  margin: 10px;
+  background: #eeeeee;
+  border-radius: 5px !important;
+  border: thin solid #aaaaaa;
+  box-shadow: -2px 2px 5px #cccccc;
+}
+
+div.entry:hover {
+  cursor: pointer;
+  background: #ffffff;
+}
+
+div.entry div {
+  padding: 5px;
+}
+
+div.entry div span {
+  padding: 5px;
+  cursor: default;
+  user-select: none;
+}
+
+div.entry div span:hover {
+  cursor: pointer;
+  user-select: none;
 }

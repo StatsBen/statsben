@@ -150,7 +150,7 @@ class Editor extends React.Component {
     return (
       <div id="editor-container">
         <div id="main-editor">
-          <h1>Make an Entry</h1>
+          <h1>Write an Entry</h1>
           <form>
             <DetailsEditor
               currentEntry={this.state.currentEntry}
