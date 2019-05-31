@@ -5,6 +5,7 @@ import AdminPortal from "./admin-portal/AdminPortal";
 import EntriesView from "./entries-view/EntriesView";
 import FullPageEntry from "./full-page-entry/FullPageEntry";
 import Footer from "./footer/Footer";
+import "./global-styles/global-styles.css";
 
 class App extends React.Component {
   render() {

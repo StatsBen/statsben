@@ -11,6 +11,10 @@ input[type="submit"] {
   border-radius: 5px;
 }
 
+div#admin-portal {
+  background: #fff9ef;
+}
+
 #admin-welcome-message {
   display: block;
   position: relative;
@@ -29,7 +33,7 @@ input[type="submit"] {
   width: 100%;
   margin: 50px 0 50px 0;
   padding: 0 0 10px 0;
-  border-bottom: 7px solid #dddddd;
+  border-bottom: 7px solid #96acb5;
   text-align: center;
 }
 
@@ -41,7 +45,7 @@ input[type="submit"] {
   width: 90%;
   margin: 50px 0 50px 0;
   padding: 0 5% 50px 5%;
-  border-bottom: thin solid #bbbbbb;
+  border-bottom: thin solid #718891;
 }
 
 .entry-attribute-form-element {

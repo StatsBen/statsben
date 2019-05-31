@@ -1,0 +1,44 @@
+div#nav-bar {
+  position: fixed;
+  width: 95%;
+  height: 50px;
+  padding: 15px 2.5% 15px 2.5%;
+  top: 0;
+  left: 0;
+}
+
+div#nav-bar-header {
+  float: left;
+}
+
+div#nav-bar-header span {
+  display: block;
+  position: relative;
+  padding: 10px;
+  font-size: 1.3em;
+  font-weight: 700;
+  cursor: default;
+  user-select: none;
+}
+
+div#nav-bar-links {
+  float: right;
+}
+
+div#nav-bar-links button {
+  float: right;
+  padding: 10px;
+  margin: 0;
+  background: none;
+  border: none;
+  box-shadow: none;
+  cursor: pointer;
+  font-size: 1.2em;
+  font-seight: 400;
+  font-family: "Gentium Basic", serif;
+  user-select: none;
+}
+
+div#nav-bar-links button:hover {
+  color: #555555;
+}

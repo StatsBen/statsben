@@ -1,0 +1,59 @@
+div#footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 90%;
+  padding: 80px 5% 50px 5%;
+  background: #222222;
+  color: #aaaaaa;
+}
+
+div#footer-full-width-messages {
+  float: left;
+  width: 80%;
+}
+
+div#footer-full-width-messages span {
+  display: block;
+  position: relative;
+  float: none;
+  width: 100%;
+  font-weight: 700;
+  color: #8f8f8f;
+}
+
+div#footer-full-width-messages span:nth-child(1) {
+  padding: 0 0 5px 0;
+  margin: 0 0 20px 0;
+  font-size: 1.5em;
+  border-bottom: thin solid #666666;
+}
+
+div#footer-links {
+  float: right;
+  width: 20%;
+}
+
+div#footer-links a {
+  display: block;
+  position: relative;
+  float: none;
+  clear: both;
+  width: 100%;
+  margin: 10px 0 0 0;
+  text-align: right;
+  color: #aaaaaa;
+  text-decoration: none;
+  user-select: none;
+}
+
+div#footer-links a:hover {
+  color: #cccccc;
+}
+
+div#lil-version-number {
+  position: absolute;
+  bottom: 50px;
+  left: 5%;
+  font-size: 0.8em;
+}
