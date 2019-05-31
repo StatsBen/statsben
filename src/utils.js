@@ -12,16 +12,7 @@ export const tidyEntry = entry => {
   Object.entries(entryContents).map(propertiesPair => {
     let key = propertiesPair[0];
     let val = propertiesPair[1];
-    if (typeof val != "undefined") {
-      if (val.seconds) {
-        console.log("CONVERTING DATE!!!");
-        tidiedEntry[key] = val.toDate().toString();
-      } else {
-        tidiedEntry[key] = val;
-      }
-    } else {
-      tidiedEntry[key] = val;
-    }
+    tidiedEntry[key] = val;
   });
 
   return tidiedEntry;
@@ -45,15 +36,7 @@ export const validateEntry = entry => {
     if (val && val != "") {
       // Make sure the date is valid...
       if (key == "Date") {
-        try {
-          let cleanDate = new Date(entry["Date"]);
-          entry["Date"] = cleanDate;
-        } catch (error) {
-          errors.push(
-            new Error("the date you entered was invalid, try again!")
-          );
-          console.error(error.message);
-        }
+        // Make sure Moment recognizes it, but just store the string, I guess.
       }
     }
   });
