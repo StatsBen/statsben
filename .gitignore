@@ -5,3 +5,5 @@
 /.cache
 
 /src/authentication/keys.js
+
+/migration
