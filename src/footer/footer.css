@@ -8,6 +8,7 @@ div#footer {
   padding: 80px 5% 50px 5%;
   background: #222222;
   color: #aaaaaa;
+  font-family: "Work Sans", sans-serif;
 }
 
 div#footer-full-width-messages {
@@ -20,14 +21,14 @@ div#footer-full-width-messages span {
   position: relative;
   float: none;
   width: 100%;
-  font-weight: 700;
   color: #8f8f8f;
 }
 
 div#footer-full-width-messages span:nth-child(1) {
   padding: 0 0 5px 0;
   margin: 0 0 20px 0;
-  font-size: 1.5em;
+  font-size: 1.8em;
+  font-weight: 900;
   border-bottom: thin solid #666666;
 }
 
@@ -45,7 +46,7 @@ div#footer-links a {
   margin: 10px 0 0 0;
   text-align: right;
   color: #aaaaaa;
-  text-decoration: none;
+  font-size: 0.8em;
   user-select: none;
 }
 
@@ -57,5 +58,5 @@ div#lil-version-number {
   position: absolute;
   bottom: 50px;
   left: 5%;
-  font-size: 0.8em;
+  font-size: 0.7em;
 }

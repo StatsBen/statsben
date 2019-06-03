@@ -24,6 +24,7 @@ class FeaturedEntries extends React.Component {
             <div className="featured-entry" key={`entry-${i}`}>
               <span className={`${c}name`}>{entry.Name}</span>
               <span className={`${c}date`}>{entry.date}</span>
+              <div>{entry.html}</div>
               {entry["Featured Photo"] ? (
                 <img
                   className={`${c}-img`}
@@ -37,12 +38,7 @@ class FeaturedEntries extends React.Component {
       });
     }
 
-    return (
-      <div id="featured-entries">
-        <h2>Featured</h2>
-        {entries}
-      </div>
-    );
+    return <div id="featured-entries">{entries}</div>;
   }
 }
 

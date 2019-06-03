@@ -66,7 +66,7 @@ class EditableEntry extends React.Component {
         <div>
           <span>
             <strong>Date</strong>:{" "}
-            {moment(new Date(this.props.entry.Date)).format("MMM Do YYYY")}
+            {moment(this.props.entry.Date).format("MMM Do YYYY")}
           </span>
         </div>
         <div>

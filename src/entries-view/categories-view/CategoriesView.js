@@ -13,7 +13,7 @@ class CategoriesView extends React.Component {
   };
 
   render() {
-    return <div>Categories</div>;
+    return <div />;
   }
 }
 

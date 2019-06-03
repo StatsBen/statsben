@@ -5,6 +5,7 @@ import FeaturedEntries from "./featured-entries/FeaturedEntries";
 import OtherEntries from "./other-entries/OtherEntries";
 import { firestore } from "../authentication/firebase";
 import { tidyEntry } from "../utils";
+import "./entries-view.css";
 
 class EntriesView extends React.Component {
   constructor(props) {
@@ -55,6 +56,8 @@ class EntriesView extends React.Component {
   componentDidMount = async () => {
     this.unsubscribeFromFirestore = await firestore
       .collection("entries")
+      .limit(20)
+      .orderBy("Date", "desc")
       .onSnapshot(snapshot => {
         const entries = snapshot.docs.map(doc => tidyEntry(doc));
         this.setStateFromEntries(entries);
@@ -69,8 +72,6 @@ class EntriesView extends React.Component {
         <CategoriesView categories={categories} />
         <FeaturedEntries entries={featuredEntries} />
         <OtherEntries entries={otherEntries} />
-        <div id="normal-entries" />
-        <h1> Test, yep the entries will appear here!</h1>
       </div>
     );
   }
