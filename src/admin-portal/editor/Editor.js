@@ -31,6 +31,7 @@ class Editor extends React.Component {
   componentDidMount = async () => {
     this.unsubscribeFromFirestore = await firestore
       .collection("entries")
+      .orderBy("date", "desc")
       .onSnapshot(snapshot => {
         const entries = snapshot.docs.map(doc => tidyEntry(doc));
         this.setState({ entries });

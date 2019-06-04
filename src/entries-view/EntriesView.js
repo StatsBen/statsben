@@ -57,7 +57,7 @@ class EntriesView extends React.Component {
     this.unsubscribeFromFirestore = await firestore
       .collection("entries")
       .limit(20)
-      .orderBy("Date", "desc")
+      .orderBy("date", "desc")
       .onSnapshot(snapshot => {
         const entries = snapshot.docs.map(doc => tidyEntry(doc));
         this.setStateFromEntries(entries);

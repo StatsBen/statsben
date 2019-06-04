@@ -21,7 +21,9 @@ class OtherEntries extends React.Component {
           <div key={`entry-${i}`}>
             <h3 className={`entry-title`}>{entry.Name}</h3>
             <div className={`entry-date`}>
-              <span>{moment(entry.Date).format("MMM Do YYYY")}</span>
+              <span>
+                {moment(entry.Date, "MM/DD/YY").format("MMM Do YYYY")}
+              </span>
             </div>
             <div
               className={`entry-contents`}
