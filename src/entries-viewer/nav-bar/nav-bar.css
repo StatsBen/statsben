@@ -5,6 +5,7 @@ div#nav-bar {
   padding: 15px 2.5% 15px 2.5%;
   top: 0;
   left: 0;
+  z-index: 999;
 }
 
 div#nav-bar-header {
@@ -35,7 +36,6 @@ div#nav-bar-links button {
   cursor: pointer;
   font-size: 1.2em;
   font-seight: 400;
-  font-family: "Gentium Basic", serif;
   user-select: none;
 }
 

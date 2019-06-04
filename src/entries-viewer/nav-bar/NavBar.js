@@ -29,10 +29,6 @@ class NavBar extends React.Component {
         <div id="nav-bar-header" style={{ opacity: this.state.op }}>
           {header}
         </div>
-        <div id="nav-bar-links">
-          <button className="nav-bar-button">Test</button>
-          <button className="nav-bar-button">Button</button>
-        </div>
       </div>
     );
   }
