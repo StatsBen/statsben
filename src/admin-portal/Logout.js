@@ -13,7 +13,9 @@ class Logout extends React.Component {
   render() {
     return (
       <div id="login-pane">
-        <button onClick={this.props.logout}>Log Out</button>
+        <button onClick={this.props.logout} className={`editor-button`}>
+          Log Out
+        </button>
       </div>
     );
   }

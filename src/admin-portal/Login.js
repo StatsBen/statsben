@@ -14,7 +14,9 @@ class Login extends React.Component {
     return (
       <div id="login-pane">
         <span>You must log in to edit</span>
-        <button onClick={this.props.login}>Log in w/ Google </button>
+        <button onClick={this.props.login} className={`editor-button`}>
+          Log in w/ Google{" "}
+        </button>
       </div>
     );
   }

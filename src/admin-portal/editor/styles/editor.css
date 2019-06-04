@@ -1,5 +1,5 @@
-button,
-input[type="submit"] {
+button.editor-button,
+input[type="submit"].editor-button {
   display: block;
   position: relative;
   float: left;

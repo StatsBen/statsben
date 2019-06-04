@@ -178,7 +178,7 @@ class Editor extends React.Component {
                 name="finish-button"
                 type="submit"
                 value="Commit"
-                className="entry-button"
+                className="entry-button editor-button"
                 onClick={
                   this.state.revising ? this.updateEntry : this.submitNewEntry
                 }

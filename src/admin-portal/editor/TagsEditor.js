@@ -124,7 +124,10 @@ class TagsEditor extends React.Component {
               onChange={this.handleChange}
             />
           </div>
-          <button onClick={this.handleAdd} className="entry-button">
+          <button
+            onClick={this.handleAdd}
+            className="entry-button editor-button"
+          >
             Add
           </button>
         </div>
