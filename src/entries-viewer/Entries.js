@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
-import "./other-entries.css";
+import "./entries.css";
 
-class OtherEntries extends React.Component {
+class Entries extends React.Component {
   constructor(props) {
     super(props);
     this.state = { entries: null };
@@ -18,7 +18,7 @@ class OtherEntries extends React.Component {
     if (this.props.entries) {
       entries = this.props.entries.map((entry, i) => {
         return (
-          <div key={`entry-${i}`} className={`other-entry-container`}>
+          <div key={`entry-${i}`} className={`entry-container`}>
             <div className={`entry-date`}>
               <span>
                 {moment(entry.Date, "MM/DD/YY").format("MM - DD - YY")}
@@ -39,7 +39,7 @@ class OtherEntries extends React.Component {
     }
 
     return (
-      <div id="other-entries-container">
+      <div id="entries-container">
         {entries}
         <div style={{ float: "none", clear: "both", width: "100%" }} />
       </div>
@@ -47,4 +47,4 @@ class OtherEntries extends React.Component {
   }
 }
 
-export default OtherEntries;
+export default Entries;

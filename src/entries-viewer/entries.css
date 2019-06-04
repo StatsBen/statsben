@@ -1,10 +1,10 @@
-div#other-entries-container {
+div#main-entries-container {
   float: none;
   padding: 0;
   width: 100%;
 }
 
-.other-entry-container {
+.entry-container {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;

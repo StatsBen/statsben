@@ -1,11 +1,8 @@
 import React from "react";
-import NavBar from "../nav-bar/NavBar";
-import CategoriesView from "./categories-view/CategoriesView";
-import FeaturedEntries from "./featured-entries/FeaturedEntries";
-import OtherEntries from "./other-entries/OtherEntries";
+import NavBar from "./nav-bar/NavBar";
+import Entries from "./Entries";
 import { firestore } from "../authentication/firebase";
 import { tidyEntry } from "../utils";
-import "./entries-view.css";
 
 class EntriesView extends React.Component {
   constructor(props) {
@@ -65,13 +62,11 @@ class EntriesView extends React.Component {
   };
 
   render() {
-    const { categories, featuredEntries, otherEntries } = this.state;
+    const { otherEntries } = this.state;
     return (
-      <div id="entries-container">
+      <div id="main-entries-container">
         <NavBar />
-        <CategoriesView categories={categories} />
-        <FeaturedEntries entries={featuredEntries} />
-        <OtherEntries entries={otherEntries} />
+        <Entries entries={otherEntries} />
       </div>
     );
   }

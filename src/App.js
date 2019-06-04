@@ -2,10 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Router } from "@reach/router";
 import AdminPortal from "./admin-portal/AdminPortal";
-import EntriesView from "./entries-view/EntriesView";
-import FullPageEntry from "./full-page-entry/FullPageEntry";
+import EntriesView from "./entries-viewer/EntriesView";
 import Footer from "./footer/Footer";
-import "./global-styles/global-styles.css";
+import "./global-styles.css";
 
 class App extends React.Component {
   render() {
@@ -14,7 +13,6 @@ class App extends React.Component {
         <Router>
           <EntriesView path="/" />
           <AdminPortal path="/admin" />
-          <FullPageEntry path="/entry/:id" />
         </Router>
         <Footer />
       </div>
