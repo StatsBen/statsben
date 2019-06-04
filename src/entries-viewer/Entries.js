@@ -1,6 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
-import moment from "moment";
+import Entry from "./Entry";
 import "./entries.css";
 
 class Entries extends React.Component {
@@ -9,32 +8,11 @@ class Entries extends React.Component {
     this.state = { entries: null };
   }
 
-  static propTypes = {
-    entries: PropTypes.array
-  };
-
   render() {
     let entries = null;
     if (this.props.entries) {
       entries = this.props.entries.map((entry, i) => {
-        return (
-          <div key={`entry-${i}`} className={`entry-container`}>
-            <div className={`entry-date`}>
-              <span>
-                {moment(entry.Date, "MM/DD/YY").format("MM - DD - YY")}
-              </span>
-            </div>
-            <div className={`entry-right`}>
-              <div className={`entry-title`}>
-                <h3>{entry.Name}</h3>
-              </div>
-              <div
-                className={`entry-contents`}
-                dangerouslySetInnerHTML={{ __html: entry.html }}
-              />
-            </div>
-          </div>
-        );
+        return <Entry key={`entry-${i}`} entry={entry} />;
       });
     }
 
