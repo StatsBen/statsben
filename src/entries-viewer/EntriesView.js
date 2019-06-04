@@ -9,8 +9,6 @@ class EntriesView extends React.Component {
     super(props);
     this.state = {
       entries: null,
-      featuredEntries: null,
-      otherEntries: null,
       activeCategory: null,
       categories: [
         "alpine",
@@ -19,31 +17,11 @@ class EntriesView extends React.Component {
         "running",
         "project",
         "other"
-      ]
+      ],
+      limit: 20,
+      alreadyLoaded: 0
     };
   }
-
-  unsubscribeFromFirestore = null;
-
-  // Filter entries by featured/not, and by active filter category then
-  // set the state based on those filtered entry lists
-  setStateFromEntries = entries => {
-    const category = this.state.activeCategory || null;
-
-    const featuredEntries = entries.filter(
-      entry =>
-        entry["Is Featured"] &&
-        (category ? entry["Category"].includes(category) : true)
-    );
-
-    const otherEntries = entries.filter(
-      entry =>
-        !entry["Is Featured"] &&
-        (category ? entry["Category"].includes(category) : true)
-    );
-
-    this.setState({ entries, featuredEntries, otherEntries });
-  };
 
   setActiveCategory = newActive => {
     this.setState({ activeCategory: newActive });
@@ -51,22 +29,54 @@ class EntriesView extends React.Component {
   };
 
   componentDidMount = async () => {
-    this.unsubscribeFromFirestore = await firestore
+    this.loadEntries();
+  };
+
+  loadEntries = async () => {
+    let q = await firestore
       .collection("entries")
-      .limit(20)
-      .orderBy("date", "desc")
-      .onSnapshot(snapshot => {
-        const entries = snapshot.docs.map(doc => tidyEntry(doc));
-        this.setStateFromEntries(entries);
+      .limit(this.state.limit)
+      .orderBy("date", "desc");
+
+    q.get().then(snapshot => {
+      const entries = snapshot.docs.map(doc => tidyEntry(doc));
+      this.setState({
+        entries,
+        alreadyLoaded: snapshot.docs[snapshot.docs.length - 1]
       });
+    });
+  };
+
+  loadMoreEntries = async () => {
+    let q = await firestore
+      .collection("entries")
+      .orderBy("date", "desc")
+      .startAfter(this.state.alreadyLoaded)
+      .limit(this.state.limit);
+
+    q.get().then(snapshot => {
+      console.log(snapshot);
+      const entries = snapshot.docs.map(doc => tidyEntry(doc));
+      this.setState({
+        entries: [...this.state.entries, ...entries],
+        alreadyLoaded: snapshot.docs[snapshot.docs.length - 1]
+      });
+    });
+  };
+
+  loadMore = event => {
+    event.preventDefault();
+    this.loadMoreEntries();
+    console.log(`You're a fart, Ben. You suck...`);
   };
 
   render() {
-    const { otherEntries } = this.state;
+    const { entries } = this.state;
     return (
       <div id="main-entries-container">
         <NavBar />
-        <Entries entries={otherEntries} />
+        <Entries entries={entries} />
+        <button onClick={this.loadMore}>Load More</button>
       </div>
     );
   }
