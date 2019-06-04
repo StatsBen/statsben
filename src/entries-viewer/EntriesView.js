@@ -76,7 +76,10 @@ class EntriesView extends React.Component {
       <div id="main-entries-container">
         <NavBar />
         <Entries entries={entries} />
-        <button onClick={this.loadMore}>Load More</button>
+        <div id="load-more-button">
+          <button onClick={this.loadMore}>Load More...</button>
+        </div>
+        <div style={{ float: "none", clear: "both", width: "100%" }} />
       </div>
     );
   }
