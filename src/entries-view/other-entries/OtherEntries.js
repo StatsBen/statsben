@@ -24,13 +24,15 @@ class OtherEntries extends React.Component {
                 {moment(entry.Date, "MM/DD/YY").format("MM - DD - YY")}
               </span>
             </div>
-            <div className={`entry-title`}>
-              <h3>{entry.Name}</h3>
+            <div className={`entry-right`}>
+              <div className={`entry-title`}>
+                <h3>{entry.Name}</h3>
+              </div>
+              <div
+                className={`entry-contents`}
+                dangerouslySetInnerHTML={{ __html: entry.html }}
+              />
             </div>
-            <div
-              className={`entry-contents`}
-              dangerouslySetInnerHTML={{ __html: entry.html }}
-            />
           </div>
         );
       });
