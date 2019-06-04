@@ -18,12 +18,14 @@ class OtherEntries extends React.Component {
     if (this.props.entries) {
       entries = this.props.entries.map((entry, i) => {
         return (
-          <div key={`entry-${i}`}>
-            <h3 className={`entry-title`}>{entry.Name}</h3>
+          <div key={`entry-${i}`} className={`other-entry-container`}>
             <div className={`entry-date`}>
               <span>
-                {moment(entry.Date, "MM/DD/YY").format("MMM Do YYYY")}
+                {moment(entry.Date, "MM/DD/YY").format("MM - DD - YY")}
               </span>
+            </div>
+            <div className={`entry-title`}>
+              <h3>{entry.Name}</h3>
             </div>
             <div
               className={`entry-contents`}
@@ -34,7 +36,12 @@ class OtherEntries extends React.Component {
       });
     }
 
-    return <div>{entries}</div>;
+    return (
+      <div id="other-entries-container">
+        {entries}
+        <div style={{ float: "none", clear: "both", width: "100%" }} />
+      </div>
+    );
   }
 }
 
