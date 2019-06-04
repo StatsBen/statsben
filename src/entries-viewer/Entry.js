@@ -4,10 +4,18 @@ import moment from "moment";
 class Entry extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { entry: props.entry || null };
+    this.state = { entry: props.entry || null, hidden: true };
   }
 
+  animateIn = () => {
+    console.log("animating in: " + this.props.entry.Name);
+  };
+
   render() {
+    if (this.props.entry && this.state.hidden) {
+      this.animateIn();
+    }
+
     let { entry } = this.props;
     return (
       <div className={`entry-container`}>
