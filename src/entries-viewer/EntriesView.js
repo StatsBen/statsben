@@ -10,7 +10,6 @@ class EntriesView extends React.Component {
     super(props);
     this.state = {
       entries: null,
-      activeCategory: null,
       categories: [
         "alpine",
         "scrambling",
@@ -20,7 +19,8 @@ class EntriesView extends React.Component {
         "other"
       ],
       limit: 20,
-      alreadyLoaded: 0
+      alreadyLoaded: 0,
+      typeFilters: []
     };
   }
 
@@ -71,6 +71,23 @@ class EntriesView extends React.Component {
     console.log(`You're a fart, Ben. You suck...`);
   };
 
+  addTypeFilter = event => {
+    event.preventDefault();
+    let type = event.target.getAttribute("type");
+    this.setState({
+      typeFilters: [...this.state.typeFilters, ...[type]]
+    });
+  };
+
+  removeTypeFilter = event => {
+    event.preventDefault();
+    let type = event.target.getAttribute("type");
+    let newFilters = this.state.typeFilters;
+    let i = this.state.typeFilters.indexOf(type);
+    newFilters.splice(i, 1);
+    this.setState({ typeFilters: newFilters });
+  };
+
   render() {
     const { entries } = this.state;
     return (
@@ -78,7 +95,12 @@ class EntriesView extends React.Component {
         <NavBar />
         <div id="page-splitter">
           <div id="entries-right-menu">
-            <Menu />
+            <Menu
+              addType={this.addTypeFilter}
+              removeType={this.removeTypeFilter}
+              activeTypeFilters={this.state.typeFilters}
+              types={this.state.categories}
+            />
           </div>
           <div id="entries-left-side">
             <Entries entries={entries} />
