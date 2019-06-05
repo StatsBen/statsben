@@ -24,9 +24,37 @@ div#inner-relative-menu-container {
 
 h3#menu-header {
   width: 80%;
-  margin: 20px 10% 0 10%;
+  margin: 20px 10% 40px 10%;
   padding: 0;
   color: #dddddd;
   text-align: center;
   border-bottom: thin solid #555555;
+}
+
+div#category-filters {
+  width: 100%;
+}
+
+div.type-filter-button-container {
+  width: 80%;
+  margin: 10px 10% 10px 10%;
+  border-bottom: thin solid #555555;
+}
+
+div.type-filter-button-container button {
+  background: none;
+  border: none;
+  outline: none;
+  font-size: inherit;
+  color: inherit;
+}
+
+div.type-filter-button-container button:hover {
+  color: #ffffff;
+  cursor: pointer;
+  user-select: none;
+}
+
+div.type-filter-button-container button.active {
+  color: #5fc4d8;
 }
