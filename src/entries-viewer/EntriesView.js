@@ -13,31 +13,42 @@ class EntriesView extends React.Component {
       categories: [
         "alpine",
         "scrambling",
+        "rock",
         "hiking",
         "running",
         "project",
         "other"
       ],
       limit: 20,
-      alreadyLoaded: 0,
+      alreadyLoaded: null,
       typeFilters: []
     };
   }
-
-  setActiveCategory = newActive => {
-    this.setState({ activeCategory: newActive });
-    this.setStateFromEntries(this.state.entries);
-  };
 
   componentDidMount = async () => {
     this.loadEntries();
   };
 
+  generateFirestoreFilters = ref => {
+    if (this.state.typeFilters.length) {
+      let filters = [];
+      this.state.typeFilters.map(type => {
+        let tempQ = ref.where("types", "array-contains", type);
+        filters.push(tempQ._query.filters[0]);
+      });
+
+      return filters;
+    } else {
+      return [];
+    }
+  };
+
   loadEntries = async () => {
-    let q = await firestore
-      .collection("entries")
-      .limit(this.state.limit)
-      .orderBy("date", "desc");
+    let entriesRef = await firestore.collection("entries");
+
+    let q = entriesRef.orderBy("date", "desc").limit(this.state.limit);
+
+    q._query.filters = this.generateFirestoreFilters(entriesRef);
 
     q.get().then(snapshot => {
       const entries = snapshot.docs.map(doc => tidyEntry(doc));
@@ -49,11 +60,14 @@ class EntriesView extends React.Component {
   };
 
   loadMoreEntries = async () => {
-    let q = await firestore
-      .collection("entries")
+    let entriesRef = await firestore.collection("entries");
+
+    let q = entriesRef
       .orderBy("date", "desc")
       .startAfter(this.state.alreadyLoaded)
       .limit(this.state.limit);
+
+    q._query.filters = this.generateFirestoreFilters(entriesRef);
 
     q.get().then(snapshot => {
       console.log(snapshot);
@@ -74,18 +88,16 @@ class EntriesView extends React.Component {
   addTypeFilter = event => {
     event.preventDefault();
     let type = event.target.getAttribute("type");
-    this.setState({
-      typeFilters: [...this.state.typeFilters, ...[type]]
+    this.setState({ typeFilters: [type], alreadyLoaded: null }, () => {
+      this.loadEntries();
     });
   };
 
   removeTypeFilter = event => {
     event.preventDefault();
-    let type = event.target.getAttribute("type");
-    let newFilters = this.state.typeFilters;
-    let i = this.state.typeFilters.indexOf(type);
-    newFilters.splice(i, 1);
-    this.setState({ typeFilters: newFilters });
+    this.setState({ typeFilters: [] }, () => {
+      this.loadEntries();
+    });
   };
 
   render() {
