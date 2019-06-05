@@ -23,7 +23,7 @@ class Menu extends React.Component {
                   type={type}
                   onClick={removeType}
                 >
-                  {`${type} add~`}
+                  {type}
                 </button>
               ) : (
                 <button
