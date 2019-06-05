@@ -5,7 +5,7 @@ div#nav-bar {
   padding: 15px 2.5% 15px 2.5%;
   top: 0;
   left: 0;
-  z-index: 999;
+  z-index: 998;
 }
 
 div#nav-bar-header {
