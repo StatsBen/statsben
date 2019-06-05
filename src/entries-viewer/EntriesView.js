@@ -1,5 +1,6 @@
 import React from "react";
 import NavBar from "./nav-bar/NavBar";
+import Menu from "./menu/Menu";
 import Entries from "./Entries";
 import { firestore } from "../authentication/firebase";
 import { tidyEntry } from "../utils";
@@ -75,9 +76,16 @@ class EntriesView extends React.Component {
     return (
       <div id="main-entries-container">
         <NavBar />
-        <Entries entries={entries} />
-        <div id="load-more-button">
-          <button onClick={this.loadMore}>Load More...</button>
+        <div id="page-splitter">
+          <div id="entries-right-menu">
+            <Menu />
+          </div>
+          <div id="entries-left-side">
+            <Entries entries={entries} />
+            <div id="load-more-button">
+              <button onClick={this.loadMore}>Load More...</button>
+            </div>
+          </div>
         </div>
         <div style={{ float: "none", clear: "both", width: "100%" }} />
       </div>

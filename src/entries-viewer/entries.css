@@ -4,6 +4,23 @@ div#main-entries-container {
   width: 100%;
 }
 
+div#page-splitter {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+div#entries-right-menu {
+  order: 2;
+  flex: none;
+}
+
+div#entries-left-side {
+  order: 1;
+  flex: flex-shrink;
+}
+
 .entry-container {
   display: flex;
   flex-direction: row;

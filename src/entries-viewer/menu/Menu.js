@@ -8,7 +8,15 @@ class Menu extends React.Component {
   }
 
   render() {
-    return <div style={{ display: "none" }}>menu</div>;
+    return (
+      <div id="expanded-menu-container">
+        <div id="inner-fixed-menu-container">
+          <div id="inner-relative-menu-container">
+            <h3 id="menu-header">filter</h3>
+          </div>
+        </div>
+      </div>
+    );
   }
 }
 

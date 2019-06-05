@@ -1,0 +1,31 @@
+div#expanded-menu-container {
+  position: relative;
+  top: 0;
+  right: 0;
+  width: 150px; /* NOTE: Change this here and below when editing! */
+  background: #222222;
+  height: 100%;
+  color: #cccccc;
+  overflow: hidden;
+}
+
+div#inner-fixed-menu-container {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+div#inner-relative-menu-container {
+  position: relative;
+  float: left;
+  width: 150px; /* NOTE: Change this here and above when editing! */
+}
+
+h3#menu-header {
+  width: 80%;
+  margin: 20px 10% 0 10%;
+  padding: 0;
+  color: #dddddd;
+  text-align: center;
+  border-bottom: thin solid #555555;
+}
