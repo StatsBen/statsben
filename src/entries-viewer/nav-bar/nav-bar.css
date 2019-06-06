@@ -16,8 +16,10 @@ div#nav-bar-header span {
   display: block;
   position: relative;
   padding: 10px;
-  font-size: 1.3em;
-  font-weight: 700;
+  font-size: 1.5em;
+  font-famiy: "Work Sans" sans-serif;
+  font-weight: 400;
+  color: #000000;
   cursor: default;
   user-select: none;
 }

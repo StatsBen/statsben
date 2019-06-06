@@ -16,7 +16,11 @@ class EntriesView extends React.Component {
         "rock",
         "hiking",
         "running",
+        "ice",
         "project",
+        "work",
+        "certifications",
+        "publications",
         "other"
       ],
       limit: 20,

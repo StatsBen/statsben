@@ -46,6 +46,11 @@ class Menu extends React.Component {
     this.setState({ expanded: !this.state.expanded });
   };
 
+  scrollToTop = event => {
+    event.preventDefault();
+    window.scrollTo(0, 0);
+  };
+
   render() {
     let expansionW = {
       width: this.state.expanded ? "150px" : "0"
@@ -58,14 +63,24 @@ class Menu extends React.Component {
     return (
       <div id="expandable-menu-outer" style={expansionW}>
         <div id="toggle-button-container">
-          <button id="menu-toggle" onClick={this.toggleMenu} style={expansionC}>
-            Menu
+          <button
+            className="menu-toggle"
+            onClick={this.toggleMenu}
+            style={expansionC}
+          >
+            Filter
+          </button>
+          <button
+            className="menu-toggle"
+            onClick={this.scrollToTop}
+            style={expansionC}
+          >
+            Top
           </button>
         </div>
         <div id="menu-container" style={expansionW}>
           <div id="expandable-menu-container">
             <div id="expandable-filters-menu">
-              <span className="menu-header">Filter</span>
               {this.buildTypeFilterButtons()}
             </div>
           </div>

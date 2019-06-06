@@ -26,14 +26,15 @@ div#toggle-button-container {
   z-index: 999;
 }
 
-button#menu-toggle {
+button.menu-toggle {
   position: relative;
   display: block;
   float: right;
   margin: 0;
-  padding: 20px 30px 10px 0;
+  padding: 20px 18px 10px 0;
   font-size: 1.5em;
   font-family: inherit;
+  font-weight: 400;
   background: none;
   border: none;
   outline: none;
@@ -42,7 +43,7 @@ button#menu-toggle {
   text-decoration: underline;
 }
 
-button#menu-toggle:hover {
+button.menu-toggle:hover {
   cursor: pointer;
 }
 
