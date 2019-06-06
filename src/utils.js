@@ -37,6 +37,18 @@ export const validateEntry = entry => {
       // Make sure the date is valid...
       if (key == "Date") {
         // Make sure Moment recognizes it, but just store the string, I guess.
+        entry.date = new Date(val);
+      } else if (key == "tags") {
+        Object.entries(val).map(innerPropPair => {
+          let innerKey = innerPropPair[1].name;
+          let innerVal = innerPropPair[1].value;
+          if (innerKey == "types") {
+            let typesArr = innerVal.split(", ");
+            entry.types = typesArr;
+          } else {
+            entry[innerKey] = innerVal;
+          }
+        });
       }
     }
   });
