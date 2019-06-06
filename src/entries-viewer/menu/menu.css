@@ -1,38 +1,64 @@
-div#expanded-menu-container {
-  position: relative;
+div#expandable-menu-outer {
+  width: auto;
+  background: blue;
+  width: 150px; /* width changes 3 places, including here! */
   top: 0;
   right: 0;
-  width: 150px; /* NOTE: Change this here and below when editing! */
-  background: #222222;
+}
+
+div#menu-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 150px; /* width changes 3 places, including here! */
   height: 100%;
-  color: #cccccc;
-  overflow: hidden;
+  color: #bbbbbb;
+  background: #222222;
+  z-index: 3;
+}
+
+div#toggle-button-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 150px; /* width changes 3 places, including here! */
+  height: auto;
   z-index: 999;
 }
 
-div#inner-fixed-menu-container {
-  position: fixed;
-  top: 0;
-  width: 100%;
-}
-
-div#inner-relative-menu-container {
+button#menu-toggle {
   position: relative;
-  float: left;
-  width: 150px; /* NOTE: Change this here and above when editing! */
+  display: block;
+  float: right;
+  margin: 0;
+  padding: 20px 30px 10px 0;
+  font-size: 1.5em;
+  font-family: inherit;
+  background: none;
+  border: none;
+  outline: none;
+  color: #eeeeee;
+  user-select: none;
+  text-decoration: underline;
 }
 
-h3#menu-header {
+button#menu-toggle:hover {
+  cursor: pointer;
+}
+
+div#expandable-menu-container {
+  width: 100%;
+  padding: 80px 0 0 0;
+}
+
+.menu-header {
   width: 80%;
-  margin: 20px 10% 40px 10%;
+  margin: 20px 10% 50px 10%;
   padding: 0;
-  color: #dddddd;
+  color: #eeeeee;
+  font-size: 1.8em;
   text-align: center;
   border-bottom: thin solid #555555;
-}
-
-div#category-filters {
-  width: 100%;
 }
 
 div.type-filter-button-container {

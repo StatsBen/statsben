@@ -41,13 +41,33 @@ class Menu extends React.Component {
     );
   };
 
+  toggleMenu = event => {
+    event.preventDefault();
+    this.setState({ expanded: !this.state.expanded });
+  };
+
   render() {
+    let expansionW = {
+      width: this.state.expanded ? "150px" : "0"
+    };
+
+    let expansionC = {
+      color: this.state.expanded ? "#eeeeee" : "#222222"
+    };
+
     return (
-      <div id="expanded-menu-container">
-        <div id="inner-fixed-menu-container">
-          <div id="inner-relative-menu-container">
-            <h3 id="menu-header">filter</h3>
-            {this.buildTypeFilterButtons()}
+      <div id="expandable-menu-outer" style={expansionW}>
+        <div id="toggle-button-container">
+          <button id="menu-toggle" onClick={this.toggleMenu} style={expansionC}>
+            Menu
+          </button>
+        </div>
+        <div id="menu-container" style={expansionW}>
+          <div id="expandable-menu-container">
+            <div id="expandable-filters-menu">
+              <span className="menu-header">Filter</span>
+              {this.buildTypeFilterButtons()}
+            </div>
           </div>
         </div>
       </div>
