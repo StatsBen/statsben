@@ -38,10 +38,10 @@ div#entries-left-side {
 .entry-date span {
   display: block;
   position: relative;
-  padding: 10px;
+  padding: 25px;
   text-align: right;
   font-family: "Work Sans", sans-serif;
-  font-size: 1em;
+  font-size: 14pt;
   writing-mode: vertical-lr;
   text-orientation: mixed;
   transform: rotate(180deg);
