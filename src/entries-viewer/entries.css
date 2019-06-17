@@ -13,12 +13,14 @@ div#page-splitter {
 
 div#entries-right-menu {
   order: 2;
-  flex: none;
+  flex: 0 0 0;
+  -webkit-flex: 0 0 0;
 }
 
 div#entries-left-side {
   order: 1;
-  flex: flex-shrink;
+  flex: 0 1 100%;
+  -webkit-flex: 0 1 100%;
 }
 
 .entry-container {
@@ -32,13 +34,13 @@ div#entries-left-side {
 
 .entry-date {
   order: 1;
-  flex: none;
+  flex: 0 0 auto;
 }
 
 .entry-date span {
   display: block;
   position: relative;
-  padding: 25px;
+  padding-left: 25px;
   text-align: right;
   font-family: "Work Sans", sans-serif;
   font-size: 14pt;
@@ -49,7 +51,7 @@ div#entries-left-side {
 
 .entry-right {
   order: 2;
-  flex: flex-shrink;
+  flex: 0 1 auto;
   padding-left: 2%;
   min-height: 10em;
   border-left: thin solid #bbbbbb;
@@ -104,6 +106,7 @@ div#load-more-button {
 
 div#load-more-button button {
   display: inline-block;
+  -webkit-display: inline-block;
   background: none;
   outline: none;
   border: none;
