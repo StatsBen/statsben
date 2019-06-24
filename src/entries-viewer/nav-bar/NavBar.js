@@ -4,7 +4,7 @@ import "./nav-bar.css";
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { header: <span>{`Ben Clark`}</span>, op: 1 };
+    this.state = { op: 1 };
   }
 
   handleScroll = () => {
@@ -23,11 +23,13 @@ class NavBar extends React.Component {
   }
 
   render() {
-    let { header } = this.state;
     return (
       <div id="nav-bar">
         <div id="nav-bar-header" style={{ opacity: this.state.op }}>
-          {header}
+          <span id="title">Ben Clark</span>
+          <span id="sub-title">
+            A non-exausted list of things I&apos;ve done
+          </span>
         </div>
       </div>
     );

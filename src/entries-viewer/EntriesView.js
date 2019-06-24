@@ -1,6 +1,7 @@
 import React from "react";
 import NavBar from "./nav-bar/NavBar";
 import Menu from "./menu/Menu";
+import Footer from "../footer/Footer";
 import Entries from "./Entries";
 import { firestore } from "../authentication/firebase";
 import { tidyEntry } from "../utils";
@@ -24,7 +25,7 @@ class EntriesView extends React.Component {
         "publications",
         "other"
       ],
-      limit: 20,
+      limit: 10,
       alreadyLoaded: null,
       typeFilters: []
     };
@@ -87,7 +88,6 @@ class EntriesView extends React.Component {
   loadMore = event => {
     event.preventDefault();
     this.loadMoreEntries();
-    console.log(`You're a fart, Ben. You suck...`);
   };
 
   addTypeFilter = event => {
@@ -124,6 +124,7 @@ class EntriesView extends React.Component {
             <div id="load-more-button">
               <button onClick={this.loadMore}>Load More...</button>
             </div>
+            <Footer />
           </div>
         </div>
         <div style={{ float: "none", clear: "both", width: "100%" }} />

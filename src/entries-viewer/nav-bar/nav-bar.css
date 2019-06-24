@@ -10,37 +10,28 @@ div#nav-bar {
 
 div#nav-bar-header {
   float: left;
+  font-size: 1.5em;
+  font-family: "Work Sans" sans-serif;
+  font-weight: 400;
+  color: #111111;
 }
 
-div#nav-bar-header span {
+span#title {
   display: block;
   position: relative;
-  padding: 10px;
-  font-size: 1.5em;
-  font-famiy: "Work Sans" sans-serif;
-  font-weight: 400;
-  color: #000000;
+  padding: 10px 10px 3px 10px;
+  margin: auto auto 0 auto;
   cursor: default;
   user-select: none;
+  border-bottom: thin solid #cccccc;
 }
 
-div#nav-bar-links {
-  float: right;
-}
-
-div#nav-bar-links button {
-  float: right;
-  padding: 10px;
-  margin: 0;
-  background: none;
-  border: none;
-  box-shadow: none;
-  cursor: pointer;
-  font-size: 1.2em;
-  font-seight: 400;
-  user-select: none;
-}
-
-div#nav-bar-links button:hover {
-  color: #555555;
+span#sub-title {
+  display: block;
+  position: relative;
+  float: none;
+  font-size: 0.6em;
+  color: #666666;
+  padding: 3px 0 0 0;
+  margin: 0 auto auto 10px;
 }
