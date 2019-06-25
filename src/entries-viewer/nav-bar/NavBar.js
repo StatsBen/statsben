@@ -28,7 +28,8 @@ class NavBar extends React.Component {
         <div id="nav-bar-header" style={{ opacity: this.state.op }}>
           <span id="title">Ben Clark</span>
           <span id="sub-title">
-            A non-exausted list of things I&apos;ve done
+            Welcome to my personal website, <br />
+            Here&apos;s a non-exausted list of things I&apos;ve done.
           </span>
         </div>
       </div>

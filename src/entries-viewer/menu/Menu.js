@@ -53,28 +53,16 @@ class Menu extends React.Component {
 
   render() {
     let expansionW = {
-      width: this.state.expanded ? "150px" : "0"
-    };
-
-    let expansionC = {
-      color: this.state.expanded ? "#eeeeee" : "#222222"
+      width: this.state.expanded ? "200px" : "0"
     };
 
     return (
       <div id="expandable-menu-outer" style={expansionW}>
         <div id="toggle-button-container">
-          <button
-            className="menu-toggle"
-            onClick={this.toggleMenu}
-            style={expansionC}
-          >
+          <button className="menu-toggle" onClick={this.toggleMenu}>
             Filter
           </button>
-          <button
-            className="menu-toggle"
-            onClick={this.scrollToTop}
-            style={expansionC}
-          >
+          <button className="menu-toggle" onClick={this.scrollToTop}>
             Top
           </button>
         </div>

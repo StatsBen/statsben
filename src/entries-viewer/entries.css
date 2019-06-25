@@ -1,6 +1,8 @@
+/*********** Universal Stylings *************/
 div#main-entries-container {
   float: none;
-  padding: 50px 0 330px 0;
+  padding: 0 0 330px 0;
+  margin-top: 150px;
   width: 100%;
 }
 
@@ -12,113 +14,234 @@ div#page-splitter {
 }
 
 div#entries-right-menu {
-  order: 2;
+  order: 1;
   flex: 0 0 0;
   -webkit-flex: 0 0 0;
-}
-
-div#entries-left-side {
-  order: 1;
-  flex: 0 1 100%;
-  -webkit-flex: 0 1 100%;
-}
-
-.entry-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  float: left;
-  width: 100%;
-  margin: 50px 0 50px 0;
+  background: orange;
 }
 
 .entry-date {
   order: 1;
-  flex: 0 0 auto;
+  flex: 0 0 22px;
 }
 
 .entry-date span {
+  width: 22px;
+  min-height: 130px;
   display: block;
   position: relative;
   padding-left: 25px;
+  writing-mode: vertical-lr;
   text-align: right;
   font-family: "Work Sans", sans-serif;
   font-size: 14pt;
-  writing-mode: vertical-lr;
   text-orientation: mixed;
   transform: rotate(180deg);
 }
 
-.entry-right {
-  order: 2;
-  flex: 0 1 auto;
-  padding-left: 2%;
-  min-height: 10em;
-  border-left: thin solid #bbbbbb;
-}
+/*********** Widescreen UI *************/
+@media (min-width: 1400px) {
+  div#entries-left-side {
+    order: 1;
+    flex: 0 1 100%;
+    margin: 50px 5% 0 5%;
+    padding: 0;
+    -webkit-flex: 0 1 100%;
+    column-count: 2;
+    -webkit-column-count: 2;
+    -webkit-column-gap: 0;
+    -moz-column-count: 2;
+    -moz-column-gap: 0;
+    margin-bottom: 100px;
+  }
 
-.entry-title {
-  float: left;
-}
+  div#entries-container {
+    padding-top: 0;
+  }
 
-.entry-contents {
-  float: left;
-  width: 100%;
-}
+  .entry-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    float: left;
+    width: 100%;
+    margin: 0 0 100px 0;
+    break-inside: avoid;
+    break-after: avoid;
+    page-break-inside: avoid;
+  }
 
-.large {
-  display: block;
-  position: relative;
-  float: none;
-  clear: both;
-  width: 100%;
-  max-width: 1300px;
-  margin: 20px 0 0 0;
-}
+  .entry-right {
+    order: 2;
+    flex: 0 1 auto;
+    padding-left: 5%;
+    min-height: 10em;
+    border-left: thin solid #bbbbbb;
+  }
 
-@media (min-width: 700px) {
-  .aside {
+  .entry-title {
+    float: left;
+  }
+
+  .entry-contents {
+    float: left;
+    width: 100%;
+  }
+
+  .large {
     display: block;
     position: relative;
-    float: left;
-    width: 48%;
-    margin: 1% 2% 1% 0;
+    float: none;
+    clear: both;
+    width: 96%;
+    max-width: 1300px;
+    margin: 40px 2% 40px 2%;
   }
-}
 
-@media (max-width: 700px) {
   .aside {
     display: block;
     position: relative;
     float: left;
     width: 100%;
-    margin: 2% 0 2% 0;
+    margin: 20px 3% 20px 0;
+  }
+
+  div#load-more-button {
+    float: none;
+    clear: both;
+    width: 90%;
+    bottom: 0;
+    padding: 0 10% 100px 0;
+    text-align: right;
+  }
+
+  div#load-more-button button {
+    display: inline-block;
+    -webkit-display: inline-block;
+    background: none;
+    outline: none;
+    border: none;
+    user-select: none;
+    font-family: "Arsenal", serif;
+    font-size: 14pt;
+    font-style: italic;
+    font-weight: 700;
+    color: #333333;
+  }
+
+  div#load-more-button button:hover {
+    cursor: pointer;
+    color: #777777;
   }
 }
 
-div#load-more-button {
-  float: none;
-  clear: both;
-  width: 100%;
-  padding: 0 0 100px 0;
-  text-align: center;
-}
+/*********** Standard UID **************/
+@media (max-width: 1400px) {
+  div#entries-left-side {
+    order: 1;
+    flex: 0 1 100%;
+    -webkit-flex: 0 1 100%;
+    margin: 0;
+  }
 
-div#load-more-button button {
-  display: inline-block;
-  -webkit-display: inline-block;
-  background: none;
-  outline: none;
-  border: none;
-  user-select: none;
-  font-family: "Arsenal", serif;
-  font-size: 14pt;
-  font-style: italic;
-  font-weight: 700;
-  color: #333333;
-}
+  .entry-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    float: left;
+    width: 100%;
+    min-width: 550px;
+    margin: -50px 0 50px 0;
+  }
 
-div#load-more-button button:hover {
-  cursor: pointer;
-  color: #777777;
+  .entry-date {
+    order: 1;
+    flex: 0 0 auto;
+  }
+
+  .entry-date span {
+    display: block;
+    position: relative;
+    padding-left: 25px;
+    text-align: right;
+    font-family: "Work Sans", sans-serif;
+    font-size: 14pt;
+    writing-mode: vertical-lr;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+  }
+
+  .entry-right {
+    order: 2;
+    flex: 0 1 auto;
+    padding-left: 5%;
+    min-height: 10em;
+    border-left: thin solid #bbbbbb;
+  }
+
+  .entry-title {
+    float: left;
+  }
+
+  .entry-contents {
+    float: left;
+    width: 100%;
+  }
+
+  .large {
+    display: block;
+    position: relative;
+    float: none;
+    clear: both;
+    width: 100%;
+    max-width: 1300px;
+    margin: 20px 0 0 0;
+  }
+
+  @media (min-width: 900px) {
+    .aside {
+      display: block;
+      position: relative;
+      float: left;
+      width: 48%;
+      margin: 1% 2% 1% 0;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .aside {
+      display: block;
+      position: relative;
+      float: left;
+      width: 100%;
+      margin: 2% 0 2% 0;
+    }
+  }
+
+  div#load-more-button {
+    float: none;
+    clear: both;
+    width: 100%;
+    padding: 0 0 100px 0;
+    text-align: center;
+  }
+
+  div#load-more-button button {
+    display: inline-block;
+    -webkit-display: inline-block;
+    background: none;
+    outline: none;
+    border: none;
+    user-select: none;
+    font-family: "Arsenal", serif;
+    font-size: 14pt;
+    font-style: italic;
+    font-weight: 700;
+    color: #333333;
+  }
+
+  div#load-more-button button:hover {
+    cursor: pointer;
+    color: #777777;
+  }
 }

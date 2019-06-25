@@ -1,27 +1,28 @@
 div#expandable-menu-outer {
   width: auto;
-  background: blue;
-  width: 150px; /* width changes 3 places, including here! */
+  width: 200px; /* width changes 3 places, including here! */
   top: 0;
   right: 0;
+  overflow: hidden;
 }
 
 div#menu-container {
   position: fixed;
   top: 0;
-  right: 0;
-  width: 150px; /* width changes 3 places, including here! */
+  left: 0;
+  width: 200px; /* width changes 3 places, including here! */
   height: 100%;
   color: #bbbbbb;
   background: #222222;
   z-index: 3;
+  overflow: hidden;
 }
 
 div#toggle-button-container {
   position: fixed;
   top: 0;
-  right: 0;
-  width: 150px; /* width changes 3 places, including here! */
+  left: 0;
+  width: 200px; /* width changes 3 places, including here! */
   height: auto;
   z-index: 999;
 }
@@ -29,18 +30,18 @@ div#toggle-button-container {
 button.menu-toggle {
   position: relative;
   display: block;
-  float: right;
-  margin: 0;
-  padding: 20px 18px 10px 0;
-  font-size: 1.5em;
+  float: left;
+  margin: 20px 0 0 20px;
+  padding: 5px;
+  font-size: 1.2em;
   font-family: inherit;
   font-weight: 400;
   background: none;
   border: none;
   outline: none;
-  color: #eeeeee;
+  color: #222222;
+  background: #ffffff;
   user-select: none;
-  text-decoration: underline;
 }
 
 button.menu-toggle:hover {
