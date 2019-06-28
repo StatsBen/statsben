@@ -37,3 +37,11 @@ h3 {
   font-weight: 400;
   color: #111111;
 }
+
+a {
+  color: #338696;
+}
+
+a:hover {
+  color: #5fc4d8;
+}
