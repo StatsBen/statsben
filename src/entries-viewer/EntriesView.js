@@ -27,7 +27,8 @@ class EntriesView extends React.Component {
       ],
       limit: 10,
       alreadyLoaded: null,
-      typeFilters: []
+      typeFilters: [],
+      moreToLoad: true
     };
   }
 
@@ -60,7 +61,8 @@ class EntriesView extends React.Component {
       const entries = snapshot.docs.map(doc => tidyEntry(doc));
       this.setState({
         entries,
-        alreadyLoaded: snapshot.docs[snapshot.docs.length - 1]
+        alreadyLoaded: snapshot.docs[snapshot.docs.length - 1],
+        moreToLoad: snapshot.docs.length == this.state.limit
       });
     });
   };
@@ -80,7 +82,8 @@ class EntriesView extends React.Component {
       const entries = snapshot.docs.map(doc => tidyEntry(doc));
       this.setState({
         entries: [...this.state.entries, ...entries],
-        alreadyLoaded: snapshot.docs[snapshot.docs.length - 1]
+        alreadyLoaded: snapshot.docs[snapshot.docs.length - 1],
+        moreToLoad: snapshot.docs.length == this.state.limit
       });
     });
   };
@@ -107,6 +110,13 @@ class EntriesView extends React.Component {
 
   render() {
     const { entries } = this.state;
+
+    let loadMoreButt = (
+      <div id="load-more-button">
+        <button onClick={this.loadMore}>Load More...</button>
+      </div>
+    );
+
     return (
       <div id="main-entries-container">
         <NavBar />
@@ -121,9 +131,7 @@ class EntriesView extends React.Component {
           </div>
           <div id="entries-left-side">
             <Entries entries={entries} />
-            <div id="load-more-button">
-              <button onClick={this.loadMore}>Load More...</button>
-            </div>
+            {this.state.moreToLoad ? loadMoreButt : null}
             <Footer />
           </div>
         </div>
