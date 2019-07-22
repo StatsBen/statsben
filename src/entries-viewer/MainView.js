@@ -6,26 +6,14 @@ import Entry from "./Entry";
 import { firestore } from "../authentication/firebase";
 import { tidyEntry } from "../utils";
 import "./entries.css";
+import { globals } from "../globals/globals";
 
 class MainView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       entries: [],
-      categories: [
-        "alpine",
-        "rock",
-        "skiing",
-        "scrambling",
-        "hiking",
-        "running",
-        "ice",
-        "projects",
-        "work",
-        "certifications",
-        "publications",
-        "other"
-      ],
+      categories: globals.categories,
       limit: 5,
       alreadyLoaded: null,
       typeFilters: [],
