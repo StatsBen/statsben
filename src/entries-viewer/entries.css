@@ -41,7 +41,7 @@ div#entries-right-menu {
 
 /*********** Widescreen UI *************/
 @media (min-width: 1400px) {
-  div#entries-left-side {
+  div#entries-right-side {
     order: 1;
     flex: 0 1 100%;
     margin: 50px 5% 0 5%;
@@ -137,7 +137,7 @@ div#entries-right-menu {
 
 /*********** Standard UID **************/
 @media (max-width: 1400px) {
-  div#entries-left-side {
+  div#entries-right-side {
     order: 1;
     flex: 0 1 100%;
     -webkit-flex: 0 1 100%;

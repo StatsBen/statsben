@@ -5,7 +5,7 @@ import Loadable from "react-loadable";
 import "./global-styles.css";
 
 const LoadableMainView = Loadable({
-  loader: () => import("./entries-viewer/EntriesView"),
+  loader: () => import("./entries-viewer/MainView"),
   loading() {
     return <p>Loading ... ... ... </p>;
   }
