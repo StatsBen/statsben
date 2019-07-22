@@ -2,9 +2,10 @@ import React from "react";
 import NavBar from "./nav-bar/NavBar";
 import Menu from "./menu/Menu";
 import Footer from "../footer/Footer";
-import Entries from "./Entries";
+import Entry from "./Entry";
 import { firestore } from "../authentication/firebase";
 import { tidyEntry } from "../utils";
+import "./entries.css";
 
 class MainView extends React.Component {
   constructor(props) {
@@ -97,16 +98,20 @@ class MainView extends React.Component {
   render() {
     const { entries } = this.state;
 
-    let loadMoreButt = (
-      <div id="load-more-button">
-        <button onClick={this.loadEntries}>Load More...</button>
-      </div>
-    );
+    let entryElements = null;
+    if (entries) {
+      entryElements = entries.map((entry, i) => {
+        return <Entry key={`entry-${i}`} entry={entry} />;
+      });
+    }
 
     return (
       <div id="main-entries-container">
         <NavBar />
+
         <div id="page-splitter">
+          {/* ^ Outer container for some fancy, auto scaling FlexBox sorcery */}
+
           <Menu
             addType={this.addTypeFilter}
             removeType={this.removeTypeFilter}
@@ -115,11 +120,20 @@ class MainView extends React.Component {
           />
 
           <div id="entries-right-side">
-            <Entries entries={entries} />
-            {this.state.moreToLoad ? loadMoreButt : null}
-            <Footer />
+            <div id="entries-container">
+              {entryElements}
+              <div style={{ float: "none", clear: "both", width: "100%" }} />
+            </div>
+
+            <div id="load-more-button">
+              <button onClick={this.loadEntries}>Load More...</button>
+            </div>
           </div>
+          <Footer />
+          {/* <- end of Entries Right Stide */}
         </div>
+        {/*<- end of Page Splitter */}
+
         <div style={{ float: "none", clear: "both", width: "100%" }} />
       </div>
     );
