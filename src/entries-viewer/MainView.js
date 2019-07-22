@@ -57,11 +57,11 @@ class MainView extends React.Component {
 
     q.get().then(snapshot => {
       const entries = snapshot.docs.map(doc => tidyEntry(doc));
-      this.setState({
-        entries: [...this.state.entries, ...entries],
+      this.setState((state, snapshot) => ({
+        entries: [...state.entries, ...entries],
         alreadyLoaded: snapshot.docs[snapshot.docs.length - 1],
-        moreToLoad: snapshot.docs.length == this.state.limit
-      });
+        moreToLoad: snapshot.docs.length == state.limit
+      }));
     });
   };
 
@@ -83,7 +83,7 @@ class MainView extends React.Component {
     });
   };
 
-  render() {
+  buildEntriesListOutput = () => {
     const { entries } = this.state;
 
     let entryElements = null;
@@ -94,11 +94,32 @@ class MainView extends React.Component {
     }
 
     return (
+      <div id="entries-right-side">
+        <div id="entries-container">
+          {entryElements}
+          <div style={{ float: "none", clear: "both", width: "100%" }} />
+        </div>
+
+        <div id="load-more-button">
+          <button onClick={this.loadEntries}>Load More...</button>
+        </div>
+        {/* <- end of Entries Right Stide */}
+      </div>
+    );
+  };
+
+  render() {
+    const entryElements = this.buildEntriesListOutput();
+
+    return (
       <div id="main-entries-container">
         <NavBar />
 
         <div id="page-splitter">
           {/* ^ Outer container for some fancy, auto scaling FlexBox sorcery */}
+
+          {entryElements}
+          {/*Generated Above w/ buildEntriesListOutput */}
 
           <Menu
             addType={this.addTypeFilter}
@@ -106,22 +127,10 @@ class MainView extends React.Component {
             activeTypeFilters={this.state.typeFilters}
             types={this.state.categories}
           />
-
-          <div id="entries-right-side">
-            <div id="entries-container">
-              {entryElements}
-              <div style={{ float: "none", clear: "both", width: "100%" }} />
-            </div>
-
-            <div id="load-more-button">
-              <button onClick={this.loadEntries}>Load More...</button>
-            </div>
-          </div>
-          <Footer />
-          {/* <- end of Entries Right Stide */}
         </div>
         {/*<- end of Page Splitter */}
 
+        <Footer />
         <div style={{ float: "none", clear: "both", width: "100%" }} />
       </div>
     );
