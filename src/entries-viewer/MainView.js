@@ -6,7 +6,7 @@ import Entry from "./Entry";
 import { firestore } from "../authentication/firebase";
 import { tidyEntry } from "../utils";
 import "./entries.css";
-import { globals } from "../globals/globals";
+import { globals } from "../globals";
 
 class MainView extends React.Component {
   constructor(props) {
@@ -56,8 +56,9 @@ class MainView extends React.Component {
     q._query.filters = this.generateFirestoreFilters(entriesRef);
 
     q.get().then(snapshot => {
+      console.log(snapshot);
       const entries = snapshot.docs.map(doc => tidyEntry(doc));
-      this.setState((state, snapshot) => ({
+      this.setState(state => ({
         entries: [...state.entries, ...entries],
         alreadyLoaded: snapshot.docs[snapshot.docs.length - 1],
         moreToLoad: snapshot.docs.length == state.limit

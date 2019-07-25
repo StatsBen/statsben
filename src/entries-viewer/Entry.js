@@ -1,5 +1,7 @@
 import React from "react";
 import moment from "moment";
+import { globals } from "../globals";
+// import { css } from "@emotion/core";
 
 class Entry extends React.Component {
   constructor(props) {
@@ -7,18 +9,55 @@ class Entry extends React.Component {
     this.state = { entry: props.entry || null, hidden: true };
   }
 
-  animateIn = () => {
-    console.log("animating in: " + this.props.entry.Name);
+  /** This function crawls through all the child nodes of an Entry component
+   ** and finds all IMG elements, reads their "alt" attribute text, and
+   ** generates a caption for the photo from the text.  **/
+  addCaptionToImgFromAltText = entryElement => {
+    const imgs = entryElement.getElementsByTagName("img");
+
+    for (let i = 0; i < imgs.length; i++) {
+      const img = imgs[i];
+      const alt = img.getAttribute("alt");
+      const cls = img.getAttribute("class");
+      const src = img.getAttribute("src");
+
+      let newImgContainer = document.createElement("div");
+      newImgContainer.classList.add(cls);
+
+      let newImg = document.createElement("img");
+      newImg.setAttribute("alt", alt);
+      newImg.setAttribute("src", src);
+      newImg.setAttribute("style", "width: 100%;");
+
+      let captionStyle =
+        "font-family: " +
+        globals.fonts.accent +
+        "; font-size: 0.8em;" +
+        "color: " +
+        globals.colours.fadedDark +
+        ";";
+
+      let caption = document.createElement("span");
+      caption.innerHTML = alt;
+      caption.classList.add("caption");
+      caption.setAttribute("style", captionStyle);
+
+      newImgContainer.append(newImg);
+      newImgContainer.append(caption);
+
+      img.replaceWith(newImgContainer);
+    }
   };
 
-  render() {
-    if (this.props.entry && this.state.hidden) {
-      this.animateIn();
-    }
+  componentDidMount() {
+    this.addCaptionToImgFromAltText(this.element);
+  }
 
+  render() {
     let { entry } = this.props;
+
     return (
-      <div className={`entry-container`}>
+      <div className={`entry-container`} ref={r => (this.element = r)}>
         <div className={`entry-date`}>
           <span>{moment(entry.Date, "MM/DD/YY").format("MM - DD - YY")}</span>
         </div>

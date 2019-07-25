@@ -1,5 +1,6 @@
 let colours = {
-  white: "#ffffff"
+  white: "#ffffff",
+  fadedDark: "#999999"
 };
 
 export { colours };
