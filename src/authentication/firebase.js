@@ -5,11 +5,11 @@ import { apiKey } from "./keys";
 
 let config = {
   apiKey: apiKey,
-  authDomain: "adventures-v2.firebaseapp.com",
-  databaseURL: "https://adventures-v2.firebaseio.com",
-  projectId: "adventures-v2",
-  storageBucket: "adventures-v2.appspot.com",
-  messagingSenderId: "541274129388"
+  authDomain: "adventures-41a04.firebaseapp.com",
+  databaseURL: "https://adventures-41a04.firebaseio.com",
+  projectId: "adventures-41a04",
+  storageBucket: "adventures-41a04.appspot.com",
+  messagingSenderId: "220039229793"
 };
 
 firebase.initializeApp(config);
