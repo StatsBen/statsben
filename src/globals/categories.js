@@ -6,6 +6,7 @@ let categories = [
   "hiking",
   "running",
   "ice",
+  "paddling",
   "projects",
   "work",
   "certifications",
