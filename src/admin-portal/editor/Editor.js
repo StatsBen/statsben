@@ -4,7 +4,8 @@ import HTMLWriter from "./HTMLWriter";
 import TagsEditor from "./TagsEditor";
 import EntriesSelector from "./entries-selector/EntriesSelector";
 import { firestore } from "../../authentication/firebase";
-import { tidyEntry, validateEntry } from "../../utils";
+import { tidyEntry } from "../../utils/tidyEntry";
+import { validateEntry } from "../../utils/validateEntry";
 import "./styles/editor.css";
 
 class Editor extends React.Component {

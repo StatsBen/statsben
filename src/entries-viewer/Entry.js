@@ -13,6 +13,7 @@ class Entry extends React.Component {
     this.addCaptionToImgFromAltText(this.element);
   }
 
+  // imported from the long-functions directory
   addCaptionToImgFromAltText = addCaptionToImgFromAltText;
 
   render() {

@@ -4,7 +4,7 @@ import Menu from "./menu/Menu";
 import Footer from "../footer/Footer";
 import Entry from "./Entry";
 import { firestore } from "../authentication/firebase";
-import { tidyEntry } from "../utils";
+import { tidyEntry } from "../utils/tidyEntry";
 import "./styles/entries.css";
 import { globals } from "../globals";
 
