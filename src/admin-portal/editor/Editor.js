@@ -2,6 +2,7 @@ import React from "react";
 import DetailsEditor from "./DetailsEditor";
 import HTMLWriter from "./HTMLWriter";
 import ImageUploader from "./ImageUploader";
+import TypesEditor from "./TypesEditor";
 import EntriesSelector from "./entries-selector/EntriesSelector";
 import { firestore } from "../../authentication/firebase";
 import { tidyEntry } from "../../utils/tidyEntry";
@@ -85,6 +86,14 @@ class Editor extends React.Component {
     this.setState({ currentEntry: newEntry });
   };
 
+  handleTypesChange = newTypes => {
+    this.setState(state => {
+      let newEntry = state.currentEntry;
+      newEntry.types = newTypes;
+      state = { currentEntry: newEntry };
+    });
+  };
+
   submitNewEntry = event => {
     event.preventDefault();
     // let { errors, entry } = validateEntry(this.state.currentEntry);
@@ -146,6 +155,8 @@ class Editor extends React.Component {
               handleChange={this.handleChange}
               contents={this.state.currentEntry.html}
             />
+
+            <TypesEditor handleChange={this.handleTypesChange} />
 
             <div className="editor-section">
               <input
