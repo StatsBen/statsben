@@ -43,7 +43,9 @@ class DetailsEditor extends React.Component {
           switch (attr[0]) {
             case "html":
               return;
-            case "tags":
+            case "grade":
+              return;
+            case "types":
               return;
             case "Is Featured":
               return this.generateToggleButton(attr[0], attr[1], i);

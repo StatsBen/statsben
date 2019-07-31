@@ -10,11 +10,7 @@ class HTMLWriter extends React.Component {
     this.props.handleChange(event);
     const target = event.target;
     const value = target.value;
-    console.log(this.state.preview);
     document.getElementById("html-preview").innerHTML = value;
-    // Send it up to the parent for storage...
-    // this.setState({ currentEntry: newEntry });
-    console.log();
   };
 
   componentDidMount() {}

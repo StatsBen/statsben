@@ -1,6 +1,7 @@
 import React from "react";
 import DetailsEditor from "./DetailsEditor";
 import HTMLWriter from "./HTMLWriter";
+import ImageUploader from "./ImageUploader";
 import EntriesSelector from "./entries-selector/EntriesSelector";
 import { firestore } from "../../authentication/firebase";
 import { tidyEntry } from "../../utils/tidyEntry";
@@ -10,17 +11,19 @@ class Editor extends React.Component {
   constructor(props) {
     super(props);
 
-    let entryAttributes = ["Name", "Date", "Color", "Theme", "Featured Text"];
+    let entryAttributes = ["Name", "Date"];
 
     let currentEntry = {};
+
     entryAttributes.map(attr => {
       currentEntry[attr] = "";
     });
 
     currentEntry["html"] = "";
-    currentEntry["tags"] = [];
-    currentEntry["Is Featured"] = false;
-    currentEntry["Show By Default"] = true;
+
+    currentEntry.grade = {};
+
+    currentEntry.types = {};
 
     this.state = { entryAttributes, currentEntry };
   }
@@ -122,30 +125,6 @@ class Editor extends React.Component {
     // }
   };
 
-  // addTag = tag => {
-  //   // Maybe add some checks here to make sure it's real and works???
-  //   // Add a check for uniqueness too!
-  //   let newEntry = this.state.currentEntry;
-  //   newEntry.tags.push(tag);
-  //   this.setState({ currentEntry: newEntry });
-  // };
-  //
-  // removeTag = tagToKill => {
-  //   let allTags = this.state.currentEntry.tags;
-  //
-  //   let i = allTags.indexOf(tagToKill);
-  //
-  //   if (i < 0) {
-  //     // Error, tag not found :/ do something... TODO
-  //   }
-  //
-  //   allTags.splice(i, 1);
-  //
-  //   let newEntry = this.state.currentEntry;
-  //   newEntry.tags = allTags;
-  //   this.setState({ currentEntry: newEntry });
-  // };
-
   render() {
     return (
       <div id="editor-container">
@@ -160,6 +139,8 @@ class Editor extends React.Component {
               updateEntry={this.updateEntry}
               revising={this.state.revising}
             />
+
+            <ImageUploader />
 
             <HTMLWriter
               handleChange={this.handleChange}
