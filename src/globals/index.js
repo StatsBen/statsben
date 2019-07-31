@@ -1,11 +1,13 @@
-import { categories } from "./categories.js";
-import { colours } from "./colours.js";
-import { fonts } from "./fonts.js";
+import { categories } from "./categories";
+import { colours } from "./colours";
+import { fonts } from "./fonts";
+import { sizes } from "./sizes";
 
 let globals = {
   categories,
   colours,
-  fonts
+  fonts,
+  sizes
 };
 
 export { globals };
