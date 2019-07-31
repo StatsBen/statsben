@@ -5,7 +5,7 @@ import Footer from "../footer/Footer";
 import Entry from "./Entry";
 import { firestore } from "../authentication/firebase";
 import { tidyEntry } from "../utils";
-import "./entries.css";
+import "./styles/entries.css";
 import { globals } from "../globals";
 
 class MainView extends React.Component {
@@ -25,19 +25,19 @@ class MainView extends React.Component {
     this.loadEntries();
   };
 
-  generateFirestoreFilters = ref => {
-    if (this.state.typeFilters.length) {
-      let filters = [];
-      this.state.typeFilters.map(type => {
-        let tempQ = ref.where("types", "array-contains", type);
-        filters.push(tempQ._query.filters[0]);
-      });
-
-      return filters;
-    } else {
-      return [];
-    }
-  };
+  // generateFirestoreFilters = ref => {
+  //   if (this.state.typeFilters.length) {
+  //     let filters = [];
+  //     this.state.typeFilters.map(type => {
+  //       let tempQ = ref.where("types", "array-contains", type);
+  //       filters.push(tempQ._query.filters[0]);
+  //     });
+  //
+  //     return filters;
+  //   } else {
+  //     return [];
+  //   }
+  // };
 
   loadEntries = async () => {
     let entriesRef = await firestore.collection("entries");
@@ -46,17 +46,16 @@ class MainView extends React.Component {
 
     if (this.state.alreadyLoaded) {
       q = entriesRef
-        .orderBy("date", "desc")
+        .orderBy("dateUTC", "desc")
         .startAfter(this.state.alreadyLoaded)
         .limit(this.state.limit);
     } else {
-      q = entriesRef.orderBy("date", "desc").limit(this.state.limit);
+      q = entriesRef.orderBy("dateUTC", "desc").limit(this.state.limit);
     }
 
-    q._query.filters = this.generateFirestoreFilters(entriesRef);
+    // q._query.filters = this.generateFirestoreFilters(entriesRef);
 
     q.get().then(snapshot => {
-      console.log(snapshot);
       const entries = snapshot.docs.map(doc => tidyEntry(doc));
       this.setState(state => ({
         entries: [...state.entries, ...entries],
