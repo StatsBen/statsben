@@ -22,7 +22,9 @@ class Entry extends React.Component {
     return (
       <div className={`entry-container`} ref={r => (this.element = r)}>
         <div className={`entry-date`}>
-          <span>{moment(entry.Date, "MM/DD/YY").format("MM - DD - YY")}</span>
+          <span>
+            {moment(entry.dateString, "MM/DD/YY").format("MM - DD - YY")}
+          </span>
         </div>
         <div className={`entry-right`}>
           <div className={`entry-title`}>

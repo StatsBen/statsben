@@ -66,9 +66,10 @@ class EditableEntry extends React.Component {
         <div>
           <span>
             <strong>Date</strong>:{" "}
-            {moment(this.props.entry.Date, ["MM/DD/YY", "MM/D/YY"]).format(
-              "MMMM Do YYYY"
-            )}
+            {moment(this.props.entry.dateString, [
+              "MM/DD/YY",
+              "MM/D/YY"
+            ]).format("MMMM Do YYYY")}
           </span>
         </div>
         <div>
@@ -77,15 +78,6 @@ class EditableEntry extends React.Component {
             {this.props.entry.isFeatured ? `Yes` : `No`}
           </span>
         </div>
-        {this.props.entry.tags.map(tag => {
-          return (
-            <div key={`editable-entry-tag-${tag.name}`}>
-              <span>
-                <strong>{tag.name}</strong>: {tag.value}
-              </span>
-            </div>
-          );
-        })}
         <div style={{ float: "none", clear: "both", width: "100%" }} />
       </div>
     );

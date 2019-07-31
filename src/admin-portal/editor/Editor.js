@@ -1,11 +1,9 @@
 import React from "react";
 import DetailsEditor from "./DetailsEditor";
 import HTMLWriter from "./HTMLWriter";
-import TagsEditor from "./TagsEditor";
 import EntriesSelector from "./entries-selector/EntriesSelector";
 import { firestore } from "../../authentication/firebase";
 import { tidyEntry } from "../../utils/tidyEntry";
-import { validateEntry } from "../../utils/validateEntry";
 import "./styles/editor.css";
 
 class Editor extends React.Component {
@@ -32,7 +30,7 @@ class Editor extends React.Component {
   componentDidMount = async () => {
     this.unsubscribeFromFirestore = await firestore
       .collection("entries")
-      .orderBy("date", "desc")
+      .orderBy("dateUTC", "desc")
       .onSnapshot(snapshot => {
         const entries = snapshot.docs.map(doc => tidyEntry(doc));
         this.setState({ entries });
@@ -86,17 +84,17 @@ class Editor extends React.Component {
 
   submitNewEntry = event => {
     event.preventDefault();
-    let { errors, entry } = validateEntry(this.state.currentEntry);
-
-    if (errors.length) {
-      errors.map(err => alert(err.message));
-    } else {
-      firestore
-        .collection("entries")
-        .doc(entry.Name)
-        .set(entry);
-      this.resetWriter();
-    }
+    // let { errors, entry } = validateEntry(this.state.currentEntry);
+    //
+    // if (errors.length) {
+    //   errors.map(err => alert(err.message));
+    // } else {
+    //   firestore
+    //     .collection("entries")
+    //     .doc(entry.Name)
+    //     .set(entry);
+    //   this.resetWriter();
+    // }
   };
 
   deleteEntry = entryName => {
@@ -111,42 +109,42 @@ class Editor extends React.Component {
 
   updateEntry = event => {
     event.preventDefault();
-    let { errors, entry } = validateEntry(this.state.currentEntry);
-
-    if (errors.length) {
-      errors.map(err => alert(err.message));
-    } else {
-      firestore
-        .collection("entries")
-        .doc(this.state.oldName)
-        .set({ ...entry });
-      this.resetWriter();
-    }
+    // let { errors, entry } = validateEntry(this.state.currentEntry);
+    //
+    // if (errors.length) {
+    //   errors.map(err => alert(err.message));
+    // } else {
+    //   firestore
+    //     .collection("entries")
+    //     .doc(this.state.oldName)
+    //     .set({ ...entry });
+    //   this.resetWriter();
+    // }
   };
 
-  addTag = tag => {
-    // Maybe add some checks here to make sure it's real and works???
-    // Add a check for uniqueness too!
-    let newEntry = this.state.currentEntry;
-    newEntry.tags.push(tag);
-    this.setState({ currentEntry: newEntry });
-  };
-
-  removeTag = tagToKill => {
-    let allTags = this.state.currentEntry.tags;
-
-    let i = allTags.indexOf(tagToKill);
-
-    if (i < 0) {
-      // Error, tag not found :/ do something... TODO
-    }
-
-    allTags.splice(i, 1);
-
-    let newEntry = this.state.currentEntry;
-    newEntry.tags = allTags;
-    this.setState({ currentEntry: newEntry });
-  };
+  // addTag = tag => {
+  //   // Maybe add some checks here to make sure it's real and works???
+  //   // Add a check for uniqueness too!
+  //   let newEntry = this.state.currentEntry;
+  //   newEntry.tags.push(tag);
+  //   this.setState({ currentEntry: newEntry });
+  // };
+  //
+  // removeTag = tagToKill => {
+  //   let allTags = this.state.currentEntry.tags;
+  //
+  //   let i = allTags.indexOf(tagToKill);
+  //
+  //   if (i < 0) {
+  //     // Error, tag not found :/ do something... TODO
+  //   }
+  //
+  //   allTags.splice(i, 1);
+  //
+  //   let newEntry = this.state.currentEntry;
+  //   newEntry.tags = allTags;
+  //   this.setState({ currentEntry: newEntry });
+  // };
 
   render() {
     return (
@@ -166,12 +164,6 @@ class Editor extends React.Component {
             <HTMLWriter
               handleChange={this.handleChange}
               contents={this.state.currentEntry.html}
-            />
-
-            <TagsEditor
-              tags={this.state.currentEntry.tags}
-              addTag={this.addTag}
-              removeTag={this.removeTag}
             />
 
             <div className="editor-section">
