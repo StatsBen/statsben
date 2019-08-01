@@ -5,7 +5,7 @@ const entryDefinition = {
     { name: "name", type: "string" },
     { name: "dateString", type: "string" },
     { name: "dateUTC", type: "Date" },
-    { name: "html", type: "longString" },
+    { name: "html", type: "htmlString" },
     {
       name: "grade",
       type: "object",
@@ -20,8 +20,7 @@ const entryDefinition = {
   ]
 };
 
-/* This builds the definition for types/categories programatically from
-   the 'types.js' file. */
+/* This builds the definition for types programatically from the 'types.js' file. */
 const typesDefn = { name: "types", type: "object", objectFields: [] };
 
 types.map(type => {
