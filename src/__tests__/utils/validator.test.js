@@ -52,9 +52,7 @@ let grades = globals.entryDefinition.attributes.find(attr => {
 });
 
 grades.objectFields.map(grade => {
-  test(`Throws correct error for invalid grade of type: "${
-    grade.name
-  }"`, () => {
+  test(`Throws error for invalid grade of type: "${grade.name}"`, () => {
     switch (grade.unit) {
       case "commitment":
         expect(validator.validateCommitmentGrade("pickle")).toThrow();
@@ -72,4 +70,36 @@ grades.objectFields.map(grade => {
         fail();
     }
   });
+});
+
+test("Test YDS Grade Validator", () => {
+  expect(validator.validateYDSGrade("4")).toThrow();
+  expect(validator.validateYDSGrade("3.10c")).toThrow();
+  expect(validator.validateYDSGrade("5.10e")).toThrow();
+  expect(validator.validateYDSGrade("5.9b")).toThrow();
+  expect(validator.validateYDSGrade("5.16")).toThrow();
+  expect(validator.validateYDSGrade("5.122")).toThrow();
+  expect(validator.validateYDSGrade("5.2")).toEqual(true);
+  expect(validator.validateYDSGrade("5.9")).toEqual(true);
+  expect(validator.validateYDSGrade("5.9+")).toEqual(true);
+  expect(validator.validateYDSGrade("5.7-")).toEqual(true);
+  expect(validator.validateYDSGrade("5.10c")).toEqual(true);
+  expect(validator.validateYDSGrade("5.12d")).toEqual(true);
+  expect(validator.validateYDSGrade("5.15a")).toEqual(true);
+});
+
+test("Test Ice Grade Validator", () => {
+  expect(validator.validateIceGrade("X")).toThrow();
+  expect(validator.validateIceGrade("WI8")).toThrow();
+  expect(validator.validateIceGrade("I8")).toThrow();
+  expect(validator.validateIceGrade("8")).toThrow();
+  expect(validator.validateIceGrade("3")).toThrow();
+  expect(validator.validateIceGrade("WI0")).toThrow();
+  expect(validator.validateIceGrade("AI")).toThrow();
+  expect(validator.validateIceGrade("WI3")).toEqual(true);
+  expect(validator.validateIceGrade("WI5")).toEqual(true);
+  expect(validator.validateIceGrade("WI3+")).toEqual(true);
+  expect(validator.validateIceGrade("WI3")).toEqual(true);
+  expect(validator.validateIceGrade("AI3")).toEqual(true);
+  expect(validator.validateIceGrade("AI5+")).toEqual(true);
 });
