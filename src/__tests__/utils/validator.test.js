@@ -1,10 +1,12 @@
+/* eslint-disable */
+
 import { validator } from "../../utils/validator";
 import { globals } from "../../globals";
 import { validEntry as e } from "../demo-entries/demo-valid-entry";
 import { totallyInvalidEntry as i } from "../demo-entries/demo-fucked-up-entry";
 
 globals.entryDefinition.attributes.forEach(attr => {
-  let testName = `correctly validates a valid entry for attribute: "${
+  let testName = `Correctly validates a valid entry for attribute: "${
     attr.name
   }"`;
 
@@ -13,36 +15,34 @@ globals.entryDefinition.attributes.forEach(attr => {
   });
 });
 
-test("correctly validates entire valid entry", () => {
+test("Correctly validates entire valid entry", () => {
   expect(validator.validateEntireEntry(e)).toBe(true);
 });
 
-test("throws correct error for non-existent attribute", () => {
+test("Throws correct error for non-existent attribute", () => {
   expect(validator.validateEntryAttrByName(e, "fakeName")).toThrow(
-    /provided attribute name doesnt exist/
+    /invalid attribute argument/
   );
 });
 
-test("throws correct error for entry with erroneos attribute", () => {
-  expect(validator.validateEntireEntry(i)).toThrow(
-    /contains an attribute that doesnt exist in the entry definition/
+test("Throws correct error for entry with erroneous attribute", () => {
+  expect(validator.validateEntireEntry(i)).toThrow(/attribute doesnt exist/);
+});
+
+test("Throws correct error for entry attribute of wrong type", () => {
+  expect(validator.validateEntryAttrByName(i, "name")).toThrow(
+    /wrong attribute type/
   );
 });
 
-test("throws correct error for entry attribute of wrong type", () => {
-  expect(validator.validateEntryAttrByName(i, "name")).toThrow(/wrong type/);
-});
-
-test("throws correct error for invalid date", () => {
+test("Throws correct error for invalid date", () => {
   expect(validator.validateEntryAttrByName(i, "dateUTC")).toThrow(
     /invalid date/
   );
 });
 
-test("throws correct error for missing attribute", () => {
+test("Throws correct error for missing attribute", () => {
   expect(validator.validateEntryAttrByName(i, "dateString")).toThrow(
-    /attribute was missing/
+    /missing attribute/
   );
 });
-
-// test("correctly validates ");

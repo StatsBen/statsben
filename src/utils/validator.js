@@ -16,6 +16,54 @@ const validator = {
     //STUB
 
     return valid;
+  },
+
+  validateCommitmentGrade(grade) {
+    let valid = false;
+
+    //STUB
+
+    return valid;
+  },
+
+  validateDistance(dist) {
+    let valid = false;
+
+    //STUB
+
+    return valid;
+  },
+
+  validateIceGrade(grade) {
+    let valid = false;
+
+    //STUB
+
+    return valid;
+  },
+
+  validateYDSGrade(grade) {
+    let valid = false;
+
+    //STUB
+
+    return valid;
+  },
+
+  validateScrambleGrade(grade) {
+    let valid = false;
+
+    //STUB
+
+    return valid;
+  },
+
+  validateVert(vert) {
+    let valid = false;
+
+    //STUB
+
+    return valid;
   }
 };
 
