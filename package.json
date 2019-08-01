@@ -2,9 +2,15 @@
   "name": "adventures-v2",
   "version": "1.0.0",
   "description": "",
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules",
+      "/demo-entries/"
+    ]
+  },
   "main": "index.js",
   "scripts": {
-    "test": "",
+    "test": "jest --silent",
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
     "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
     "dev": "parcel src/index.html",
@@ -39,6 +45,8 @@
     "eslint-plugin-import": "^2.17.2",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
-    "prettier": "^1.17.0"
+    "jest": "^24.8.0",
+    "prettier": "^1.17.0",
+    "react-test-renderer": "^16.8.6"
   }
 }
