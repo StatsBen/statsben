@@ -9,7 +9,7 @@ globals.entryDefinition.attributes.forEach(attr => {
   }"`;
 
   test(testName, () => {
-    expect(validator.validateEntryAttributeByName(e, attr.name)).toBe(true);
+    expect(validator.validateEntryAttrByName(e, attr.name)).toBe(true);
   });
 });
 
@@ -18,7 +18,7 @@ test("correctly validates entire valid entry", () => {
 });
 
 test("throws correct error for non-existent attribute", () => {
-  expect(validator.validateEntryAttributeByName(e, "fakeName")).toThrow(
+  expect(validator.validateEntryAttrByName(e, "fakeName")).toThrow(
     /provided attribute name doesnt exist/
   );
 });
@@ -30,19 +30,17 @@ test("throws correct error for entry with erroneos attribute", () => {
 });
 
 test("throws correct error for entry attribute of wrong type", () => {
-  expect(validator.validateEntryAttributeByName(i, "name")).toThrow(
-    /wrong type/
-  );
+  expect(validator.validateEntryAttrByName(i, "name")).toThrow(/wrong type/);
 });
 
 test("throws correct error for invalid date", () => {
-  expect(validator.validateEntryAttributeByName(i, "dateUTC")).toThrow(
+  expect(validator.validateEntryAttrByName(i, "dateUTC")).toThrow(
     /invalid date/
   );
 });
 
 test("throws correct error for missing attribute", () => {
-  expect(validator.validateEntryAttributeByName(i, "dateString")).toThrow(
+  expect(validator.validateEntryAttrByName(i, "dateString")).toThrow(
     /attribute was missing/
   );
 });
