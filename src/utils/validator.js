@@ -50,7 +50,7 @@ const validator = {
     return valid;
   },
 
-  validateScrambleGrade(grade) {
+  validateScramblingGrade(grade) {
     let valid = false;
 
     //STUB
