@@ -79,6 +79,7 @@ test("Test YDS Grade Validator", () => {
   expect(validator.validateYDSGrade("5.9b")).toThrow();
   expect(validator.validateYDSGrade("5.16")).toThrow();
   expect(validator.validateYDSGrade("5.122")).toThrow();
+  expect(validator.validateYDSGrade(5.12)).toThrow();
   expect(validator.validateYDSGrade("5.2")).toEqual(true);
   expect(validator.validateYDSGrade("5.9")).toEqual(true);
   expect(validator.validateYDSGrade("5.9+")).toEqual(true);
@@ -102,4 +103,30 @@ test("Test Ice Grade Validator", () => {
   expect(validator.validateIceGrade("WI3")).toEqual(true);
   expect(validator.validateIceGrade("AI3")).toEqual(true);
   expect(validator.validateIceGrade("AI5+")).toEqual(true);
+});
+
+test("Test Commitment Grade Validator", () => {
+  expect(validator.validateCommitmentGrade("2")).toThrow();
+  expect(validator.validateCommitmentGrade(0)).toThrow();
+  expect(validator.validateCommitmentGrade(8)).toThrow();
+  expect(validator.validateCommitmentGrade(4)).toEqual(true);
+});
+
+test("Test Distance Validator", () => {
+  expect(validator.validateDistance("300")).toThrow();
+  expect(validator.validateDistance(0)).toThrow();
+  expect(validator.validateDistance(50)).toEqual(true);
+});
+
+test("Test Scrambling Grade Validator", () => {
+  expect(validator.validateScramblingGrade("3")).toThrow();
+  expect(validator.validateScramblingGrade(0)).toThrow();
+  expect(validator.validateScramblingGrade(5)).toThrow();
+  expect(validator.validateScramblingGrade(3)).toEqual(true);
+});
+
+test("Test Vert Validator", () => {
+  expect(validator.validateVert("50000")).toThrow();
+  expect(validator.validateVert(0)).toThrow();
+  expect(validator.validateVert(12000)).toEqual(true);
 });
