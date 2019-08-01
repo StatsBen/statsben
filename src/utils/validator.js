@@ -2,10 +2,18 @@ import { globals } from "../globals";
 
 const validator = {
   /* returns a boolean, true if valid, false if not */
-  validateEntryAttributeByName(attribute, name) {
-    let valid = true;
+  validateEntryAttributeByName(entry, name) {
+    let valid = false;
 
     // STUB
+
+    return valid;
+  },
+
+  validateEntireEntry(entry) {
+    let valid = false;
+
+    //STUB
 
     return valid;
   }
