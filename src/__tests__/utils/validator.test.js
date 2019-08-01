@@ -46,3 +46,30 @@ test("Throws correct error for missing attribute", () => {
     /missing attribute/
   );
 });
+
+let grades = globals.entryDefinitions.attributes.find(attr => {
+  return attr.name === "grade";
+});
+
+grades.objectFields.map(grade => {
+  test(`Throws correct error for invalid grade of type: "${
+    grade.name
+  }"`, () => {
+    switch (grade.unit) {
+      case "commitment":
+        expect(validator.validateCommitmentGrade("pickle")).toThrow();
+      case "distance":
+        expect(validator.validateDistance("pickle")).toThrow();
+      case "ice":
+        expect(validator.validateIceGrade("pickle")).toThrow();
+      case "rock":
+        expect(validator.validateYDSGrade("pickle")).toThrow();
+      case "scramble":
+        expect(validator.validateScramblingGrade("pickle")).toThrow();
+      case "vert":
+        expect(validator.validateVert("pickle")).toThrow();
+      default:
+        fail();
+    }
+  });
+});

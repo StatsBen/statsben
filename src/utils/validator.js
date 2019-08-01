@@ -64,6 +64,11 @@ const validator = {
     //STUB
 
     return valid;
+  },
+
+  verifyAttributeExistsInEntryDefinition(attr) {
+    // STUB
+    return false;
   }
 };
 

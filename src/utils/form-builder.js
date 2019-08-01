@@ -1,7 +1,9 @@
 import React from "react";
 
 const formBuilder = {
-  makeInputElement(attr, changeHandler) {
+  /** attr needs to be a valid object with the correct fields defined in
+	    the entries definition (probably in the globals directory...)  */
+  makeInputElement(defn, value, changeHandler) {
     // STUB
 
     return (

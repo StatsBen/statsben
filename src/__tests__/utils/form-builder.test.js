@@ -22,23 +22,29 @@ const alpDefn = typesDefn.objectFields.find(field => {
 });
 
 test("Build checkbox label from entry attribute", () => {
-  const checkbox = Enzyme.shallow(formBuilder.makeInputElement(alpDefn, null));
+  const checkbox = Enzyme.shallow(
+    formBuilder.makeInputElement(alpDefn, false, null)
+  );
   let label = checkbox.find("label").text();
+
   expect(label).toEqual("Alpine");
 });
 
 test("Build checkbox input from entry attribute", () => {
-  const checkbox = Enzyme.shallow(formBuilder.makeInputElement(alpDefn, null));
+  const checkbox = Enzyme.shallow(
+    formBuilder.makeInputElement(alpDefn, false, null)
+  );
+
   expect(checkbox.find("input[type='checkbox']")).toBeTruthy();
 });
 
 test("Build text input label from entry attribute", () => {
-  const text = Enzyme.shallow(formBuilder.makeInputElement(nameDefn));
+  const text = Enzyme.shallow(formBuilder.makeInputElement(nameDefn, "", null));
   const label = text.find("label").text();
   expect(label).toEqual("Name: ");
 });
 
 test("Build text input from entry attribute", () => {
-  const text = Enzyme.shallow(formBuilder.makeInputElement(nameDefn));
+  const text = Enzyme.shallow(formBuilder.makeInputElement(nameDefn, "", null));
   expect(text.find("input[type='text']")).toBeTruthy();
 });
