@@ -1,5 +1,7 @@
 import React from "react";
 import { globals } from "../../globals/";
+/** @jsx jsx */
+import { css, jsx } from "@emotion/core";
 
 class TypesEditor extends React.Component {
   constructor(props) {
@@ -25,7 +27,6 @@ class TypesEditor extends React.Component {
   }
 
   handleChange = event => {
-    event.preventDefault();
     let val = event.target.checked;
     let name = event.target.name.substring(6);
     let newTypes = [];
@@ -52,14 +53,20 @@ class TypesEditor extends React.Component {
           let name = type.name;
           return (
             <div key={`checkbox-for-${name}`}>
-              <label htmlFor={`input-${name}`}>{name}</label>
               <input
                 name={`input-${name}`}
                 type="checkbox"
                 onChange={this.handleChange}
-                onInput={this.handleChange}
-                defaultChecked={type.checked}
+                checked={type.checked}
               />
+              <label
+                htmlFor={`input-${name}`}
+                css={css`
+                  margin-left: 5px;
+                `}
+              >
+                {name}
+              </label>
             </div>
           );
         })}

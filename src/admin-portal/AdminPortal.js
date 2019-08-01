@@ -31,7 +31,6 @@ class AdminPortal extends React.Component {
     const { user } = this.state;
     return (
       <div id="admin-portal">
-        <h3 id="admin-welcome-message">Welcome Back, Ben!</h3>
         {user ? (
           <div id="admin-page">
             <Logout logout={this.logout} />

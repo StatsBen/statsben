@@ -5,6 +5,7 @@ import ImageUploader from "./ImageUploader";
 import TypesEditor from "./TypesEditor";
 import EntriesSelector from "./entries-selector/EntriesSelector";
 import { firestore } from "../../authentication/firebase";
+import { globals } from "../../globals";
 import { tidyEntry } from "../../utils/tidyEntry";
 import "./styles/editor.css";
 
@@ -12,21 +13,25 @@ class Editor extends React.Component {
   constructor(props) {
     super(props);
 
-    let entryAttributes = ["Name", "Date"];
-
-    let currentEntry = {};
-
-    entryAttributes.map(attr => {
-      currentEntry[attr] = "";
-    });
-
-    currentEntry["html"] = "";
-
-    currentEntry.grade = {};
-
-    currentEntry.types = {};
-
-    this.state = { entryAttributes, currentEntry };
+    const defn = globals.entryDefinition;
+    //
+    // let entryAttributes = ["Name", "Date"];
+    //
+    // let currentEntry = {};
+    //
+    // entryAttributes.map(attr => {
+    //   currentEntry[attr] = "";
+    // });
+    //
+    // currentEntry["html"] = "";
+    //
+    // currentEntry.grade = {};
+    //
+    // currentEntry.types = {};
+    //
+    // this.entryAttributes = entryAttributes;
+    //
+    // this.state = { currentEntry };
   }
 
   unsubscribeFromFirestore = null;
@@ -44,7 +49,7 @@ class Editor extends React.Component {
   loadEntry = entry => {
     let newEntry = {};
 
-    this.state.entryAttributes.map(attr => {
+    this.entryAttributes.map(attr => {
       if (entry[attr]) {
         newEntry[attr] = entry[attr];
       } else {
@@ -66,7 +71,7 @@ class Editor extends React.Component {
 
   resetWriter = () => {
     let newEntry = {};
-    this.state.entryAttributes.map(attr => {
+    this.entryAttributes.map(attr => {
       newEntry[attr] = "";
     });
     newEntry["html"] = "";
@@ -81,16 +86,18 @@ class Editor extends React.Component {
     const target = event.target;
     const name = target.name;
     const value = target.type === "checkbox" ? target.checked : target.value;
-    let newEntry = this.state.currentEntry;
-    newEntry[name] = value;
-    this.setState({ currentEntry: newEntry });
+    this.setState(state => {
+      let newEntry = state.currentEntry;
+      newEntry[name] = value;
+      return { currentEntry: newEntry };
+    });
   };
 
   handleTypesChange = newTypes => {
     this.setState(state => {
       let newEntry = state.currentEntry;
       newEntry.types = newTypes;
-      state = { currentEntry: newEntry };
+      return { currentEntry: newEntry };
     });
   };
 
