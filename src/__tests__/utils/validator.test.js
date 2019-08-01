@@ -47,7 +47,7 @@ test("Throws correct error for missing attribute", () => {
   );
 });
 
-let grades = globals.entryDefinitions.attributes.find(attr => {
+let grades = globals.entryDefinition.attributes.find(attr => {
   return attr.name === "grade";
 });
 

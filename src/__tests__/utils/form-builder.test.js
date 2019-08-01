@@ -35,7 +35,7 @@ test("Build checkbox input from entry attribute", () => {
     formBuilder.makeInputElement(alpDefn, false, null)
   );
 
-  expect(checkbox.find("input[type='checkbox']")).toBeTruthy();
+  expect(checkbox.exists("input[type='checkbox']")).toEqual(true);
 });
 
 test("Build text input label from entry attribute", () => {
@@ -46,5 +46,5 @@ test("Build text input label from entry attribute", () => {
 
 test("Build text input from entry attribute", () => {
   const text = Enzyme.shallow(formBuilder.makeInputElement(nameDefn, "", null));
-  expect(text.find("input[type='text']")).toBeTruthy();
+  expect(text.exists(`input[type="text"]`)).toEqual(true);
 });
