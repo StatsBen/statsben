@@ -13,6 +13,7 @@ const entryDefinition = {
         { name: "commitment", type: "number", unit: "commitment" },
         { name: "distance", type: "number", unit: "km" },
         { name: "ice", type: "string", unit: "iceGrade" },
+        { name: "rock", type: "string", unit: "yds" },
         { name: "scramble", type: "number", unit: "scrambleGrade" },
         { name: "vert", type: "number", unit: "m" }
       ]
