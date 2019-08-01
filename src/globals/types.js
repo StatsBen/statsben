@@ -1,4 +1,4 @@
-let categories = [
+let types = [
   "alpine",
   "rock",
   "skiing",
@@ -14,4 +14,4 @@ let categories = [
   "other"
 ];
 
-export { categories };
+export { types };
