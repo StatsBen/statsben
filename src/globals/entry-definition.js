@@ -5,7 +5,7 @@ const entryDefinition = {
     { name: "name", type: "string" },
     { name: "dateString", type: "string" },
     { name: "dateUTC", type: "Date" },
-    { name: "html", type: "htmlString" },
+    { name: "html", type: "html" },
     {
       name: "grade",
       type: "object",
