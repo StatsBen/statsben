@@ -6,8 +6,8 @@ const parser = {
 
   parseUTCDate(raw) {
     // STUB
-    return "fart"
-  }
+    return "fart";
+  },
 
   parseCommitmentGrade(raw) {
     // STUB
