@@ -1,6 +1,18 @@
 /* eslint-disable */
 import { parser } from "../../utils/parser";
 
+test("Test Parse Date", () => {
+  const testDate = new Date("1/31/94");
+  expect(parser.parseDate("1/31/94")).toEqual(testDate);
+  expect(parser.parseDate("1/31/1994")).toEqual(testDate);
+  expect(parser.parseDate("01/31/94")).toEqual(testDate);
+  expect(parser.parseDate("January 31st, 1994")).toEqual(testDate);
+  expect(parser.parseDate(testDate)).toEqual(testDate);
+  expect(parser.parseDate(testDate.valueOf())).toEqual(testDate);
+  expect(parser.parseDate("poo")).toThrow();
+  expect(parser.parseDate("02/31/94")).toThrow();
+});
+
 test("Test Parse Commitment Grade", () => {
   expect(parser.parseCommitmentGrade("II")).toEqual(2);
   expect(parser.parseCommitmentGrade(2)).toEqual(2);
