@@ -12,6 +12,11 @@ const formatter = {
     }
   },
 
+  /* Capitalize only the first letter of a sentence */
+  toSentenceCase(raw) {
+    return raw.charAt(0).toUpperCase() + raw.slice(1).toLowerCase();
+  },
+
   prettyScramblingGrade(raw) {
     if (typeof raw != "number") {
       console.error(

@@ -12,6 +12,12 @@ test("Test Pretty Date", () => {
   }).toThrow();
 });
 
+test("Test To Sentence Case Function", () => {
+  expect(formatter.toSentenceCase("testY This PooP bEn!")).toEqual(
+    "Testy this poop ben!"
+  );
+});
+
 test("Test Pretty Scrambling Grade", () => {
   expect(formatter.prettyScramblingGrade(3)).toEqual("class 3");
   expect(() => {
