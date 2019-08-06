@@ -3,8 +3,8 @@ import { types } from "./types";
 const entryDefinition = {
   attributes: [
     { name: "name", type: "string" },
-    { name: "dateString", type: "string" },
-    { name: "dateUTC", type: "Date" },
+    { name: "date", type: "date" },
+    { name: "test", type: "boolean" },
     { name: "html", type: "html" },
     {
       name: "grade",
