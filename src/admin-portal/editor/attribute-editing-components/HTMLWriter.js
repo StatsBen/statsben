@@ -99,7 +99,7 @@ class HTMLWriter extends React.Component {
           </label>
           <textarea
             id="html-text-input"
-            name="html"
+            name="input-html"
             type="textarea"
             onChange={this.updateHTML}
             value={this.props.contents ? this.props.contents : ""}

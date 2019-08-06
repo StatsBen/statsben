@@ -42,6 +42,7 @@ const TextInput = props => {
       <input
         value={contents ? contents : ""}
         onChange={props.handleChange}
+        name={`input-${label}`}
         css={valid ? validCSS : invalidCSS}
       />
     </div>

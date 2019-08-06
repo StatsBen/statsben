@@ -76,8 +76,11 @@ class Editor extends React.Component {
 
   handleChange = event => {
     const target = event.target;
-    const name = target.name;
+    console.log("HANDLING A CHANGE!!");
+    console.log(event.target);
+    const name = target.name.slice(6);
     const value = target.type === "checkbox" ? target.checked : target.value;
+    console.log("name: " + name + ". value: " + value);
     this.setState(state => {
       let newEntry = state.currentEntry;
       newEntry[name] = value;
