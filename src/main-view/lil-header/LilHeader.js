@@ -1,7 +1,7 @@
 import React from "react";
-import "./nav-bar.css";
+import "./lil-header.css";
 
-class NavBar extends React.Component {
+class LilHeader extends React.Component {
   constructor(props) {
     super(props);
     this.state = { op: 1 };
@@ -37,4 +37,4 @@ class NavBar extends React.Component {
   }
 }
 
-export default NavBar;
+export default LilHeader;

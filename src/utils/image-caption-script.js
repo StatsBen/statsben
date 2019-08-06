@@ -1,4 +1,4 @@
-import { globals } from "../../globals";
+import { globals } from "../globals";
 
 /** This function crawls through all the child nodes of an Entry component
  ** and finds all IMG elements, reads their "alt" attribute text, and

@@ -1,6 +1,6 @@
 import React from "react";
 import moment from "moment";
-import { addCaptionToImgFromAltText } from "./long-functions/image-caption-script";
+import { addCaptionToImgFromAltText } from "../utils/image-caption-script";
 // import { css } from "@emotion/core";
 
 class Entry extends React.Component {

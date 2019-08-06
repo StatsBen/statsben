@@ -1,7 +1,7 @@
 import React from "react";
-import NavBar from "./nav-bar/NavBar";
+import NavBar from "./lil-header/LilHeader";
 import Menu from "./menu/Menu";
-import Footer from "../footer/Footer";
+import Footer from "./footer/Footer";
 import Entry from "./Entry";
 import { firestore } from "../authentication/firebase";
 import { tidyEntry } from "../utils/tidyEntry";
