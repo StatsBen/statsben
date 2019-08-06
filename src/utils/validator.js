@@ -3,7 +3,7 @@ import { globals } from "../globals";
 const validator = {
   /* returns a boolean, true if valid, false if not */
   validateEntryAttrByName(entry, name) {
-    let valid = false;
+    let valid = true;
 
     // STUB
 
@@ -18,8 +18,43 @@ const validator = {
     return valid;
   },
 
+  validateBoolean(input) {
+    let valid = true;
+    if (typeof input != "boolean") {
+      valid = false;
+    }
+    return valid;
+  },
+
+  validateDate(input) {
+    let valid = true;
+    try {
+      // eslint-disable-next-line
+      let testDate = new Date(input);
+    } catch (e) {
+      valid = false;
+    }
+    return valid;
+  },
+
+  validateNumber(input) {
+    let valid = true;
+    if (typeof input != "number") {
+      valid = false;
+    }
+    return valid;
+  },
+
+  validateString(input) {
+    let valid = true;
+    if (typeof input != "string") {
+      valid = false;
+    }
+    return valid;
+  },
+
   validateCommitmentGrade(grade) {
-    let valid = false;
+    let valid = true;
 
     //STUB
 
@@ -27,7 +62,7 @@ const validator = {
   },
 
   validateDistance(dist) {
-    let valid = false;
+    let valid = true;
 
     //STUB
 
@@ -35,7 +70,7 @@ const validator = {
   },
 
   validateIceGrade(grade) {
-    let valid = false;
+    let valid = true;
 
     //STUB
 
@@ -43,7 +78,7 @@ const validator = {
   },
 
   validateYDSGrade(grade) {
-    let valid = false;
+    let valid = true;
 
     //STUB
 
@@ -51,7 +86,7 @@ const validator = {
   },
 
   validateScramblingGrade(grade) {
-    let valid = false;
+    let valid = true;
 
     //STUB
 
@@ -59,7 +94,7 @@ const validator = {
   },
 
   validateVert(vert) {
-    let valid = false;
+    let valid = true;
 
     //STUB
 
@@ -68,7 +103,7 @@ const validator = {
 
   verifyAttributeExistsInEntryDefinition(attr) {
     // STUB
-    return false;
+    return true;
   }
 };
 
