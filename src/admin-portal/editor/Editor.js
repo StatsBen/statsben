@@ -129,86 +129,57 @@ class Editor extends React.Component {
     // }
   };
 
-  buildForm = () => {
-    let formElements = [];
-    globals.entryDefinition.attributes.map(attr => {
-      const label = attr.name;
-      const value = this.state.currentEntry[attr.name];
-      switch (attr.type) {
-        case "boolean":
-          formElements.push(
-            <ToggleButton
-              key={`toggle-for-${label}`}
-              label={label}
-              checked={value}
-              handleChange={this.handleChange}
-            />
-          );
-          break;
-
-        case "date":
-          formElements.push(
-            <TextInput
-              key={`text-input-for-${label}`}
-              label={label}
-              contents={value}
-              type={"date"}
-              handleChange={this.handleChange}
-            />
-          );
-          break;
-
-        case "html":
-          formElements.push(
-            <HTMLWriter
-              key={`writer-for-${label}`}
-              contents={value ? value : ""}
-              handleChange={this.handleChange}
-            />
-          );
-          break;
-
-        case "object":
-          //STUB
-          break;
-
-        case "string":
-          formElements.push(
-            <TextInput
-              key={`text-input-for-${label}`}
-              label={label}
-              contents={value}
-              type={"string"}
-              handleChange={this.handleChange}
-            />
-          );
-          break;
-
-        default:
-          console.error(
-            "Uh oh! Looks like there's an Entry Definition Attribute that this editor doesn't know how to handle!"
-          );
-          throw new Error();
-      }
-    });
-
-    return (
-      <form>
-        {formElements.map(e => {
-          return e;
-        })}
-
-        <SubmitButton handleSubmit={this.handleSubmit} />
-      </form>
-    );
-  };
-
   render() {
     return (
       <div id="editor-container">
         <div id="main-editor">
           <h1>Write an Entry</h1>
-          {this.buildForm()}
+
+          <form>
+            {globals.entryDefinition.attributes.map(attr => {
+              switch (attr.type) {
+                case "boolean":
+                  return (
+                    <ToggleButton
+                      key={`toggle-for-${attr.name}`}
+                      label={attr.name}
+                      checked={this.state.currentEntry[attr.name]}
+                      handleChange={this.handleChange}
+                    />
+                  );
+
+                case "html":
+                  return (
+                    <HTMLWriter
+                      key={`writer-for-${attr.name}`}
+                      contents={
+                        this.state.currentEntry[attr.name]
+                          ? this.state.currentEntry[attr.name]
+                          : ""
+                      }
+                      handleChange={this.handleChange}
+                    />
+                  );
+
+                case "object":
+                  //STUB
+                  break;
+
+                default:
+                  return (
+                    <TextInput
+                      key={`text-input-for-${attr.name}`}
+                      label={attr.name}
+                      contents={this.state.currentEntry[attr.name]}
+                      type={attr.type}
+                      handleChange={this.handleChange}
+                    />
+                  );
+              }
+            })}
+
+            <SubmitButton handleSubmit={this.handleSubmit} />
+          </form>
 
           <EntriesSelector
             entries={this.state.entries}

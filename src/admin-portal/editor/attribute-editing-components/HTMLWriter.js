@@ -102,7 +102,7 @@ class HTMLWriter extends React.Component {
             name="html"
             type="textarea"
             onChange={this.updateHTML}
-            value={this.props.contents}
+            value={this.props.contents ? this.props.contents : ""}
             css={css`
               display: block;
               position: relative;
