@@ -1,16 +1,3 @@
-button.editor-button,
-input[type="submit"].editor-button {
-  display: block;
-  position: relative;
-  float: left;
-  margin: 10px;
-  padding: 5px;
-  background: #eeeeee;
-  font-weight: 700;
-  box-shadow: inset 0px 0px 6px #dddddd;
-  border-radius: 5px;
-}
-
 div#admin-portal {
   background: #fff9ef;
 }
@@ -48,66 +35,10 @@ div#admin-portal {
   border-bottom: thin solid #718891;
 }
 
-.entry-attribute-form-element {
-  position: relative;
-  float: left;
-  margin: 10px;
-  background: #eeeeee;
-  padding: 5px;
-  border-radius: 5px !important;
-  border: thin solid #aaaaaa;
-  box-shadow: -2px 2px 5px #cccccc;
-}
-
-.html-pane {
-  display: block;
-  position: relative;
-  float: left;
-  width: 46%;
-}
-
 @media (max-width: 900px) {
   .html-pane {
     width: 95%;
   }
-}
-
-#html-left-pane label {
-  display: block;
-  position: relative;
-  width: 100%;
-  text-align: center;
-}
-
-#html-left-pane textarea {
-  display: block;
-  position: relative;
-  width: 99%;
-  height: 200px;
-  z-index: 99;
-  resize: vertical;
-}
-
-#html-right-pane {
-  margin-left: 1%;
-}
-
-#html-right-pane span#html-preview {
-  display: block;
-  position: relative;
-  width: 95%;
-  height: 190px;
-  padding: 2.5%;
-  bottom: 0;
-  resize: both;
-  border: thin solid #777777;
-  box-shadow: 0px 0px 5px #aaaaaa;
-  margin-top: 1em;
-  overflow: scroll;
-}
-
-#html-preview {
-  background: #ffffff;
 }
 
 #entries-container {

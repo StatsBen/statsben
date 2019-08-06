@@ -1,6 +1,6 @@
 import React from "react";
-import { globals } from "../../globals";
-import { storage } from "../../authentication/firebase";
+import { globals } from "../../../globals";
+import { storage } from "../../../authentication/firebase";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 
