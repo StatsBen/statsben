@@ -89,6 +89,7 @@ class HTMLWriter extends React.Component {
   render() {
     return (
       <div css={containerCSS}>
+        <h3>Edit HTML:</h3>
         <ImageUploader />
         <EntryPane>
           <label

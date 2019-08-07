@@ -9,18 +9,32 @@ const TextInput = props => {
   const { label, contents, type } = props;
 
   let valid = true;
-  if (contents && type == "string") {
-    valid = validator.validateString(contents);
-  } else if (contents && type == "date") {
-    valid = validator.validateDate(contents);
+  try {
+    valid = validator.validateValueByType(contents, type);
+  } catch (e) {
+    valid = false;
   }
 
   const validCSS = css`
     color: ${globals.colours.paragraphText};
+    font-weight: 400;
+    &::placeholder {
+      color: ${globals.colours.paragraphText};
+      font-weight: 400;
+    }
   `;
 
   const invalidCSS = css`
     color: ${globals.colours.invalidRed};
+    font-weight: 900;
+    border: thin solid red;
+    &::placeholder {
+      color: ${globals.colours.invalidRed};
+      font-weight: 900;
+    }
+    &:focus {
+      outline-color: ${globals.colours.invalidRed};
+    }
   `;
 
   const containerCSS = css`
