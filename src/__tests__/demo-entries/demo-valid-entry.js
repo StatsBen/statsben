@@ -6,6 +6,7 @@ const validEntry = {
   dateUTC: "2017-09-25T07:00:00.000Z",
   html:
     "<div>On this climb, Federico Andrade Rivas and I linked together Bananna Peel, Boomstick Crack, and The Ultimate Everything; climbing 19 pitches, roughly 600m, up to 10b, all the way to the summit of the chief in Squamish over roughly 8 hours. An extremely fun day of climbing!<br />\n                </div>",
+  range: "Coast Range",
   types: {
     alpine: false,
     rock: true,
