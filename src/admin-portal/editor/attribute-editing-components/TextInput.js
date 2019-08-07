@@ -41,10 +41,10 @@ const TextInput = props => {
     position: relative;
     float: left;
     margin: 10px;
-    background: #eeeeee;
+    background: ${globals.colours.lightBlue};
     padding: 5px;
     border-radius: 5px !important;
-    border: thin solid #aaaaaa;
+    border: thin solid ${globals.colours.lightGray};
     box-shadow: -2px 2px 5px #cccccc;
   `;
 

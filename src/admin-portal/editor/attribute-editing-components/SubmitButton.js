@@ -11,15 +11,20 @@ const SubmitButton = props => {
       value="Commit"
       onClick={props.handleSubmit}
       css={css`
-        display: block;
+        display: inline-block;
         position: relative;
-        float: left;
-        margin: 10px;
-        padding: 5px;
-        background: #eeeeee;
+        margin: 50px 0 50px 0;
+        padding: 20px;
+        background: ${globals.colours.lightBlue};
         font-weight: 700;
+        font-size: 1.5em;
         box-shadow: inset 0px 0px 6px #dddddd;
         border-radius: ${globals.sizes.entryPageBorderRadius};
+        &:hover {
+          background: ${globals.colours.white};
+          cursor: pointer;
+          user-select: none;
+        }
       `}
     />
   );

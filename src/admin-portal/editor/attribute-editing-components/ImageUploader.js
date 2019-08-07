@@ -76,8 +76,8 @@ class ImageUploader extends React.Component {
                 width: 90%;
                 margin: 5px 0 5px 0;
                 padding: 5px 5% 5px 5%;
-                background: ${globals.colours.shadedBox};
-                border: thin solid ${globals.colours.shadedBoxBorder};
+                background: ${globals.colours.lightBlue};
+                border: thin solid ${globals.colours.lightGray};
                 border-radius: ${globals.sizes.entryPageBorderRadius};
               `}
             >

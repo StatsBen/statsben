@@ -73,7 +73,7 @@ const ToggleButton = props => {
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: ${globals.colours.fadedDark};
+            background-color: ${globals.colours.mediumGray};
             -webkit-transition: 0.4s;
             transition: 0.4s;
             border-radius: ${height + "px"};
@@ -160,9 +160,9 @@ const ToggleButton = props => {
         float: left;
         padding: 5px;
         margin: 10px;
-        background: #eeeeee;
+        background: ${globals.colours.lightBlue};
         border-radius: 5px !important;
-        border: thin solid #aaaaaa;
+        border: thin solid ${globals.colours.lightGray};
         box-shadow: -2px 2px 5px #cccccc;
       `}
     >
