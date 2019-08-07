@@ -12,7 +12,7 @@ const validator = {
   },
 
   validateEntireEntry(entry) {
-    let valid = false;
+    let valid = true;
 
     //STUB
 

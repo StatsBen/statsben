@@ -86,6 +86,11 @@ const parser = {
   parseVert(raw) {
     //STUB
     return 1500;
+  },
+
+  parseFullEntry(raw) {
+    // STUB
+    return {};
   }
 };
 
