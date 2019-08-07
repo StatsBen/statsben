@@ -9,12 +9,12 @@ const entryDefinition = {
       name: "grade",
       type: "object",
       objectFields: [
-        { name: "commitment", type: "number", unit: "commitment" },
-        { name: "distance", type: "number", unit: "km" },
+        { name: "commitment", type: "number", unit: "commitmentGrade" },
+        { name: "distance", type: "number", unit: "distance" },
         { name: "ice", type: "string", unit: "iceGrade" },
-        { name: "rock", type: "string", unit: "yds" },
-        { name: "scramble", type: "number", unit: "scrambleGrade" },
-        { name: "vert", type: "number", unit: "m" }
+        { name: "rock", type: "string", unit: "ydsGrade" },
+        { name: "scramble", type: "number", unit: "scramblingGrade" },
+        { name: "vert", type: "number", unit: "vert" }
       ]
     }
   ]
