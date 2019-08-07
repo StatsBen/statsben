@@ -2,16 +2,16 @@ import React from "react";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import ImageUploader from "./ImageUploader";
-import { globals } from "../../../globals";
+// import { globals } from "../../../globals";
 
 const containerCSS = css`
   display: block;
   position: relative;
   float: none;
   clear: both;
-  width: 90%;
+  width: 100%;
   margin: 20px 0 50px 0;
-  padding: 50px 5% 50px 5%;
+  padding: 50px 0 50px 0;
 `;
 
 const EntryPane = props => {
@@ -28,6 +28,9 @@ const EntryPane = props => {
         border-radius: 5px !important;
         border: thin solid #aaaaaa;
         box-shadow: -2px 2px 5px #cccccc;
+        @media (max-width: 1000px) {
+          width: 95%;
+        }
       `}
     >
       {props.children}
@@ -49,7 +52,7 @@ const PreviewPane = () => {
         css={css`
           display: block;
           position: relative;
-          width: 46%;
+          width: 45%;
           height: ${250 - 20 + "px"};
           padding: 2.5%;
           bottom: 0;
@@ -59,6 +62,9 @@ const PreviewPane = () => {
           margin-top: 1em;
           overflow: scroll;
           background: #ffffff;
+          @media (max-width: 1000px) {
+            width: 94%;
+          }
         `}
       />
     </div>

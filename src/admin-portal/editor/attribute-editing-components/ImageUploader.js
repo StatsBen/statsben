@@ -48,7 +48,13 @@ class ImageUploader extends React.Component {
 
   render() {
     return (
-      <div id="image-uploader" className="editor-section">
+      <div
+        id="image-uploader"
+        css={css`
+          padding: 20px 0 20px 10%;
+          width: 90%;
+        `}
+      >
         <label htmlFor="uploader">Add an image: </label>
         <input
           name="uploader"

@@ -1,15 +1,13 @@
 import React from "react";
-// import DetailsEditor from "./DetailsEditor";
 import HTMLWriter from "./attribute-editing-components/HTMLWriter";
 import SubmitButton from "./attribute-editing-components/SubmitButton";
 import TextInput from "./attribute-editing-components/TextInput";
 import ToggleButton from "./attribute-editing-components/ToggleButton";
-// import TypesEditor from "./TypesEditor";
 import EntriesSelector from "./entries-selector/EntriesSelector";
+/** @jsx jsx */
+import { css, jsx } from "@emotion/core";
 import { firestore } from "../../authentication/firebase";
 import { globals } from "../../globals";
-// import { tidyEntry } from "../../utils/tidyEntry";
-// import "./styles/editor.css";
 
 class Editor extends React.Component {
   constructor(props) {
@@ -131,8 +129,13 @@ class Editor extends React.Component {
 
   render() {
     return (
-      <div id="editor-container">
-        <div id="main-editor">
+      <div>
+        <div
+          css={css`
+            width: 90%;
+            margin: 0 5% 0 5%;
+          `}
+        >
           <h1>Write an Entry</h1>
 
           <form>
