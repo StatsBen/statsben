@@ -1,9 +1,10 @@
 import React from "react";
+import EntriesSelector from "./entries-selector/EntriesSelector";
 import HTMLWriter from "./attribute-editing-components/HTMLWriter";
+import ObjectEditor from "./attribute-editing-components/ObjectEditor";
 import SubmitButton from "./attribute-editing-components/SubmitButton";
 import TextInput from "./attribute-editing-components/TextInput";
 import ToggleButton from "./attribute-editing-components/ToggleButton";
-import EntriesSelector from "./entries-selector/EntriesSelector";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import { firestore } from "../../authentication/firebase";
@@ -17,7 +18,15 @@ class Editor extends React.Component {
     const defn = globals.entryDefinition;
 
     defn.attributes.map(attr => {
-      currentEntry[attr.name] = null;
+      if (attr.type == "object") {
+        let newObj = {};
+        attr.objectFields.map(n => {
+          newObj[n.name] = null;
+        });
+        currentEntry[attr.name] = newObj;
+      } else {
+        currentEntry[attr.name] = null;
+      }
     });
 
     this.state = { currentEntry };
@@ -79,6 +88,14 @@ class Editor extends React.Component {
     this.setState(state => {
       let newEntry = state.currentEntry;
       newEntry[name] = value;
+      return { currentEntry: newEntry };
+    });
+  };
+
+  handleChangeObject = (name, updatedObject) => {
+    this.setState(state => {
+      let newEntry = state.currentEntry;
+      newEntry[name] = updatedObject;
       return { currentEntry: newEntry };
     });
   };
@@ -165,8 +182,14 @@ class Editor extends React.Component {
                   );
 
                 case "object":
-                  //STUB
-                  break;
+                  return (
+                    <ObjectEditor
+                      key={`object-editor-for-${attr.name}`}
+                      name={attr.name}
+                      contents={this.state.currentEntry[attr.name]}
+                      handleChange={this.handleChangeObject}
+                    />
+                  );
 
                 default:
                   return (
