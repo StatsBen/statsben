@@ -1,7 +1,8 @@
 import React from "react";
+/** @jsx jsx */
+import { css, jsx } from "@emotion/core";
 import moment from "moment";
 import { addCaptionToImgFromAltText } from "../utils/image-caption-script";
-// import { css } from "@emotion/core";
 
 class Entry extends React.Component {
   constructor(props) {
@@ -10,11 +11,10 @@ class Entry extends React.Component {
   }
 
   componentDidMount() {
-    this.addCaptionToImgFromAltText(this.element);
+    addCaptionToImgFromAltText(this.element);
   }
 
-  // imported from the long-functions directory
-  addCaptionToImgFromAltText = addCaptionToImgFromAltText;
+  containerCSS = css``;
 
   render() {
     let { entry } = this.props;
@@ -22,13 +22,11 @@ class Entry extends React.Component {
     return (
       <div className={`entry-container`} ref={r => (this.element = r)}>
         <div className={`entry-date`}>
-          <span>
-            {moment(entry.dateString, "MM/DD/YY").format("MM - DD - YY")}
-          </span>
+          <span>{moment(entry.date.toDate()).format("MM - DD - YY")}</span>
         </div>
         <div className={`entry-right`}>
           <div className={`entry-title`}>
-            <h3>{entry.Name}</h3>
+            <h3>{entry.name}</h3>
           </div>
           <div
             className={`entry-contents`}
