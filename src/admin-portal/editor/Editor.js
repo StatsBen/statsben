@@ -9,12 +9,42 @@ import ToggleButton from "./attribute-editing-components/ToggleButton";
 import { css, jsx } from "@emotion/core";
 import { firestore } from "../../authentication/firebase";
 import { globals } from "../../globals";
+import { validator } from "../../utils/validator";
 
 class Editor extends React.Component {
   constructor(props) {
     super(props);
+    let currentEntry = this.getBlankEntry();
+    this.state = { currentEntry, revising: false };
+  }
 
-    let currentEntry = {};
+  unsubscribeFromFirestore = null;
+
+  componentDidMount = async () => {
+    this.unsubscribeFromFirestore = await firestore
+      .collection("entries")
+      .orderBy("date", "desc")
+      .onSnapshot(snapshot => {
+        const entries = snapshot.docs.map(doc => {
+          let entry = doc.data();
+          try {
+            let valid = validator.validateEntireEntry(entry);
+            return valid ? entry : null;
+          } catch (e) {
+            console.error("Firebase returned an invalid entry: ");
+            console.error(entry);
+          }
+        });
+        this.setState({ entries });
+      });
+  };
+
+  loadEntry = entry => {
+    this.setState({ currentEntry: entry, oldName: entry.name, revising: true });
+  };
+
+  getBlankEntry = () => {
+    let e = {};
     const defn = globals.entryDefinition;
 
     defn.attributes.map(attr => {
@@ -23,62 +53,18 @@ class Editor extends React.Component {
         attr.objectFields.map(n => {
           newObj[n.name] = null;
         });
-        currentEntry[attr.name] = newObj;
+        e[attr.name] = newObj;
       } else {
-        currentEntry[attr.name] = null;
+        e[attr.name] = null;
       }
     });
 
-    this.state = { currentEntry };
-  }
-
-  unsubscribeFromFirestore = null;
-
-  componentDidMount = async () => {
-    // this.unsubscribeFromFirestore = await firestore
-    //   .collection("entries")
-    //   .orderBy("dateUTC", "desc")
-    //   .onSnapshot(snapshot => {
-    //     const entries = snapshot.docs;
-    //     this.setState({ entries });
-    //   });
-  };
-
-  loadEntry = entry => {
-    // STUB
-
-    this.setState(entry);
-    // let newEntry = {};
-    //
-    // this.entryAttributes.map(attr => {
-    //   if (entry[attr]) {
-    //     newEntry[attr] = entry[attr];
-    //   } else {
-    //     newEntry[attr] = "";
-    //   }
-    // });
-    //
-    // newEntry["html"] = entry["html"];
-    // newEntry["tags"] = entry["tags"];
-    // newEntry["Is Featured"] = entry["Is Featured"];
-    // newEntry["Show By Default"] = entry["Show By Default"];
-    //
-    // this.setState({
-    //   currentEntry: newEntry,
-    //   oldName: entry.Name,
-    //   revising: true
-    // });
+    return e;
   };
 
   resetWriter = () => {
-    let currentEntry = {};
-    const defn = globals.entryDefinition;
-    defn.attributes.map(attr => {
-      currentEntry[attr.name] = null;
-    });
-
-    this.setState({ currentEntry, revising: false });
-    this.render();
+    let currentEntry = this.getBlankEntry();
+    this.setState({ currentEntry, revising: false, oldName: null });
   };
 
   handleChange = event => {
@@ -106,17 +92,23 @@ class Editor extends React.Component {
 
   submitNewEntry = event => {
     event.preventDefault();
-    // let { errors, entry } = validateEntry(this.state.currentEntry);
-    //
-    // if (errors.length) {
-    //   errors.map(err => alert(err.message));
-    // } else {
-    //   firestore
-    //     .collection("entries")
-    //     .doc(entry.Name)
-    //     .set(entry);
-    //   this.resetWriter();
-    // }
+    let valid = true;
+
+    try {
+      valid = validator.validateEntireEntry(this.state.currentEntry);
+    } catch (e) {
+      console.error("Tried to update entry but it failed.");
+      console.error("Entry was: ");
+      console.error(this.state.currentEntry);
+    }
+
+    if (valid) {
+      firestore
+        .collection("entries")
+        .doc(this.state.currentEntry.name)
+        .set(this.state.currentEntry);
+      this.resetWriter();
+    }
   };
 
   deleteEntry = entryName => {
@@ -131,17 +123,24 @@ class Editor extends React.Component {
 
   updateEntry = event => {
     event.preventDefault();
-    // let { errors, entry } = validateEntry(this.state.currentEntry);
-    //
-    // if (errors.length) {
-    //   errors.map(err => alert(err.message));
-    // } else {
-    //   firestore
-    //     .collection("entries")
-    //     .doc(this.state.oldName)
-    //     .set({ ...entry });
-    //   this.resetWriter();
-    // }
+
+    let valid = true;
+
+    try {
+      valid = validator.validateEntireEntry(this.state.currentEntry);
+    } catch (e) {
+      console.error("Tried to update entry but it failed.");
+      console.error("Entry was: ");
+      console.error(this.state.currentEntry);
+    }
+
+    if (valid) {
+      firestore
+        .collection("entries")
+        .doc(this.state.oldName)
+        .set(this.state.currentEntry);
+      this.resetWriter();
+    }
   };
 
   render() {
@@ -151,6 +150,7 @@ class Editor extends React.Component {
           css={css`
             width: 90%;
             margin: 0 5% 0 5%;
+            text-align: center;
           `}
         >
           <h1>Write an Entry</h1>
@@ -206,13 +206,13 @@ class Editor extends React.Component {
 
             <SubmitButton handleSubmit={this.handleSubmit} />
           </form>
-
-          <EntriesSelector
-            entries={this.state.entries}
-            loadEntry={this.loadEntry}
-            deleteEntry={this.deleteEntry}
-          />
         </div>
+
+        <EntriesSelector
+          entries={this.state.entries}
+          loadEntry={this.loadEntry}
+          deleteEntry={this.deleteEntry}
+        />
       </div>
     );
   }
