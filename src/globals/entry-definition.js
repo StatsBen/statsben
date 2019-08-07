@@ -4,6 +4,7 @@ const entryDefinition = {
   attributes: [
     { name: "name", type: "string" },
     { name: "date", type: "date" },
+    { name: "range", type: "string" },
     { name: "html", type: "html" },
     {
       name: "grade",
