@@ -1,6 +1,6 @@
 import React from "react";
 import NavBar from "./lil-header/LilHeader";
-import Menu from "./menu/Menu";
+// import Menu from "./menu/Menu";
 import Footer from "./footer/Footer";
 import Entry from "./Entry";
 import { firestore } from "../authentication/firebase";
@@ -45,11 +45,11 @@ class MainView extends React.Component {
 
     if (this.state.alreadyLoaded) {
       q = entriesRef
-        .orderBy("dateUTC", "desc")
+        .orderBy("date", "desc")
         .startAfter(this.state.alreadyLoaded)
         .limit(this.state.limit);
     } else {
-      q = entriesRef.orderBy("dateUTC", "desc").limit(this.state.limit);
+      q = entriesRef.orderBy("date", "desc").limit(this.state.limit);
     }
 
     // q._query.filters = this.generateFirestoreFilters(entriesRef);
@@ -120,12 +120,12 @@ class MainView extends React.Component {
           {entryElements}
           {/*Generated Above w/ buildEntriesListOutput */}
 
-          <Menu
+          {/*<Menu
             addType={this.addTypeFilter}
             removeType={this.removeTypeFilter}
             activeTypeFilters={this.state.typeFilters}
             types={this.state.categories}
-          />
+          />*/}
         </div>
         {/*<- end of Page Splitter */}
 
