@@ -4,7 +4,6 @@ import Menu from "./menu/Menu";
 import Footer from "./footer/Footer";
 import Entry from "./Entry";
 import { firestore } from "../authentication/firebase";
-import { tidyEntry } from "../utils/tidyEntry";
 import "./styles/entries.css";
 import { globals } from "../globals";
 
@@ -56,7 +55,7 @@ class MainView extends React.Component {
     // q._query.filters = this.generateFirestoreFilters(entriesRef);
 
     q.get().then(snapshot => {
-      const entries = snapshot.docs.map(doc => tidyEntry(doc));
+      const entries = snapshot.docs.map(doc => doc.data());
       this.setState(state => ({
         entries: [...state.entries, ...entries],
         alreadyLoaded: snapshot.docs[snapshot.docs.length - 1],
