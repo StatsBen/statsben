@@ -1,12 +1,12 @@
 let colours = {
   white: "#ffffff",
-  fadedDark: "#999999",
+  mediumGray: "#999999",
   charcoal: "#666666",
-  accentBlue: "#2196F3",
+  accentBlue: "#4fc5f7",
   accentRed: "#dd0000",
   paragraphText: "#777777",
-  shadedBox: "#eeeeee",
-  shadedBoxBorder: "#aaaaaa"
+  lightBlue: "#dde6eb",
+  lightGray: "#aaaaaa"
 };
 
 export { colours };
