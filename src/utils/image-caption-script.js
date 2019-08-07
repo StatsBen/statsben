@@ -25,7 +25,7 @@ const addCaptionToImgFromAltText = entryElement => {
       globals.fonts.accent +
       "; font-size: 0.8em;" +
       "color: " +
-      globals.colours.fadedDark +
+      globals.colours.mediumGray +
       ";";
 
     let caption = document.createElement("span");
