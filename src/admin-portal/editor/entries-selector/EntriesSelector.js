@@ -1,6 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
 import EditableEntry from "./EditableEntry";
+/** @jsx jsx */
+import { css, jsx } from "@emotion/core";
 
 class EntryEditor extends React.Component {
   constructor(props) {
@@ -8,30 +9,22 @@ class EntryEditor extends React.Component {
     this.state = { selectedEntry: null };
   }
 
-  // LOL such helpful prop types...
-  static propTypes = {
-    entries: PropTypes.array,
-    user: PropTypes.object,
-    loadEntry: PropTypes.func,
-    deleteEntry: PropTypes.func
-  };
-
-  handleKeySelect = event => {
-    if (event.which == 13) {
-      this.selectEntry();
-    }
-  };
-
-  deleteEntry = () => {};
-
   render() {
     const { entries } = this.props;
     if (!entries) {
       return <div />;
     } else {
       return (
-        <div id="entries-container">
-          <h2>Entries</h2>
+        <div
+          css={css`
+            float: none;
+            clear: both;
+            width: 90%;
+            margin: 50px 0 30px 0;
+            padding: 50px 5% 50px 5%;
+          `}
+        >
+          <h2>Existing Entries:</h2>
           {entries.map((entry, i) => {
             return (
               <EditableEntry

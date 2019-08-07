@@ -1,83 +1,79 @@
 import React from "react";
-import PropTypes from "prop-types";
+/** @jsx jsx */
+import { css, jsx } from "@emotion/core";
 import moment from "moment";
+import { globals } from "../../../globals";
+import EditableEntryPopUp from "./EditableEntryPopUp";
 
 class EditableEntry extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       entry: props.entry,
-      loadEntry: props.loadEntry,
-      deleteEntry: props.deleteEntry,
       popupIsVisible: false
     };
   }
 
-  static propTypes = {
-    entry: PropTypes.object,
-    loadEntry: PropTypes.func,
-    deleteEntry: PropTypes.func
-  };
-
   handleKeypress = event => {
     if (event.which == 13) {
-      this.setState({ popupIsVisible: !this.state.popupIsVisible });
+      this.handleClick();
     }
   };
 
   handleClick = () => {
-    this.setState({ popupIsVisible: !this.state.popupIsVisible });
+    this.setState(state => {
+      return { popupIsVisible: !state.popupIsVisible };
+    });
   };
 
   editEntry = () => {
-    this.state.loadEntry(this.state.entry);
+    this.props.loadEntry(this.state.entry);
   };
 
   deleteEntry = () => {
-    this.state.deleteEntry(this.state.entry.Name);
+    this.props.deleteEntry(this.state.entry.name);
   };
 
   render() {
-    let popup = null;
-
-    if (this.state.popupIsVisible) {
-      popup = (
-        <div id="pop-up-container">
-          <button onClick={this.editEntry}>Edit</button>
-          <button onClick={this.deleteEntry}>Delete</button>
-        </div>
-      );
-    }
+    let { entry } = this.props;
+    let { popupIsVisible } = this.state;
 
     return (
       <div
-        className="entry"
         role="button"
         onClick={this.handleClick}
         onKeyPress={this.handleKeypress}
         tabIndex={0}
+        css={css`
+          float: left;
+          margin: 20px;
+          padding: 10px;
+          background: ${globals.colours.lightBlue};
+          border: thin solid ${globals.colours.lightGray};
+          border-radius: ${globals.sizes.borderRadius};
+          user-select: none;
+          cursor: pointer;
+          color: ${globals.colours.charcoal};
+          &:hover {
+            background: white;
+          }
+        `}
       >
-        {popup}
+        {popupIsVisible ? (
+          <EditableEntryPopUp edit={this.editEntry} delete={this.deleteEntry} />
+        ) : null}
         <div>
           <span>
-            <strong>Name</strong>: {this.props.entry.Name}&nbsp;
+            <strong>Name</strong>: {entry.name}&nbsp;
           </span>
         </div>
         <div>
           <span>
             <strong>Date</strong>:{" "}
-            {moment(this.props.entry.dateString, [
-              "MM/DD/YY",
-              "MM/D/YY"
-            ]).format("MMMM Do YYYY")}
+            {moment(entry.date.toDate()).format("MM/DD/YY")}
           </span>
         </div>
-        <div>
-          <span>
-            <strong>Featured</strong>:{" "}
-            {this.props.entry.isFeatured ? `Yes` : `No`}
-          </span>
-        </div>
+
         <div style={{ float: "none", clear: "both", width: "100%" }} />
       </div>
     );
