@@ -3,6 +3,7 @@ import Login from "./Login";
 import Logout from "./Logout";
 import Editor from "./editor/Editor";
 import { auth, signInWithGoogle, signOut } from "../authentication/firebase";
+import { whitelist } from "../authentication/whitelist";
 import "./admin-portal.css";
 
 class AdminPortal extends React.Component {
@@ -29,9 +30,11 @@ class AdminPortal extends React.Component {
 
   render() {
     const { user } = this.state;
+    console.log("USER IS: " + user);
+    console.log(user);
     return (
       <div id="admin-portal">
-        {user ? (
+        {user && whitelist.includes(user.email) ? (
           <div id="admin-page">
             <Logout logout={this.logout} />
             <Editor />
