@@ -37,7 +37,7 @@ const TextInput = props => {
   return (
     <div css={containerCSS}>
       <label htmlFor={`input-${label}`}>
-        {formatter.toSentenceCase(label)}
+        {`${formatter.toSentenceCase(label)}: `}
       </label>
       <input
         value={contents ? contents : ""}

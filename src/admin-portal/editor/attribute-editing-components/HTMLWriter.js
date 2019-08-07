@@ -10,9 +10,8 @@ const containerCSS = css`
   float: none;
   clear: both;
   width: 90%;
-  margin: 50px 0 50px 0;
-  padding: 0 5% 50px 5%;
-  border-bottom: thin solid ${globals.colours.fadedDark};
+  margin: 20px 0 50px 0;
+  padding: 50px 5% 50px 5%;
 `;
 
 const EntryPane = props => {
@@ -51,7 +50,7 @@ const PreviewPane = () => {
           display: block;
           position: relative;
           width: 46%;
-          height: 190px;
+          height: ${250 - 20 + "px"};
           padding: 2.5%;
           bottom: 0;
           resize: both;
@@ -83,7 +82,7 @@ class HTMLWriter extends React.Component {
 
   render() {
     return (
-      <div className="editor-section" css={containerCSS}>
+      <div css={containerCSS}>
         <ImageUploader />
         <EntryPane>
           <label
@@ -107,7 +106,7 @@ class HTMLWriter extends React.Component {
               display: block;
               position: relative;
               width: 99%;
-              height: 200px;
+              height: 250px;
               z-index: 99;
               resize: vertical;
             `}

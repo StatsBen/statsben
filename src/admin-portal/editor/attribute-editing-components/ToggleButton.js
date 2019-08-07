@@ -20,15 +20,34 @@ const ToggleButton = props => {
     height: ${height + "px"};
   `;
 
+  const delegateChangeEvent = () => {
+    let target = document.getElementById(`input-${label}`);
+    target.checked = !target.checked;
+    let e = {};
+    e.target = target;
+    props.handleChange(e);
+  };
+
+  const handleKeyEvent = event => {
+    if (event.keyCode === 32) {
+      delegateChangeEvent();
+    }
+  };
+
   /** The actual input element is hidden in this case - just holds the 'checked' attribute **/
   const Input = () => {
     return (
       <input
         name={`input-${label}`}
-        checked={checked}
-        onChange={props.handleChange}
+        id={`input-${label}`}
+        type="checkbox"
+        checked={checked ? true : false}
+        onChange={delegateChangeEvent}
+        onClick={delegateChangeEvent}
         css={css`
           opacity: 0;
+          position: absolute;
+          z-index: 3;
           width: 0;
           height: 0;
         `}
@@ -39,12 +58,18 @@ const ToggleButton = props => {
   /** This renders the switch in the 'off' position **/
   const OffSwitch = () => {
     return (
-      <div css={containerCSS}>
+      <div
+        css={containerCSS}
+        onClick={delegateChangeEvent}
+        onKeyDown={handleKeyEvent}
+        role="button"
+        tabIndex="0"
+      >
         <span
           css={css`
             position: absolute;
             cursor: pointer;
-            top: 5px;
+            top: 0;
             left: 0;
             right: 0;
             bottom: 0;
@@ -52,14 +77,14 @@ const ToggleButton = props => {
             -webkit-transition: 0.4s;
             transition: 0.4s;
             border-radius: ${height + "px"};
+            border: thin solid ${globals.colours.charcoal};
             &:before {
               position: absolute;
               content: "";
               height: ${height - 2 * 4 + "px"};
               width: ${height - 2 * 4 + "px"};
-              top: 1px;
-              left: 4px;
-              bottom: 4px;
+              left: ${height * 0.15 + "px"};
+              bottom: ${height * 0.15 + "px"};
               background-color: white;
               -webkit-transition: 0.4s;
               transition: 0.4s;
@@ -74,30 +99,36 @@ const ToggleButton = props => {
   /** Renders the switch in the 'on' position (blue background, dot to right) **/
   const OnSwitch = () => {
     return (
-      <div css={containerCSS}>
+      <div
+        css={containerCSS}
+        onClick={delegateChangeEvent}
+        onKeyDown={handleKeyEvent}
+        role="button"
+        tabIndex="0"
+      >
         <span
           css={css`
             position: absolute;
             cursor: pointer;
-            top: 5px;
+            top: 0;
             left: 0;
             right: 0;
             bottom: 0;
             background-color: ${globals.colours.accentBlue};
-            -webkit-transform: translateX(${height - 2 * 4 + "px"});
-            -ms-transform: translateX(${height - 2 * 4 + "px"});
-            transform: translateX(${height - 2 * 4 + "px"});
             -webkit-transition: 0.4s;
             transition: 0.4s;
             border-radius: ${height + "px"};
+            border: thin solid ${globals.colours.charcoal};
             &:before {
               position: absolute;
               content: "";
               height: ${height - 2 * 4 + "px"};
               width: ${height - 2 * 4 + "px"};
-              top: 1px;
-              left: 4px;
-              bottom: 4px;
+              left: ${height * 0.15 + "px"};
+              bottom: ${height * 0.15 + "px"};
+              -webkit-transform: translateX(${height - 2 * 4 + "px"});
+              -ms-transform: translateX(${height - 2 * 4 + "px"});
+              transform: translateX(${height - 2 * 4 + "px"});
               background-color: white;
               -webkit-transition: 0.4s;
               transition: 0.4s;
@@ -117,7 +148,7 @@ const ToggleButton = props => {
           margin: 0 5px 0 0;
         `}
       >
-        {formatter.toSentenceCase(label)}
+        {`${formatter.toSentenceCase(label)}: `}
       </label>
     );
   };
