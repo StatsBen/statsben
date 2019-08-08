@@ -3,6 +3,7 @@ import NavBar from "./lil-header/LilHeader";
 // import Menu from "./menu/Menu";
 import Footer from "./footer/Footer";
 import Entry from "./Entry";
+import LoadMoreButton from "./LoadMoreButton";
 import { firestore } from "../authentication/firebase";
 import "./styles/entries.css";
 import { globals } from "../globals";
@@ -82,33 +83,8 @@ class MainView extends React.Component {
     });
   };
 
-  buildEntriesListOutput = () => {
-    const { entries } = this.state;
-
-    let entryElements = null;
-    if (entries) {
-      entryElements = entries.map((entry, i) => {
-        return <Entry key={`entry-${i}`} entry={entry} />;
-      });
-    }
-
-    return (
-      <div id="entries-right-side">
-        <div id="entries-container">
-          {entryElements}
-          <div style={{ float: "none", clear: "both", width: "100%" }} />
-        </div>
-
-        <div id="load-more-button">
-          <button onClick={this.loadEntries}>Load More...</button>
-        </div>
-        {/* <- end of Entries Right Stide */}
-      </div>
-    );
-  };
-
   render() {
-    const entryElements = this.buildEntriesListOutput();
+    // const entryElements = this.buildEntriesListOutput();
 
     return (
       <div id="main-entries-container">
@@ -116,10 +92,17 @@ class MainView extends React.Component {
 
         <div id="page-splitter">
           {/* ^ Outer container for some fancy, auto scaling FlexBox sorcery */}
+          <div id="entries-right-side">
+            <div id="entries-container">
+              {this.state.entries.map((entry, i) => {
+                return <Entry key={`entry-${i}`} entry={entry} />;
+              })}
+              <div style={{ float: "none", clear: "both", width: "100%" }} />
+            </div>
 
-          {entryElements}
+            {/* <- end of Entries Right Stide */}
+          </div>
           {/*Generated Above w/ buildEntriesListOutput */}
-
           {/*<Menu
             addType={this.addTypeFilter}
             removeType={this.removeTypeFilter}
@@ -128,6 +111,8 @@ class MainView extends React.Component {
           />*/}
         </div>
         {/*<- end of Page Splitter */}
+
+        <LoadMoreButton loadMore={this.loadEntries} />
 
         <Footer />
         <div style={{ float: "none", clear: "both", width: "100%" }} />

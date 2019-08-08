@@ -129,31 +129,4 @@ div#entries-right-menu {
       margin: 2% 0 2% 0;
     }
   }
-
-  div#load-more-button {
-    float: none;
-    clear: both;
-    width: 100%;
-    padding: 0 0 100px 0;
-    text-align: center;
-  }
-
-  div#load-more-button button {
-    display: inline-block;
-    -webkit-display: inline-block;
-    background: none;
-    outline: none;
-    border: none;
-    user-select: none;
-    font-family: "Arsenal", serif;
-    font-size: 14pt;
-    font-style: italic;
-    font-weight: 700;
-    color: #333333;
-  }
-
-  div#load-more-button button:hover {
-    cursor: pointer;
-    color: #777777;
-  }
 }
