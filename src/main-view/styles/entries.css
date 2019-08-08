@@ -20,25 +20,6 @@ div#entries-right-menu {
   background: orange;
 }
 
-.entry-date {
-  order: 1;
-  flex: 0 0 22px;
-}
-
-.entry-date span {
-  width: 22px;
-  min-height: 130px;
-  display: block;
-  position: relative;
-  padding-left: 25px;
-  writing-mode: vertical-lr;
-  text-align: right;
-  font-family: "Work Sans", sans-serif;
-  font-size: 14pt;
-  text-orientation: mixed;
-  transform: rotate(180deg);
-}
-
 /*********** Widescreen UI *************/
 @media (min-width: 1400px) {
   div#entries-right-side {
@@ -57,36 +38,6 @@ div#entries-right-menu {
 
   div#entries-container {
     padding-top: 0;
-  }
-
-  .entry-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    float: left;
-    width: 95%;
-    margin: 0 0 100px 0;
-    break-inside: avoid;
-    break-after: avoid;
-    page-break-inside: avoid;
-    padding: 0 2.5% 0 2.5%;
-  }
-
-  .entry-right {
-    order: 2;
-    flex: 0 1 auto;
-    padding-left: 5%;
-    min-height: 10em;
-    border-left: thin solid #bbbbbb;
-  }
-
-  .entry-title {
-    float: left;
-  }
-
-  .entry-contents {
-    float: left;
-    width: 100%;
   }
 
   .large {
@@ -147,51 +98,6 @@ div#entries-right-menu {
 
   div#entries-container {
     padding-top: 0;
-  }
-
-  .entry-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    float: left;
-    width: 90%;
-    min-width: 550px;
-    margin: 0px 0 50px 0;
-    padding: 0 5% 0 5%;
-  }
-
-  .entry-date {
-    order: 1;
-    flex: 0 0 auto;
-  }
-
-  .entry-date span {
-    display: block;
-    position: relative;
-    padding-left: 25px;
-    text-align: right;
-    font-family: "Work Sans", sans-serif;
-    font-size: 14pt;
-    writing-mode: vertical-lr;
-    text-orientation: mixed;
-    transform: rotate(180deg);
-  }
-
-  .entry-right {
-    order: 2;
-    flex: 0 1 auto;
-    padding-left: 5%;
-    min-height: 10em;
-    border-left: thin solid #bbbbbb;
-  }
-
-  .entry-title {
-    float: left;
-  }
-
-  .entry-contents {
-    float: left;
-    width: 100%;
   }
 
   .large {
