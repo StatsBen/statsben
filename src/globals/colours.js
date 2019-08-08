@@ -6,7 +6,8 @@ let colours = {
   accentRed: "#dd0000",
   paragraphText: "#777777",
   lightBlue: "#dde6eb",
-  lightGray: "#aaaaaa"
+  lightGray: "#aaaaaa",
+  darkGray: "#333333"
 };
 
 export { colours };
