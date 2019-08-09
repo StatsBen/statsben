@@ -18,36 +18,6 @@ div#menu-container {
   overflow: hidden;
 }
 
-div#toggle-button-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 200px; /* width changes 3 places, including here! */
-  height: auto;
-  z-index: 999;
-}
-
-button.menu-toggle {
-  position: relative;
-  display: block;
-  float: left;
-  margin: 20px 0 0 20px;
-  padding: 5px;
-  font-size: 1.2em;
-  font-family: inherit;
-  font-weight: 400;
-  background: none;
-  border: none;
-  outline: none;
-  color: #222222;
-  background: #ffffff;
-  user-select: none;
-}
-
-button.menu-toggle:hover {
-  cursor: pointer;
-}
-
 div#expandable-menu-container {
   width: 100%;
   padding: 80px 0 0 0;
@@ -61,28 +31,4 @@ div#expandable-menu-container {
   font-size: 1.8em;
   text-align: center;
   border-bottom: thin solid #555555;
-}
-
-div.type-filter-button-container {
-  width: 80%;
-  margin: 10px 10% 10px 10%;
-  border-bottom: thin solid #555555;
-}
-
-div.type-filter-button-container button {
-  background: none;
-  border: none;
-  outline: none;
-  font-size: inherit;
-  color: inherit;
-}
-
-div.type-filter-button-container button:hover {
-  color: #ffffff;
-  cursor: pointer;
-  user-select: none;
-}
-
-div.type-filter-button-container button.active {
-  color: #5fc4d8;
 }

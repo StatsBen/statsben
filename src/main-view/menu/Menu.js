@@ -1,5 +1,9 @@
 import React from "react";
 import "./menu.css";
+import { globals } from "../../globals";
+/** @jsx jsx */
+import { css, jsx } from "@emotion/core";
+import MainMenuButtons from "./MainMenuButtons";
 
 class Menu extends React.Component {
   constructor(props) {
@@ -7,39 +11,39 @@ class Menu extends React.Component {
     this.state = { expanded: false };
   }
 
-  buildTypeFilterButtons = () => {
-    const { addType, removeType, activeTypeFilters } = this.props;
-    return (
-      <div id="category-filters">
-        {this.props.types.map(type => {
-          return (
-            <div
-              className={`type-filter-button-container`}
-              key={`filter-button-for-${type}`}
-            >
-              {activeTypeFilters.includes(type) ? (
-                <button
-                  className={`type-filter-button active`}
-                  type={type}
-                  onClick={removeType}
-                >
-                  {type}
-                </button>
-              ) : (
-                <button
-                  className={`type-filter-button inactive`}
-                  type={type}
-                  onClick={addType}
-                >
-                  {type}
-                </button>
-              )}
-            </div>
-          );
-        })}
-      </div>
-    );
-  };
+  containerCSS = css``;
+
+  btnOuterCSS = css`
+    width: 80%;
+    margin: 10px 10% 10px 10%;
+    border-bottom: thin solid #555555;
+  `;
+
+  activeCSS = css`
+    background: none;
+    border: none;
+    outline: none;
+    font-size: inherit;
+    color: ${globals.colours.accentBlue};
+    user-select: none;
+    &:hover {
+      cursor: pointer;
+      color: ${globals.colours.accentBlue};
+    }
+  `;
+
+  inactiveCSS = css`
+    background: none;
+    border: none;
+    outline: none;
+    font-size: inherit;
+    color: ${globals.colours.white};
+    user-select: none;
+    &:hover {
+      cursor: pointer;
+      color: ${globals.colours.lightBlue};
+    }
+  `;
 
   toggleMenu = event => {
     event.preventDefault();
@@ -52,24 +56,34 @@ class Menu extends React.Component {
   };
 
   render() {
-    let expansionW = {
+    const { addType, removeType, activeFilters } = this.props;
+    const expansionW = {
       width: this.state.expanded ? "200px" : "0"
     };
 
     return (
       <div id="expandable-menu-outer" style={expansionW}>
-        <div id="toggle-button-container">
-          <button className="menu-toggle" onClick={this.toggleMenu}>
-            Filter
-          </button>
-          <button className="menu-toggle" onClick={this.scrollToTop}>
-            Top
-          </button>
-        </div>
+        <MainMenuButtons
+          toggleMenu={this.toggleMenu}
+          scrollToTop={this.scrollToTop}
+        />
+
         <div id="menu-container" style={expansionW}>
           <div id="expandable-menu-container">
             <div id="expandable-filters-menu">
-              {this.buildTypeFilterButtons()}
+              {this.props.types.map(type => {
+                const active = activeFilters.includes(type);
+                return (
+                  <div css={this.btnOuterCSS} key={`filter-button-for-${type}`}>
+                    <button
+                      onClick={active ? removeType : addType}
+                      css={active ? this.activeCSS : this.inactiveCSS}
+                    >
+                      {type}
+                    </button>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

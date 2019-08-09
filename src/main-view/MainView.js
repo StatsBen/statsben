@@ -1,6 +1,6 @@
 import React from "react";
 import NavBar from "./lil-header/LilHeader";
-// import Menu from "./menu/Menu";
+import Menu from "./menu/Menu";
 import Footer from "./footer/Footer";
 import Entry from "./Entry";
 import LoadMoreButton from "./LoadMoreButton";
@@ -11,12 +11,13 @@ import { globals } from "../globals";
 class MainView extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       entries: [],
-      categories: globals.categories,
+      categories: globals.types,
       limit: 5,
       alreadyLoaded: null,
-      typeFilters: [],
+      activeFilters: [],
       moreToLoad: true
     };
   }
@@ -40,36 +41,53 @@ class MainView extends React.Component {
   // };
 
   loadEntries = async () => {
-    let entriesRef = await firestore.collection("entries");
-
-    let q = null;
+    let q = await firestore.collection("entries");
 
     if (this.state.alreadyLoaded) {
-      q = entriesRef
-        .orderBy("date", "desc")
-        .startAfter(this.state.alreadyLoaded)
-        .limit(this.state.limit);
+      q = q.orderBy("date", "desc");
+      q = q.startAfter(this.state.alreadyLoaded);
+      q = q.limit(this.state.limit);
     } else {
-      q = entriesRef.orderBy("date", "desc").limit(this.state.limit);
+      q = q.orderBy("date", "desc");
+      q = q.limit(this.state.limit);
     }
 
-    // q._query.filters = this.generateFirestoreFilters(entriesRef);
+    if (this.state.activeFilters.length) {
+      this.state.activeFilters.map(type => {
+        q = q.where(`types.${type}`, "==", true);
+      });
+    }
 
-    q.get().then(snapshot => {
-      const entries = snapshot.docs.map(doc => doc.data());
-      this.setState(state => ({
-        entries: [...state.entries, ...entries],
-        alreadyLoaded: snapshot.docs[snapshot.docs.length - 1],
-        moreToLoad: snapshot.docs.length == state.limit
-      }));
-    });
+    q.get()
+      .then(snapshot => {
+        console.log(snapshot);
+        const entries = snapshot.docs.map(doc => doc.data());
+        this.setState(state => ({
+          entries: [...state.entries, ...entries],
+          alreadyLoaded: snapshot.docs[snapshot.docs.length - 1]
+          // moreToLoad: snapshot.docs.length == state.limit
+        }));
+      })
+      .catch(err => {
+        console.error("Firestore error!");
+        console.error(err);
+      });
   };
 
   addTypeFilter = event => {
     event.preventDefault();
-    let type = event.target.getAttribute("type");
+    const type = event.target.innerHTML;
+
     this.setState(
-      { typeFilters: [type], alreadyLoaded: null, entries: [] },
+      state => {
+        const updatedList = state.activeFilters;
+        updatedList.push(type);
+        return {
+          activeFilters: updatedList,
+          alreadyLoaded: null,
+          entries: []
+        };
+      },
       () => {
         this.loadEntries();
       }
@@ -78,14 +96,37 @@ class MainView extends React.Component {
 
   removeTypeFilter = event => {
     event.preventDefault();
-    this.setState({ typeFilters: [], entries: [] }, () => {
-      this.loadEntries();
-    });
+    const type = event.target.innerHTML;
+
+    this.setState(
+      state => {
+        if (state.activeFilters.includes(type)) {
+          const i = state.activeFilters.indexOf(type);
+          const updatedList = state.activeFilters;
+          updatedList.splice(i, 1);
+          return {
+            activeFilters: updatedList,
+            entries: [],
+            alreadyLoaded: null
+          };
+        } else {
+          console.error("Error in 'removeTypeFilter' method");
+          console.error(
+            "Some crazy how you're turning off a filter that wasn't turned on in the first place..."
+          );
+        }
+      },
+      () => {
+        this.loadEntries();
+      }
+    );
+  };
+
+  resetTypeFilters = () => {
+    this.setState({ activeFilters: [] });
   };
 
   render() {
-    // const entryElements = this.buildEntriesListOutput();
-
     return (
       <div id="main-entries-container">
         <NavBar />
@@ -103,12 +144,12 @@ class MainView extends React.Component {
             {/* <- end of Entries Right Stide */}
           </div>
           {/*Generated Above w/ buildEntriesListOutput */}
-          {/*<Menu
+          <Menu
             addType={this.addTypeFilter}
             removeType={this.removeTypeFilter}
-            activeTypeFilters={this.state.typeFilters}
+            activeFilters={this.state.activeFilters}
             types={this.state.categories}
-          />*/}
+          />
         </div>
         {/*<- end of Page Splitter */}
 
