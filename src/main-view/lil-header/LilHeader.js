@@ -29,9 +29,8 @@ class LilHeader extends React.Component {
           <span id="title">Ben Clark</span>
           <span id="sub-title">
             Welcome to my personal website, <br />
-            I&apos;m in the middle of lots of upgrades.
+            Here&apos;s a non-exausted list of things I&apos;ve done.
             <br />
-            Check back soon for a working version.
           </span>
         </div>
       </div>
