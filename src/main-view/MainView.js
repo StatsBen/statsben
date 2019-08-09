@@ -3,7 +3,9 @@ import NavBar from "./lil-header/LilHeader";
 import Menu from "./menu/Menu";
 import Footer from "./footer/Footer";
 import Entry from "./Entry";
+import LoadingMessage from "./LoadingMessage";
 import LoadMoreButton from "./LoadMoreButton";
+import NoEntries from "./NoEntries";
 import { firestore } from "../authentication/firebase";
 import "./styles/entries.css";
 import { globals } from "../globals";
@@ -14,31 +16,19 @@ class MainView extends React.Component {
 
     this.state = {
       entries: [],
-      categories: globals.types,
+      types: globals.types,
       limit: 5,
       alreadyLoaded: null,
       activeFilters: [],
-      moreToLoad: true
+      moreToLoad: true,
+      loading: true,
+      noEntries: false
     };
   }
 
   componentDidMount = async () => {
     this.loadEntries();
   };
-
-  // generateFirestoreFilters = ref => {
-  //   if (this.state.typeFilters.length) {
-  //     let filters = [];
-  //     this.state.typeFilters.map(type => {
-  //       let tempQ = ref.where("types", "array-contains", type);
-  //       filters.push(tempQ._query.filters[0]);
-  //     });
-  //
-  //     return filters;
-  //   } else {
-  //     return [];
-  //   }
-  // };
 
   loadEntries = async () => {
     let q = await firestore.collection("entries");
@@ -61,16 +51,30 @@ class MainView extends React.Component {
     q.get()
       .then(snapshot => {
         console.log(snapshot);
-        const entries = snapshot.docs.map(doc => doc.data());
-        this.setState(state => ({
-          entries: [...state.entries, ...entries],
-          alreadyLoaded: snapshot.docs[snapshot.docs.length - 1]
-          // moreToLoad: snapshot.docs.length == state.limit
-        }));
+
+        if (snapshot.empty) {
+          this.setState({
+            entries: [],
+            alreadyLoaded: null,
+            loading: false,
+            noEntries: true,
+            moreToLoad: false
+          });
+        } else {
+          const entries = snapshot.docs.map(doc => doc.data());
+          this.setState(state => ({
+            entries: [...state.entries, ...entries],
+            alreadyLoaded: snapshot.docs[snapshot.docs.length - 1],
+            loading: false,
+            noEntries: false,
+            moreToLoad: this.state.limit == snapshot.docs.length
+          }));
+        }
       })
       .catch(err => {
         console.error("Firestore error!");
         console.error(err);
+        alert("Uh oh! Something just broke... please reload the page.");
       });
   };
 
@@ -84,8 +88,10 @@ class MainView extends React.Component {
         updatedList.push(type);
         return {
           activeFilters: updatedList,
+          entries: [],
           alreadyLoaded: null,
-          entries: []
+          loading: true,
+          noEntries: false
         };
       },
       () => {
@@ -107,7 +113,9 @@ class MainView extends React.Component {
           return {
             activeFilters: updatedList,
             entries: [],
-            alreadyLoaded: null
+            alreadyLoaded: null,
+            loading: true,
+            noEntries: false
           };
         } else {
           console.error("Error in 'removeTypeFilter' method");
@@ -122,22 +130,34 @@ class MainView extends React.Component {
     );
   };
 
-  resetTypeFilters = () => {
-    this.setState({ activeFilters: [] });
-  };
-
   render() {
+    const {
+      entries,
+      activeFilters,
+      types,
+      loading,
+      noEntries,
+      moreToLoad
+    } = this.state;
+
     return (
       <div id="main-entries-container">
         <NavBar />
+
+        {/* Show message if query returns empty snapshot... */}
+        {noEntries ? <NoEntries /> : null}
+
+        {/* Show loading component if state is loading */}
+        {loading ? <LoadingMessage /> : null}
 
         <div id="page-splitter">
           {/* ^ Outer container for some fancy, auto scaling FlexBox sorcery */}
           <div id="entries-right-side">
             <div id="entries-container">
-              {this.state.entries.map((entry, i) => {
+              {entries.map((entry, i) => {
                 return <Entry key={`entry-${i}`} entry={entry} />;
               })}
+
               <div style={{ float: "none", clear: "both", width: "100%" }} />
             </div>
 
@@ -147,13 +167,15 @@ class MainView extends React.Component {
           <Menu
             addType={this.addTypeFilter}
             removeType={this.removeTypeFilter}
-            activeFilters={this.state.activeFilters}
-            types={this.state.categories}
+            activeFilters={activeFilters}
+            types={types}
           />
         </div>
         {/*<- end of Page Splitter */}
 
-        <LoadMoreButton loadMore={this.loadEntries} />
+        {!loading ? (
+          <LoadMoreButton loadMore={this.loadEntries} moreToLoad={moreToLoad} />
+        ) : null}
 
         <Footer />
         <div style={{ float: "none", clear: "both", width: "100%" }} />
