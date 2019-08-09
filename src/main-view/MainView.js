@@ -173,12 +173,12 @@ class MainView extends React.Component {
         </div>
         {/*<- end of Page Splitter */}
 
+        {/* Only show the Load More link if the state isn't loading... */}
         {!loading ? (
           <LoadMoreButton loadMore={this.loadEntries} moreToLoad={moreToLoad} />
         ) : null}
 
         <Footer />
-        <div style={{ float: "none", clear: "both", width: "100%" }} />
       </div>
     );
   }
