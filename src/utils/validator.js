@@ -14,6 +14,8 @@ const validator = {
   },
 
   validateBoolean(input) {
+    if (input === "" || input === null) return true; // Empty things are fine :)
+
     if (typeof input != "boolean") {
       console.error("Input was not of type boolean");
       return false;
@@ -22,6 +24,8 @@ const validator = {
   },
 
   validateDate(input) {
+    if (input === "" || input === null) return false; // Must have contents!
+
     try {
       parser.parseDate(input);
     } catch (e) {
@@ -32,6 +36,8 @@ const validator = {
   },
 
   validateNumber(input) {
+    if (input === "" || input === null) return true; // Empty things are fine :)
+
     if (typeof input != "number") {
       console.error(`"${input}" is not a number!`);
       return false;
@@ -40,6 +46,8 @@ const validator = {
   },
 
   validateString(input) {
+    if (input === "" || input === null) return true; // Empty things are fine :)
+
     if (typeof input != "string") {
       console.error(`"${input}" is not a string!`);
       return false;

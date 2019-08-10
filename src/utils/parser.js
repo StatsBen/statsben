@@ -9,6 +9,8 @@ const parser = {
   },
 
   parseAlpineGrade(raw) {
+    if (raw === "" || raw === null) return raw; // Empty things are fine :)
+
     const e = new Error("Failed to parse alpine grade");
     const alpRegExp = /(F|PD|AD|D)[+-]?$/;
 
@@ -29,6 +31,8 @@ const parser = {
   },
 
   parseDate(raw) {
+    if (raw === "" || raw === null) return raw; // Empty things are fine :)
+
     try {
       if (raw instanceof Date) return raw;
       let test = new Date(raw);
@@ -44,6 +48,8 @@ const parser = {
   },
 
   parseCommitmentGrade(raw) {
+    if (raw === "" || raw === null) return raw; // Empty things are fine :)
+
     const e = new Error("Couldn't parse commitment grade.");
     const gradeRegExp = /(?<![VI])(IV|V|VI|I+)$/;
     const numRegExp = /\d+/g;
@@ -97,6 +103,8 @@ const parser = {
   },
 
   parseDistance(raw) {
+    if (raw === "" || raw === null) return raw; // Empty things are fine :)
+
     const e = new Error("Couldn't parse distance");
     var dKmRegExp = /[0-9]+km/;
     var dMiRegExp = /[0-9]+mi/;
@@ -148,6 +156,8 @@ const parser = {
   },
 
   parseIceGrade(raw) {
+    if (raw === "" || raw === null) return raw; // Empty things are fine :)
+
     const e = new Error("Couldn't parse ice grade");
     const iceRegExp = /(WI[1-6][+-]?|AI[1-6][+-]?)/;
 
@@ -170,6 +180,8 @@ const parser = {
   },
 
   parseYDS(raw) {
+    if (raw === "" || raw === null) return raw; // Empty things are fine :)
+
     const e = new Error("Couldn't parse YDS Grade");
     const ydsRegExp = /5\.([2-9][+-]?|1[0-5][abcd]?)$/;
 
@@ -190,6 +202,8 @@ const parser = {
   },
 
   parseScramblingGrade(raw) {
+    if (raw === "" || raw === null) return raw; // Empty things are fine :)
+
     const e = new Error("Couldn't parse scrambling grade");
     const numRegExp = /(?<!\d)[1-5](?!\d)/;
 
@@ -218,6 +232,8 @@ const parser = {
   },
 
   parseVert(raw) {
+    if (raw === "" || raw === null) return raw; // Empty things are fine :)
+
     const e = new Error("Couldn't parse vert");
     const vertRegExp = /(?<!,)((\d{1,3}(,\d{3})*)|\d+)m?$/;
 
@@ -250,6 +266,8 @@ const parser = {
   },
 
   parseAttrByTypeName(raw, type) {
+    if (raw === "" || raw === null) return raw; // Empty things are fine :)
+
     switch (type) {
       case "alpineGrade":
         try {
