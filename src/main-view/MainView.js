@@ -32,6 +32,8 @@ class MainView extends React.Component {
   };
 
   loadEntries = async () => {
+    this.setState({ loading: true });
+
     let q = await firestore.collection("entries");
 
     if (this.state.alreadyLoaded) {
