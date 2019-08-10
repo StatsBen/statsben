@@ -4,7 +4,6 @@ import Logout from "./Logout";
 import Editor from "./editor/Editor";
 import { auth, signInWithGoogle, signOut } from "../authentication/firebase";
 import { whitelist } from "../authentication/whitelist";
-import "./admin-portal.css";
 
 class AdminPortal extends React.Component {
   constructor(props) {
