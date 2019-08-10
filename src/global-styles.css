@@ -104,3 +104,11 @@ a:hover {
     }
   }
 }
+
+/** This is a suuuper weird hack to make the Masonry
+    Component CSS library work. Don't ask me how, it
+    was just in the docs... Don't delete as long as
+    you're keeping the Masonry library! **/
+.my-masonry-grid_column {
+  padding-left: 30px;
+}
