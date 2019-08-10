@@ -3,6 +3,7 @@ import NavBar from "./lil-header/LilHeader";
 import Menu from "./menu/Menu";
 import Footer from "./footer/Footer";
 import Entry from "./Entry";
+import EntriesGridContainer from "./EntriesGridContainer";
 import LoadingMessage from "./LoadingMessage";
 import LoadMoreButton from "./LoadMoreButton";
 import NoEntries from "./NoEntries";
@@ -50,8 +51,6 @@ class MainView extends React.Component {
 
     q.get()
       .then(snapshot => {
-        console.log(snapshot);
-
         if (snapshot.empty) {
           this.setState({
             entries: [],
@@ -74,7 +73,7 @@ class MainView extends React.Component {
       .catch(err => {
         console.error("Firestore error!");
         console.error(err);
-        alert("Uh oh! Something just broke... please reload the page.");
+        // alert("Uh oh! Something just broke... please reload the page.");
       });
   };
 
@@ -152,17 +151,13 @@ class MainView extends React.Component {
 
         <div id="page-splitter">
           {/* ^ Outer container for some fancy, auto scaling FlexBox sorcery */}
-          <div id="entries-right-side">
-            <div id="entries-container">
-              {entries.map((entry, i) => {
-                return <Entry key={`entry-${i}`} entry={entry} />;
-              })}
 
-              <div style={{ float: "none", clear: "both", width: "100%" }} />
-            </div>
+          <EntriesGridContainer>
+            {entries.map((entry, i) => {
+              return <Entry key={`entry-${i}`} entry={entry} />;
+            })}
+          </EntriesGridContainer>
 
-            {/* <- end of Entries Right Stide */}
-          </div>
           {/*Generated Above w/ buildEntriesListOutput */}
           <Menu
             addType={this.addTypeFilter}

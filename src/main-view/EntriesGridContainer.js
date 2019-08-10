@@ -1,0 +1,42 @@
+require("react");
+/** @jsx jsx */
+import { css, jsx } from "@emotion/core";
+import Masonry from "react-masonry-css";
+
+const EntriesGridContainer = props => {
+  const breakpointColsObj = {
+    default: 2,
+    1200: 1,
+    1800: 2,
+    2200: 3
+  };
+  // ^ Special object for the react-masonry-css library (see imports)
+
+  return (
+    <div
+      css={css`
+        order: 1;
+        flex: 0 1 100%;
+        -webkit-flex: 0 1 100%;
+        -webkit-flex: 0 1 100%;
+      `}
+    >
+      <Masonry
+        breakpointCols={breakpointColsObj}
+        css={css`
+          display: -webkit-box; /* Not needed if autoprefixing */
+          display: -ms-flexbox; /* Not needed if autoprefixing */
+          display: flex;
+          margin-left: -30px; /* gutter size offset */
+          width: auto;
+        `}
+      >
+        {props.children}
+      </Masonry>
+
+      <div style={{ float: "none", clear: "both", width: "100%" }} />
+    </div>
+  );
+};
+
+export default EntriesGridContainer;
