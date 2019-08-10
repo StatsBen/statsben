@@ -19,6 +19,7 @@ const EntryTitle = props => {
         css={css`
           padding: 0 0 30px 0;
           margin: 0;
+          max-width: 70%;
         `}
       >
         {props.name}

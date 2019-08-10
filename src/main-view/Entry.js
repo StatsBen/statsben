@@ -2,6 +2,7 @@ import React from "react";
 import EntryContainer from "./EntryContainer";
 import EntryContents from "./EntryContents";
 import EntryDate from "./EntryDate";
+import EntryGrade from "./EntryGrade";
 import { addCaptionToImgFromAltText } from "../utils/image-caption-script";
 // import { globals } from "../globals";
 
@@ -22,10 +23,12 @@ class Entry extends React.Component {
 
   render() {
     let { entry } = this.props;
+    console.log(entry);
 
     return (
       <div ref={r => (this.element = r)}>
         <EntryContainer>
+          <EntryGrade gradeObject={entry.grade} />
           <EntryDate date={entry.date} />
           <EntryContents entry={entry} />
         </EntryContainer>

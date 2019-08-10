@@ -7,6 +7,7 @@ const EntryContainer = props => {
   return (
     <div
       css={css`
+        position: relative; /* Must be included for absolutely positioned children */
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
