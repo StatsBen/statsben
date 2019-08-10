@@ -118,6 +118,28 @@ const formatter = {
         return raw.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "m";
       }
     }
+  },
+
+  prettyByGradeName(raw, gradeType) {
+    switch (gradeType) {
+      case "commitment":
+        return this.prettyCommitmentGrade(raw);
+      case "distance":
+        return this.prettyDistance(raw);
+      case "ice":
+        return raw; // No formatting needed!
+      case "rock":
+        return raw; // No formatting needed!
+      case "scramble":
+        return this.prettyScramblingGrade(raw);
+      case "vert":
+        return this.prettyVert(raw);
+      default:
+        console.error(
+          "Uh oh, formatter.prettyGradeByName didnt recognize that grade type!"
+        );
+        return raw;
+    }
   }
 };
 
