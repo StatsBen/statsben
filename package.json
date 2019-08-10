@@ -11,6 +11,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --silent",
+    "test-coverage": "jest --silent --coverage",
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
     "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
     "dev": "parcel src/index.html",
