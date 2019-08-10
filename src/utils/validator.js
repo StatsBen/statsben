@@ -2,53 +2,60 @@ import { globals } from "../globals";
 import { parser } from "./parser";
 
 const validator = {
-  /* returns a boolean, true if valid, false if not */
-  validateEntryAttrByName(entry, name) {
-    let valid = true;
-
-    // STUB
-
-    return valid;
-  },
-
   validateEntireEntry(entry) {
-    let valid = true;
-
-    //STUB
-
-    return valid;
+    try {
+      parser.parseEntireEntry(entry);
+      return true;
+    } catch (e) {
+      console.error("Failed to validate entire entry!");
+      console.error(e.message);
+      return false;
+    }
   },
 
   validateBoolean(input) {
-    let valid = true;
     if (typeof input != "boolean") {
-      valid = false;
+      console.error("Input was not of type boolean");
+      return false;
     }
-    return valid;
+    return true;
   },
 
   validateDate(input) {
-    let valid = true;
     try {
-      // eslint-disable-next-line
-      let testDate = new Date(input);
+      parser.parseDate(input);
     } catch (e) {
-      valid = false;
+      console.error(`"${input}" is not a valid date!`);
+      return false;
     }
-    return valid;
+    return true;
   },
 
   validateNumber(input) {
-    let valid = true;
     if (typeof input != "number") {
-      valid = false;
+      console.error(`"${input}" is not a number!`);
+      return false;
     }
-    return valid;
+    return true;
   },
 
   validateString(input) {
-    let valid = true;
     if (typeof input != "string") {
+      console.error(`"${input}" is not a string!`);
+      return false;
+    }
+    return true;
+  },
+
+  validateAlpineGrade(grade) {
+    let valid = true;
+    try {
+      parser.parseAlpineGrade(grade);
+    } catch (e) {
+      console.error("Validation Error!");
+      console.error(
+        "Tried to validate alpine grade, but it couldn't be parsed"
+      );
       valid = false;
     }
     return valid;
@@ -56,53 +63,88 @@ const validator = {
 
   validateCommitmentGrade(grade) {
     let valid = true;
-
-    //STUB
-
+    try {
+      parser.parseCommitmentGrade(grade);
+    } catch (e) {
+      console.error("Validation Error!");
+      console.error(
+        "Tried to validate commitment grade, but input could not be parsed"
+      );
+      valid = false;
+    }
     return valid;
   },
 
   validateDistance(dist) {
     let valid = true;
-
-    //STUB
-
+    try {
+      parser.parseDistance(dist);
+    } catch (e) {
+      console.error("Validation Error!");
+      console.error("Validation Error!");
+      console.error(
+        "Tried to validate distance, but input could not be parsed"
+      );
+      valid = false;
+    }
     return valid;
   },
 
   validateIceGrade(grade) {
     let valid = true;
-
-    //STUB
-
+    try {
+      parser.parseIceGrade(grade);
+    } catch (e) {
+      console.error("Validation Error!");
+      console.error(
+        "Tried to validate ice grade, but input could not be parsed"
+      );
+      valid = false;
+    }
     return valid;
   },
 
   validateYDSGrade(grade) {
     let valid = true;
-
-    //STUB
-
+    try {
+      parser.parseYDS(grade);
+    } catch (e) {
+      console.error("Validation Error!");
+      console.error(
+        "Tried to validate YDS grade, but input could not be parsed"
+      );
+      valid = false;
+    }
     return valid;
   },
 
   validateScramblingGrade(grade) {
     let valid = true;
-
-    //STUB
-
+    try {
+      parser.parseScramblingGrade(grade);
+    } catch (e) {
+      console.error("Validation Error!");
+      console.error(
+        "Tried to validate scrambling grade, but input could not be parsed"
+      );
+      valid = false;
+    }
     return valid;
   },
 
   validateVert(vert) {
     let valid = true;
-
-    //STUB
-
+    try {
+      parser.parseVert(vert);
+    } catch (e) {
+      console.error("Validation Error!");
+      console.error("Tried to validate vert, but input could not be parsed");
+      valid = false;
+    }
     return valid;
   },
 
-  validateValueByType(value, type) {
+  validateEntryAttrByName(value, type) {
     let valid = true;
 
     if (value == null) return valid;
@@ -179,9 +221,12 @@ const validator = {
     return valid;
   },
 
-  verifyAttributeExistsInEntryDefinition(attr) {
-    // STUB
-    return true;
+  verifyAttributeExistsInEntryDefinition(attrToCheck) {
+    let valid = false;
+    globals.entryDefinition.attributes.map(attr => {
+      if (attr.name == attrToCheck) valid = true;
+    });
+    return valid;
   }
 };
 
