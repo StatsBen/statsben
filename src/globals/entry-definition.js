@@ -6,10 +6,12 @@ const entryDefinition = {
     { name: "date", type: "date" },
     { name: "range", type: "string" },
     { name: "html", type: "html" },
+    { name: "longForm", type: "html" },
     {
       name: "grade",
       type: "object",
       objectFields: [
+        { name: "alpine", type: "string", unit: "alpineGrade" },
         { name: "commitment", type: "number", unit: "commitmentGrade" },
         { name: "distance", type: "number", unit: "distance" },
         { name: "ice", type: "string", unit: "iceGrade" },
