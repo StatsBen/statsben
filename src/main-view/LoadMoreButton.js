@@ -48,7 +48,7 @@ const LoadMoreButton = props => {
             color: ${globals.colours.darkGray};
           `}
         >
-          No more entries to load...
+          Nothing more to load...
         </p>
       )}
     </div>
