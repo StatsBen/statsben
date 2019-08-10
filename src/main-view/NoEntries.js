@@ -10,7 +10,7 @@ const NoEntries = () => {
         float: none;
         clear: both;
         width: 100%;
-        margin-top: 300px;
+        margin: 300px 0 200px 0;
         break-inside: avoid;
         text-align: center;
       `}
