@@ -1,15 +1,10 @@
 require("react");
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
-// import { globals } from "../../globals";
+import { globals } from "../globals";
 
 const EntryHTML = props => {
-  return (
-    <div
-      className={`entry-contents`}
-      dangerouslySetInnerHTML={{ __html: props.html }}
-    />
-  );
+  return <div css={css``} dangerouslySetInnerHTML={{ __html: props.html }} />;
 };
 
 const EntryTitle = props => {
@@ -17,13 +12,32 @@ const EntryTitle = props => {
     <div>
       <h3
         css={css`
-          padding: 0 0 30px 0;
+          padding: 0 0 0 0;
           margin: 0;
           max-width: 70%;
         `}
       >
         {props.name}
       </h3>
+    </div>
+  );
+};
+
+const EntryRange = props => {
+  // if (!props.range || typeof props.range == "undefined") return null;
+
+  return (
+    <div
+      css={css`
+        padding: 0 0 30px 0;
+        font-style: italic;
+        font-size: 0.9em;
+        letter-spacing: 0.05em;
+        font-family: ${globals.fonts.accent};
+        color: ${globals.colours.lightGray};
+      `}
+    >
+      {!props.range || typeof props.range == "undefined" ? null : props.range}
     </div>
   );
 };
@@ -40,6 +54,7 @@ const EntryContents = props => {
       `}
     >
       <EntryTitle name={props.entry.name} />
+      <EntryRange range={props.entry.range} />
       <EntryHTML html={props.entry.html} />
     </div>
   );
