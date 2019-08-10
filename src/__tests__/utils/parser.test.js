@@ -92,6 +92,7 @@ test("Test Parse Ice Grade", () => {
 test("Test Parse YDS", () => {
   expect(parser.parseYDS("5.4")).toEqual("5.4");
   expect(parser.parseYDS("5.9+")).toEqual("5.9+");
+  expect(parser.parseYDS("5.2")).toEqual("5.2");
   expect(parser.parseYDS("  5.10c")).toEqual("5.10c");
   expect(() => {
     parser.parseYDS("5.11e");
