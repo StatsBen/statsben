@@ -1,6 +1,4 @@
 import React from "react";
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
 import EntryContainer from "./EntryContainer";
 import EntryContents from "./EntryContents";
 import EntryDate from "./EntryDate";

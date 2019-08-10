@@ -17,10 +17,10 @@ const EntryDate = props => {
         font-size: 14pt;
         text-orientation: mixed;
         transform: rotate(180deg);
-        @media (min-width: 1400px) {
-          width: 22px;
-          min-height: 130px;
-        }
+        flex: none;
+        order: 1;
+        width: 22px;
+        min-height: 130px;
       `}
     >
       {moment(props.date.toDate()).format("MM - DD - YY")}

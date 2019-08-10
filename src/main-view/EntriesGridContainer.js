@@ -23,6 +23,7 @@ const EntriesGridContainer = props => {
     >
       <Masonry
         breakpointCols={breakpointColsObj}
+        columnClassName="my-masonry-grid_column"
         css={css`
           display: -webkit-box; /* Not needed if autoprefixing */
           display: -ms-flexbox; /* Not needed if autoprefixing */
