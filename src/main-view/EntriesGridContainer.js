@@ -7,8 +7,7 @@ const EntriesGridContainer = props => {
   const breakpointColsObj = {
     default: 2,
     1200: 1,
-    1800: 2,
-    2200: 3
+    1800: 2
   };
   // ^ Special object for the react-masonry-css library (see imports)
 
@@ -29,7 +28,8 @@ const EntriesGridContainer = props => {
           display: -ms-flexbox; /* Not needed if autoprefixing */
           display: flex;
           margin-left: -30px; /* gutter size offset */
-          width: auto;
+          width: 90%;
+          padding: 5%;
         `}
       >
         {props.children}

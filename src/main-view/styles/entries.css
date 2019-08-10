@@ -12,10 +12,3 @@ div#page-splitter {
   flex-wrap: nowrap;
   width: 100%;
 }
-
-div#entries-right-menu {
-  order: 1;
-  flex: 0 0 0;
-  -webkit-flex: 0 0 0;
-  background: orange;
-}

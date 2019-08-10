@@ -11,9 +11,9 @@ const EntryContainer = props => {
         flex-direction: row;
         flex-wrap: nowrap;
         width: 90%;
-        min-width: 550px;
+        min-width: 450px;
         height: auto;
-        margin: 0px 0 50px 0;
+        margin: 0px 0 100px 0;
         padding: 0 5% 0 5%;
       `}
     >
