@@ -122,6 +122,8 @@ const formatter = {
 
   prettyByGradeName(raw, gradeType) {
     switch (gradeType) {
+      case "alpine":
+        return raw;
       case "commitment":
         return this.prettyCommitmentGrade(raw);
       case "distance":

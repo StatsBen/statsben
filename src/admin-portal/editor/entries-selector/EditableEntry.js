@@ -35,8 +35,14 @@ class EditableEntry extends React.Component {
   };
 
   render() {
-    let { entry } = this.props;
-    let { popupIsVisible } = this.state;
+    let { popupIsVisible, entry } = this.state;
+
+    let date = null;
+    try {
+      date = moment(entry.date.toDate()).format("MM/DD/YY");
+    } catch (e) {
+      //Just leave it
+    }
 
     return (
       <div
@@ -69,7 +75,7 @@ class EditableEntry extends React.Component {
         </div>
         <div>
           <span>
-            <strong>Date</strong>: {moment(entry.date).format("MM/DD/YY")}
+            <strong>Date</strong>: {date}
           </span>
         </div>
 

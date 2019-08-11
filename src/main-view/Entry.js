@@ -23,7 +23,6 @@ class Entry extends React.Component {
 
   render() {
     let { entry } = this.props;
-    console.log(entry);
 
     return (
       <div ref={r => (this.element = r)}>

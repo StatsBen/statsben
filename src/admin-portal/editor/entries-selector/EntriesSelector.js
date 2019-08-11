@@ -6,7 +6,6 @@ import { css, jsx } from "@emotion/core";
 class EntryEditor extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { selectedEntry: null };
   }
 
   render() {

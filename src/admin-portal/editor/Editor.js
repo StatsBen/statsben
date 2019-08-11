@@ -203,6 +203,12 @@ class Editor extends React.Component {
                   );
 
                 default:
+                  console.log("generating text box outer");
+                  console.log("attr name: " + attr.name);
+                  console.log(
+                    "contents: " + this.state.currentEntry[attr.name]
+                  );
+                  console.log(this.state.currentEntry);
                   return (
                     <TextInput
                       key={`text-input-for-${attr.name}`}

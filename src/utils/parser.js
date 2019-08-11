@@ -49,18 +49,19 @@ const parser = {
   parseDate(raw) {
     if (raw == "" || raw == null) return raw; // Empty things are fine :)
 
+    let rawJSDate = null;
     try {
-      raw = Date(raw.toDate()); // this'll make a JS date from a Firestore timestamp!
+      rawJSDate = Date(raw.toDate()); // this'll make a JS date from a Firestore timestamp!
     } catch (e) {
       console.log("not a Firestore Timestamp, turns out...");
+      rawJSDate = raw;
     }
 
-    // try raw.toDate()!!!
-
     try {
-      if (raw instanceof Date) return raw;
+      if (rawJSDate instanceof Date) return rawJSDate;
 
-      let test = new Date(raw);
+      let test = new Date(rawJSDate);
+
       if (test == "Invalid Date") {
         let e = new Error("Failed to parse Date");
         this.poopError("parseDate", raw, null, e);
@@ -209,7 +210,6 @@ const parser = {
 
     const e = new Error("Couldn't parse YDS Grade");
     const ydsRegExp = /5\.([2-9][+-]?|1[0-5][abcd]?)$/;
-    console.log(typeof raw);
 
     if (typeof raw == "number") raw = raw.toString();
 
@@ -389,6 +389,8 @@ const parser = {
   },
 
   parseEntireEntry(raw) {
+    let refined = {};
+
     globals.entryDefinition.attributes.map(attr => {
       let name = attr.name;
       let unit = attr.hasOwnProperty("unit") ? attr.unit : null;
@@ -402,18 +404,20 @@ const parser = {
       let attrToParse = raw[name];
 
       if (unit != null) {
-        raw[name] = this.parseAttrByTypeName(attrToParse, unit);
+        refined[name] = this.parseAttrByTypeName(attrToParse, unit);
       } else if (attr.type == "object") {
         attr.objectFields.map(field => {
           try {
             let fToParse = raw[name][field.name];
             if (field.hasOwnProperty("unit")) {
-              raw[name][field.name] = this.parseAttrByTypeName(
+              refined[name] = {};
+              refined[name][field.name] = this.parseAttrByTypeName(
                 fToParse,
                 field.unit
               );
             } else {
-              raw[name][field.name] = this.parseAttrByTypeName(
+              refined[name] = {};
+              refined[name][field.name] = this.parseAttrByTypeName(
                 fToParse,
                 field.type
               );
@@ -430,13 +434,14 @@ const parser = {
           }
         });
       } else {
-        raw[name] = this.parseAttrByTypeName(attrToParse, attr.type);
+        refined[name] = this.parseAttrByTypeName(attrToParse, attr.type);
       }
     });
 
-    if (raw.hasOwnProperty("[object Object]")) delete raw["[object Object]"];
+    if (refined.hasOwnProperty("[object Object]"))
+      delete refined["[object Object]"];
 
-    return raw;
+    return refined;
   }
 };
 

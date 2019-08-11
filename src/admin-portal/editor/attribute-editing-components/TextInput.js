@@ -4,10 +4,12 @@ import { css, jsx } from "@emotion/core";
 import { globals } from "../../../globals";
 import { formatter } from "../../../utils/formatter";
 import { validator } from "../../../utils/validator";
+import moment from "moment";
 
 class TextInput extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       valid: true,
       label: props.label,
@@ -30,7 +32,19 @@ class TextInput extends React.Component {
   };
 
   render() {
-    const { label, contents, valid } = this.state;
+    let { label, contents, type } = this.props;
+    const { valid } = this.state;
+    console.log("label: " + label);
+    console.log("type: " + type);
+    console.log("contents: " + contents);
+
+    if (contents && type == "date") {
+      try {
+        contents = moment(contents.toDate()).format("MM/DD/YY");
+      } catch (e) {
+        // Do nothing
+      }
+    }
 
     const validCSS = css`
       color: ${globals.colours.paragraphText};
