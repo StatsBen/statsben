@@ -17,11 +17,15 @@ test("Test Parse Alpine Grade", () => {
 
 test("Test Parse Date", () => {
   const testDate = new Date("1/31/94");
-  expect(parser.parseDate("1/31/94")).toEqual(testDate);
-  expect(parser.parseDate("1/31/1994")).toEqual(testDate);
-  expect(parser.parseDate("01/31/94")).toEqual(testDate);
-  expect(parser.parseDate(testDate)).toEqual(testDate);
-  expect(parser.parseDate(testDate.valueOf())).toEqual(testDate);
+  const testDate2 = new Date("");
+  const testDate3 = new Date(null);
+  expect(parser.parseDate("1/31/94")).toEqual(testDate.toString());
+  expect(parser.parseDate("01/31/1994")).toEqual(testDate.toString());
+  expect(parser.parseDate("01/31/94")).toEqual(testDate.toString());
+  expect(parser.parseDate(testDate)).toEqual(testDate.toString());
+  expect(parser.parseDate(testDate.valueOf())).toEqual(testDate.toString());
+  expect(parser.parseDate(testDate2)).toEqual(testDate2.toString());
+  expect(parser.parseDate(testDate3)).toEqual(testDate3.toString());
   expect(() => {
     parser.parseDate("poo");
   }).toThrow();

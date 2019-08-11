@@ -31,16 +31,21 @@ const parser = {
   },
 
   parseDate(raw) {
-    if (raw === "" || raw === null) return raw; // Empty things are fine :)
+    console.log("in parseDate: " + raw);
+    console.log(raw);
+    console.log(raw instanceof Date);
+    console.log(typeof raw);
+    if (raw == "" || raw == null) return raw; // Empty things are fine :)
 
     try {
-      if (raw instanceof Date) return raw;
+      if (raw instanceof Date) return raw.toString();
+
       let test = new Date(raw);
       if (test == "Invalid Date") {
         let e = new Error("Failed to parse Date");
         this.poopError("parseDate", raw, null, e);
       } else {
-        return test;
+        return test.toString();
       }
     } catch (e) {
       this.poopError("parseDate", raw, null, e);
