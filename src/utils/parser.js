@@ -409,14 +409,15 @@ const parser = {
         attr.objectFields.map(field => {
           try {
             let fToParse = raw[name][field.name];
-            if (field.hasOwnProperty("unit")) {
+            if (!refined.hasOwnProperty(name)) {
               refined[name] = {};
+            }
+            if (field.hasOwnProperty("unit")) {
               refined[name][field.name] = this.parseAttrByTypeName(
                 fToParse,
                 field.unit
               );
             } else {
-              refined[name] = {};
               refined[name][field.name] = this.parseAttrByTypeName(
                 fToParse,
                 field.type
@@ -440,6 +441,8 @@ const parser = {
 
     if (refined.hasOwnProperty("[object Object]"))
       delete refined["[object Object]"];
+
+    if (raw.hasOwnProperty("[object Object]")) delete raw["[object Object]"];
 
     return refined;
   }

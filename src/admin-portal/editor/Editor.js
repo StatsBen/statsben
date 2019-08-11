@@ -41,7 +41,20 @@ class Editor extends React.Component {
   };
 
   loadEntry = entry => {
-    this.setState({ currentEntry: entry, oldName: entry.name, revising: true });
+    let parsedEntry = null;
+    try {
+      parsedEntry = parser.parseEntireEntry(entry);
+    } catch (e) {
+      // Do nothing...
+    }
+
+    if (parsedEntry) {
+      this.setState({
+        currentEntry: parsedEntry,
+        oldName: entry.name,
+        revising: true
+      });
+    }
   };
 
   getBlankEntry = () => {
@@ -105,9 +118,6 @@ class Editor extends React.Component {
       console.error(this.state.currentEntry);
     }
 
-    console.log("parsed entry is: ");
-    console.log(parsedEntry);
-
     if (valid && parsedEntry != null) {
       firestore
         .collection("entries")
@@ -137,13 +147,8 @@ class Editor extends React.Component {
       valid = validator.validateEntireEntry(this.state.currentEntry);
       parsedEntry = parser.parseEntireEntry(this.state.currentEntry);
     } catch (e) {
-      console.error("Tried to update entry but it failed.");
-      console.error("Entry was: ");
-      console.error(this.state.currentEntry);
+      // Do nothing...
     }
-
-    console.log("parsed entry is: ");
-    console.log(parsedEntry);
 
     if (valid && parsedEntry != null) {
       firestore
@@ -203,12 +208,6 @@ class Editor extends React.Component {
                   );
 
                 default:
-                  console.log("generating text box outer");
-                  console.log("attr name: " + attr.name);
-                  console.log(
-                    "contents: " + this.state.currentEntry[attr.name]
-                  );
-                  console.log(this.state.currentEntry);
                   return (
                     <TextInput
                       key={`text-input-for-${attr.name}`}

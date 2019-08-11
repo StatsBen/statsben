@@ -34,9 +34,6 @@ class TextInput extends React.Component {
   render() {
     let { label, contents, type } = this.props;
     const { valid } = this.state;
-    console.log("label: " + label);
-    console.log("type: " + type);
-    console.log("contents: " + contents);
 
     if (contents && type == "date") {
       try {
