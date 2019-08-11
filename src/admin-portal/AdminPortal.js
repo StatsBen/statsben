@@ -29,8 +29,6 @@ class AdminPortal extends React.Component {
 
   render() {
     const { user } = this.state;
-    console.log("USER IS: " + user);
-    console.log(user);
     return (
       <div id="admin-portal">
         {user && whitelist.includes(user.email) ? (

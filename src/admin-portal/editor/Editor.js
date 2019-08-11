@@ -10,6 +10,7 @@ import { css, jsx } from "@emotion/core";
 import { firestore } from "../../authentication/firebase";
 import { globals } from "../../globals";
 import { validator } from "../../utils/validator";
+import { parser } from "../../utils/parser";
 
 class Editor extends React.Component {
   constructor(props) {
@@ -93,20 +94,25 @@ class Editor extends React.Component {
   submitNewEntry = event => {
     event.preventDefault();
     let valid = true;
+    let parsedEntry = null;
 
     try {
       valid = validator.validateEntireEntry(this.state.currentEntry);
+      parsedEntry = parser.parseEntireEntry(this.state.currentEntry);
     } catch (e) {
       console.error("Tried to update entry but it failed.");
       console.error("Entry was: ");
       console.error(this.state.currentEntry);
     }
 
-    if (valid) {
+    console.log("parsed entry is: ");
+    console.log(parsedEntry);
+
+    if (valid && parsedEntry != null) {
       firestore
         .collection("entries")
         .doc(this.state.currentEntry.name)
-        .set(this.state.currentEntry);
+        .set(parsedEntry);
       this.resetWriter();
     }
   };
@@ -125,20 +131,25 @@ class Editor extends React.Component {
     event.preventDefault();
 
     let valid = true;
+    let parsedEntry = null;
 
     try {
       valid = validator.validateEntireEntry(this.state.currentEntry);
+      parsedEntry = parser.parseEntireEntry(this.state.currentEntry);
     } catch (e) {
       console.error("Tried to update entry but it failed.");
       console.error("Entry was: ");
       console.error(this.state.currentEntry);
     }
 
-    if (valid) {
+    console.log("parsed entry is: ");
+    console.log(parsedEntry);
+
+    if (valid && parsedEntry != null) {
       firestore
         .collection("entries")
         .doc(this.state.oldName)
-        .set(this.state.currentEntry);
+        .set(parsedEntry);
       this.resetWriter();
     }
   };
