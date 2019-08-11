@@ -30,7 +30,7 @@ test("Test YDS Grade Validator", () => {
   expect(validator.validateYDSGrade("5.9b")).toEqual(false);
   expect(validator.validateYDSGrade("5.16")).toEqual(false);
   expect(validator.validateYDSGrade("5.122")).toEqual(false);
-  expect(validator.validateYDSGrade(5.12)).toEqual(false);
+  expect(validator.validateYDSGrade(5.12)).toEqual(true);
   expect(validator.validateYDSGrade("5.2")).toEqual(true);
   expect(validator.validateYDSGrade("5.9")).toEqual(true);
   expect(validator.validateYDSGrade("5.9+")).toEqual(true);

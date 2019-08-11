@@ -24,7 +24,7 @@ const validator = {
   },
 
   validateDate(input) {
-    if (input === "" || input === null) return false; // Must have contents!
+    if (input === "" || input == null) return false; // Must have contents!
 
     try {
       parser.parseDate(input);
@@ -171,50 +171,51 @@ const validator = {
         console.error(`${value} isn't a valid value for type ${type}`);
         throw new Error("Validation Error");
       }
+    } else if (type == "alpineGrade") {
+      try {
+        valid = this.validateAlpineGrade(value);
+      } catch (e) {
+        console.error(`${value} isn't a valid value for type ${type}`);
+        throw new Error("Validation Error");
+      }
     } else if (type == "commitmentGrade") {
       try {
-        let g = parser.parseCommitmentGrade(value);
-        valid = this.validateCommitmentGrade(g);
+        valid = this.validateCommitmentGrade(value);
       } catch (e) {
         console.error(`${value} isn't a valid value for type ${type}`);
         throw new Error("Validation Error");
       }
     } else if (type == "distance") {
       try {
-        let g = parser.parseDistance(value);
-        valid = this.validateDistance(g);
+        valid = this.validateDistance(value);
       } catch (e) {
         console.error(`${value} isn't a valid value for type ${type}`);
         throw new Error("Validation Error");
       }
     } else if (type == "iceGrade") {
       try {
-        let g = parser.parseIceGrade(value);
-        valid = validator.validateIceGrade(g);
+        valid = validator.validateIceGrade(value);
       } catch (e) {
         console.error(`${value} isn't a valid value for type ${type}`);
         throw new Error("Validation Error");
       }
     } else if (type == "ydsGrade") {
       try {
-        let g = parser.parseYDSGrade(value);
-        valid = validator.validateYDSGrade(g);
+        valid = validator.validateYDSGrade(value);
       } catch (e) {
         console.error(`${value} isn't a valid value for type ${type}`);
         throw new Error("Validation Error");
       }
     } else if (type == "scramblingGrade") {
       try {
-        let g = parser.parseScramblingGrade(value);
-        valid = validator.validateScramblingGrade(g);
+        valid = validator.validateScramblingGrade(value);
       } catch (e) {
         console.error(`${value} isn't a valid value for type ${type}`);
         throw new Error("Validation Error");
       }
     } else if (type == "vert") {
       try {
-        let g = parser.parseVert(value);
-        valid = validator.validateVert(g);
+        valid = validator.validateVert(value);
       } catch (e) {
         console.error(`${value} isn't a valid value for type ${type}`);
         throw new Error("Validation Error");

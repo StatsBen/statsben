@@ -9,7 +9,7 @@ const parser = {
   },
 
   parseAlpineGrade(raw) {
-    if (raw === "" || raw === null) return raw; // Empty things are fine :)
+    if (raw === "" || raw == null) return raw; // Empty things are fine :)
 
     const e = new Error("Failed to parse alpine grade");
     const alpRegExp = /(F|PD|AD|D)[+-]?$/;
@@ -30,22 +30,42 @@ const parser = {
     }
   },
 
+  parseBoolean(raw) {
+    if (raw === "" || raw == null) return false;
+
+    if (typeof raw == "boolean") {
+      return raw;
+    } else if (typeof raw == "string") {
+      if (raw.includes("true")) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  },
+
   parseDate(raw) {
-    console.log("in parseDate: " + raw);
-    console.log(raw);
-    console.log(raw instanceof Date);
-    console.log(typeof raw);
     if (raw == "" || raw == null) return raw; // Empty things are fine :)
 
     try {
-      if (raw instanceof Date) return raw.toString();
+      raw = Date(raw.toDate()); // this'll make a JS date from a Firestore timestamp!
+    } catch (e) {
+      console.log("not a Firestore Timestamp, turns out...");
+    }
+
+    // try raw.toDate()!!!
+
+    try {
+      if (raw instanceof Date) return raw;
 
       let test = new Date(raw);
       if (test == "Invalid Date") {
         let e = new Error("Failed to parse Date");
         this.poopError("parseDate", raw, null, e);
       } else {
-        return test.toString();
+        return test;
       }
     } catch (e) {
       this.poopError("parseDate", raw, null, e);
@@ -53,7 +73,7 @@ const parser = {
   },
 
   parseCommitmentGrade(raw) {
-    if (raw === "" || raw === null) return raw; // Empty things are fine :)
+    if (raw === "" || raw == null) return raw; // Empty things are fine :)
 
     const e = new Error("Couldn't parse commitment grade.");
     const gradeRegExp = /(?<![VI])(IV|V|VI|I+)$/;
@@ -108,7 +128,7 @@ const parser = {
   },
 
   parseDistance(raw) {
-    if (raw === "" || raw === null) return raw; // Empty things are fine :)
+    if (raw === "" || raw == null) return raw; // Empty things are fine :)
 
     const e = new Error("Couldn't parse distance");
     var dKmRegExp = /[0-9]+km/;
@@ -161,7 +181,7 @@ const parser = {
   },
 
   parseIceGrade(raw) {
-    if (raw === "" || raw === null) return raw; // Empty things are fine :)
+    if (raw === "" || raw == null) return raw; // Empty things are fine :)
 
     const e = new Error("Couldn't parse ice grade");
     const iceRegExp = /(WI[1-6][+-]?|AI[1-6][+-]?)/;
@@ -185,10 +205,13 @@ const parser = {
   },
 
   parseYDS(raw) {
-    if (raw === "" || raw === null) return raw; // Empty things are fine :)
+    if (raw === "" || raw == null) return raw; // Empty things are fine :)
 
     const e = new Error("Couldn't parse YDS Grade");
     const ydsRegExp = /5\.([2-9][+-]?|1[0-5][abcd]?)$/;
+    console.log(typeof raw);
+
+    if (typeof raw == "number") raw = raw.toString();
 
     if (typeof raw == "string") {
       if (ydsRegExp.test(raw)) {
@@ -207,7 +230,7 @@ const parser = {
   },
 
   parseScramblingGrade(raw) {
-    if (raw === "" || raw === null) return raw; // Empty things are fine :)
+    if (raw === "" || raw == null) return raw; // Empty things are fine :)
 
     const e = new Error("Couldn't parse scrambling grade");
     const numRegExp = /(?<!\d)[1-5](?!\d)/;
@@ -321,7 +344,7 @@ const parser = {
         break;
       case "ydsGrade":
         try {
-          return this.parseYDSGrade(raw);
+          return this.parseYDS(raw);
         } catch (e) {
           this.poopError("parseFullEntry", raw, "failed in parseYDSGrade", e);
         }
@@ -346,6 +369,8 @@ const parser = {
         }
         break;
 
+      case "boolean":
+        return raw;
       case "string":
         return raw;
       case "number":
@@ -382,21 +407,34 @@ const parser = {
         attr.objectFields.map(field => {
           try {
             let fToParse = raw[name][field.name];
-            raw[name][field.name] = this.parseAttrByName(fToParse, field.unit);
+            if (field.hasOwnProperty("unit")) {
+              raw[name][field.name] = this.parseAttrByTypeName(
+                fToParse,
+                field.unit
+              );
+            } else {
+              raw[name][field.name] = this.parseAttrByTypeName(
+                fToParse,
+                field.type
+              );
+            }
           } catch (e) {
             console.error(
               "Failed to parse '" +
                 field.name +
-                "' on '" +
+                "' with '" +
                 raw[name][field.name] +
                 "'"
             );
+            console.error(e.message);
           }
         });
       } else {
         raw[name] = this.parseAttrByTypeName(attrToParse, attr.type);
       }
     });
+
+    if (raw.hasOwnProperty("[object Object]")) delete raw["[object Object]"];
 
     return raw;
   }
