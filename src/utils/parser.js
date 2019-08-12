@@ -51,7 +51,8 @@ const parser = {
 
     let rawJSDate = null;
     try {
-      rawJSDate = Date(raw.toDate()); // this'll make a JS date from a Firestore timestamp!
+      rawJSDate = raw.toDate(); // this'll make a JS date from a Firestore timestamp!
+      return raw;
     } catch (e) {
       console.log("not a Firestore Timestamp, turns out...");
       rawJSDate = raw;
@@ -294,7 +295,9 @@ const parser = {
   },
 
   parseAttrByTypeName(raw, type) {
-    if (raw === "" || raw === null) return raw; // Empty things are fine :)
+    if (type != "boolean") {
+      if (raw === "" || raw === null) return raw; // Empty things are fine :)
+    }
 
     switch (type) {
       case "alpineGrade":
@@ -370,7 +373,7 @@ const parser = {
         break;
 
       case "boolean":
-        return raw;
+        return this.parseBoolean(raw);
       case "string":
         return raw;
       case "number":
