@@ -17,6 +17,7 @@ const validEntry = {
     running: false,
     ice: false,
     projects: false,
+    paddling: false,
     work: false,
     certifications: false,
     publications: false,
