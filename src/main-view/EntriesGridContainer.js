@@ -6,8 +6,8 @@ import Masonry from "react-masonry-css";
 const EntriesGridContainer = props => {
   const breakpointColsObj = {
     default: 2,
-    1200: 1,
-    1800: 2
+    1400: 1,
+    2200: 2
   };
   // ^ Special object for the react-masonry-css library (see imports)
 
