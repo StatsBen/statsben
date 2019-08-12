@@ -47,7 +47,7 @@ class Footer extends React.Component {
           </a>
         </div>
         <div id="lil-version-number">
-          <span>version 0.9.9</span>
+          <span>version 1.3.2</span>
         </div>
         <div style={{ float: "none", clear: "both", width: "100%" }} />
       </div>
