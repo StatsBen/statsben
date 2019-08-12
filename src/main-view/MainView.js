@@ -49,6 +49,11 @@ class MainView extends React.Component {
       this.state.activeFilters.map(type => {
         q = q.where(`types.${type}`, "==", true);
       });
+    } else {
+      // default to exclude work, projects, and publications.
+      q.where("types.projects", "==", false);
+      q.where("types.publications", "==", false);
+      q.where("types.work", "==", false);
     }
 
     q.get()

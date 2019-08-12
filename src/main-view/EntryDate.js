@@ -5,8 +5,6 @@ import moment from "moment";
 import { globals } from "../globals";
 
 const EntryDate = props => {
-  console.log(props.date.toDate());
-
   return (
     <span
       css={css`
