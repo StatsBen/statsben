@@ -44,16 +44,21 @@ class MainView extends React.Component {
       q = q.orderBy("date", "desc");
       q = q.limit(this.state.limit);
     }
+    console.log("active filters are: ");
+    console.log(this.state.activeFilters);
+    console.log("length: " + this.state.activeFilters.length);
+
+    const defaultOffs = ["projects", "certifications", "publications", "work"];
+
+    defaultOffs.map(type => {
+      if (this.state.activeFilters.includes(type)) return;
+      q = q.where(`types.${type}`, "==", false);
+    });
 
     if (this.state.activeFilters.length) {
       this.state.activeFilters.map(type => {
         q = q.where(`types.${type}`, "==", true);
       });
-    } else {
-      // default to exclude work, projects, and publications.
-      q.where("types.projects", "==", false);
-      q.where("types.publications", "==", false);
-      q.where("types.work", "==", false);
     }
 
     q.get()
