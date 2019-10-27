@@ -16,7 +16,7 @@
     "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
     "dev": "parcel src/index.html",
     "build": "parcel build src/index.html",
-    "deploy": "parcel build src/index.html && version -patch && firebase deploy"
+    "deploy": "parcel build src/index.html && npm version patch && firebase deploy"
   },
   "keywords": [],
   "author": "",
