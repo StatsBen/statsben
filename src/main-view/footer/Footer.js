@@ -1,4 +1,5 @@
 import React from "react";
+import packageJSON from "../../../package.json";
 import "./footer.css";
 
 class Footer extends React.Component {
@@ -47,7 +48,7 @@ class Footer extends React.Component {
           </a>
         </div>
         <div id="lil-version-number">
-          <span>version 1.3.2</span>
+          <span>version {packageJSON.version}</span>
         </div>
         <div style={{ float: "none", clear: "both", width: "100%" }} />
       </div>
