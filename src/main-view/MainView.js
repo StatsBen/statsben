@@ -7,7 +7,8 @@ import EntriesGridContainer from "./EntriesGridContainer";
 import LoadingMessage from "./LoadingMessage";
 import LoadMoreButton from "./LoadMoreButton";
 import NoEntries from "./NoEntries";
-import { firestore } from "../authentication/firebase";
+import { connect } from "react-redux";
+import { fetchFiveMore } from "../actions/actions";
 import "./styles/entries.css";
 import { globals } from "../globals";
 
@@ -15,16 +16,7 @@ class MainView extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      entries: [],
-      types: globals.types,
-      limit: 5,
-      alreadyLoaded: null,
-      activeFilters: [],
-      moreToLoad: true,
-      loading: true,
-      noEntries: false
-    };
+    this.state = { activeFilters: [] };
   }
 
   componentDidMount = async () => {
@@ -32,61 +24,8 @@ class MainView extends React.Component {
   };
 
   loadEntries = async () => {
-    this.setState({ loading: true });
-
-    let q = await firestore.collection("entries");
-
-    if (this.state.alreadyLoaded) {
-      q = q.orderBy("date", "desc");
-      q = q.startAfter(this.state.alreadyLoaded);
-      q = q.limit(this.state.limit);
-    } else {
-      q = q.orderBy("date", "desc");
-      q = q.limit(this.state.limit);
-    }
-    console.log("active filters are: ");
-    console.log(this.state.activeFilters);
-    console.log("length: " + this.state.activeFilters.length);
-
-    const defaultOffs = ["projects", "certifications", "publications", "work"];
-
-    defaultOffs.map(type => {
-      if (this.state.activeFilters.includes(type)) return;
-      q = q.where(`types.${type}`, "==", false);
-    });
-
-    if (this.state.activeFilters.length) {
-      this.state.activeFilters.map(type => {
-        q = q.where(`types.${type}`, "==", true);
-      });
-    }
-
-    q.get()
-      .then(snapshot => {
-        if (snapshot.empty) {
-          this.setState({
-            entries: [],
-            alreadyLoaded: null,
-            loading: false,
-            noEntries: true,
-            moreToLoad: false
-          });
-        } else {
-          const entries = snapshot.docs.map(doc => doc.data());
-          this.setState(state => ({
-            entries: [...state.entries, ...entries],
-            alreadyLoaded: snapshot.docs[snapshot.docs.length - 1],
-            loading: false,
-            noEntries: false,
-            moreToLoad: this.state.limit == snapshot.docs.length
-          }));
-        }
-      })
-      .catch(err => {
-        console.error("Firestore error!");
-        console.error(err);
-        // alert("Uh oh! Something just broke... please reload the page.");
-      });
+    const { fetchFiveMore } = this.props;
+    fetchFiveMore();
   };
 
   addTypeFilter = event => {
@@ -144,22 +83,24 @@ class MainView extends React.Component {
   render() {
     const {
       entries,
-      activeFilters,
-      types,
-      loading,
-      noEntries,
+      waitingForFirestore,
+      // activeFilters,
       moreToLoad
-    } = this.state;
+    } = this.props;
+
+    const { activeFilters } = this.state;
+
+    console.log(this.props);
 
     return (
       <div id="main-entries-container">
         <NavBar />
 
         {/* Show message if query returns empty snapshot... */}
-        {noEntries ? <NoEntries /> : null}
+        {entries.length == 0 ? <NoEntries /> : null}
 
         {/* Show loading component if state is loading */}
-        {loading ? <LoadingMessage /> : null}
+        {waitingForFirestore ? <LoadingMessage /> : null}
 
         <div id="page-splitter">
           {/* ^ Outer container for some fancy, auto scaling FlexBox sorcery */}
@@ -175,13 +116,13 @@ class MainView extends React.Component {
             addType={this.addTypeFilter}
             removeType={this.removeTypeFilter}
             activeFilters={activeFilters}
-            types={types}
+            types={globals.types}
           />
         </div>
         {/*<- end of Page Splitter */}
 
         {/* Only show the Load More link if the state isn't loading... */}
-        {!loading ? (
+        {!waitingForFirestore ? (
           <LoadMoreButton loadMore={this.loadEntries} moreToLoad={moreToLoad} />
         ) : null}
 
@@ -191,4 +132,20 @@ class MainView extends React.Component {
   }
 }
 
-export default MainView;
+const mapStateToProps = state => ({
+  entries: state.entriesReducer.entries,
+  waitingForFirestore: state.entriesReducer.waitingForFirestore,
+  firestoreError: state.entriesReducer.firestoreError,
+  // activeFilters: state.activeFilters,
+  moreToLoad: state.entriesReducer.moreToLoad,
+  lastLoaded: state.entriesReducer.lastLoaded
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchFiveMore: () => dispatch(fetchFiveMore())
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MainView);
