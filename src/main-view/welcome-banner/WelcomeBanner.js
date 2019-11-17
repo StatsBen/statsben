@@ -46,7 +46,7 @@ const WelcomeTextContainer = props => {
         width: 100%;
         height: 3em;
         top: ${topMargin}px;
-        color: ${`#111111`};
+        color: ${globals.colours.darkGray};
         text-align: center;
         background-blend-mode: lighten;
       `}
@@ -60,7 +60,8 @@ const Title = props => {
   return (
     <div
       css={css`
-        font-size: 3em;
+        font-family: ${globals.fonts.accent};
+        font-size: 3.5em;
         font-weight: 900;
       `}
     >
@@ -74,7 +75,9 @@ const SubTitle = props => {
     <div
       css={css`
         margin-bottom: 1.5em;
-        font-size: 1em;
+        font-family: ${globals.fonts.accent};
+        font-size: 1.2em;
+        font-weight: 900;
       `}
     >
       {props.children}
