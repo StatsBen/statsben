@@ -149,7 +149,7 @@ class MainView extends React.Component {
 
     return (
       <div id="main-entries-container">
-        <NavBar />
+        <WelcomeBanner />
 
         {/* Show message if query returns empty snapshot... */}
         {noEntries ? <NoEntries /> : null}

@@ -1,40 +1,27 @@
-import React from "react";
+require("react");
+/** @jsx jsx */
+import { css, jsx } from "@emotion/core";
+import { globals } from "../../globals";
 
-class WelcomeBanner extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { op: 1 };
-  }
+const WelcomeContainer = () => {
+  const bannerHeight = Math.max(window.innerHeight - 100, 400);
 
-  handleScroll = () => {
-    if (window.scrollY > 100 && this.state.op == 0) {
-      return;
-    } else if (window.scrollY < 100) {
-      this.setState({ op: 1 - window.scrollY / 100 });
-    } else {
-      this.setState({ op: 0 });
-    }
-  };
+  return (
+    <div
+      css={css`
+        width: 100%;
+        height: ${bannerHeight}px;
+        background: url(${globals.bannerImgs.abbot});
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: center;
+      `}
+    />
+  );
+};
 
-  componentDidMount() {
-    window.addEventListener("scroll", this.handleScroll);
-    this.setState({ op: 1 });
-  }
+const WelcomeBanner = () => {
+  return <WelcomeContainer>Welcome</WelcomeContainer>;
+};
 
-  render() {
-    return (
-      <div>
-        <div style={{ opacity: this.state.op }}>
-          <span>Ben Clark</span>
-          <span>
-            {`Welcome to my personal website,`}` <br />
-            {`Here's a non-exausted list of things I&apos;ve done.`}
-            <br />
-          </span>
-        </div>
-      </div>
-    );
-  }
-}
-
-export default LilHeader;
+export default WelcomeBanner;

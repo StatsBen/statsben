@@ -52,7 +52,8 @@ class Menu extends React.Component {
 
   scrollToTop = event => {
     event.preventDefault();
-    window.scrollTo(0, 0);
+    const top = window.innerHeight - 150;
+    window.scrollTo(0, top);
   };
 
   render() {
