@@ -1,5 +1,5 @@
 import React from "react";
-import NavBar from "./lil-header/LilHeader";
+import WelcomeBanner from "./welcome-banner/WelcomeBanner";
 import Menu from "./menu/Menu";
 import Footer from "./footer/Footer";
 import Entry from "./Entry";
