@@ -3,8 +3,9 @@ require("react");
 import { css, jsx } from "@emotion/core";
 import { globals } from "../../globals";
 
+const bannerHeight = Math.max(window.innerHeight - 100, 400);
+
 const WelcomeContainer = props => {
-  const bannerHeight = Math.max(window.innerHeight - 100, 400);
   return (
     <div
       css={css`
@@ -19,7 +20,6 @@ const WelcomeContainer = props => {
 };
 
 const WelcomeImage = () => {
-  const bannerHeight = Math.max(window.innerHeight - 100, 400);
   return (
     <div
       css={css`
@@ -31,6 +31,25 @@ const WelcomeImage = () => {
         background-attachment: fixed;
         background-position: center;
         opacity: 0.5;
+      `}
+    />
+  );
+};
+
+const Vignette = () => {
+  return (
+    <div
+      css={css`
+        position: absolute;
+        width: 100%;
+        height: ${bannerHeight}px;
+        background: radial-gradient(
+          rgba(0, 0, 0, 0),
+          rgba(0, 0, 0, 0.3),
+          rgba(0, 0, 0, 0.8)
+        );
+        background-attachment: fixed;
+        z-index: 5;
       `}
     />
   );
@@ -89,6 +108,7 @@ const WelcomeBanner = () => {
   return (
     <WelcomeContainer>
       <WelcomeImage />
+      <Vignette />
       <WelcomeTextContainer>
         <Title>Ben Clark</Title>
         <SubTitle>{`Climber, skier, employable person.`}</SubTitle>
