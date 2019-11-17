@@ -2,6 +2,7 @@ require("react");
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import { globals } from "../../globals";
+import RandomizedWelcomeImage from "./RandomizedWelcomeImage";
 
 const bannerHeight = Math.max(window.innerHeight - 100, 400);
 
@@ -16,23 +17,6 @@ const WelcomeContainer = props => {
     >
       {props.children}
     </div>
-  );
-};
-
-const WelcomeImage = () => {
-  return (
-    <div
-      css={css`
-        position: absolute;
-        width: 100%;
-        height: ${bannerHeight}px;
-        background: url(${globals.bannerImgs.baker});
-        background-size: cover;
-        background-attachment: fixed;
-        background-position: center;
-        opacity: 0.5;
-      `}
-    />
   );
 };
 
@@ -107,7 +91,7 @@ const SubTitle = props => {
 const WelcomeBanner = () => {
   return (
     <WelcomeContainer>
-      <WelcomeImage />
+      <RandomizedWelcomeImage />
       <Vignette />
       <WelcomeTextContainer>
         <Title>Ben Clark</Title>
