@@ -4,7 +4,7 @@ div#expandable-menu-outer {
   top: 0;
   right: 0;
   overflow: hidden;
-  z-index: 999;
+  z-index: 100;
 }
 
 div#menu-container {
@@ -15,7 +15,7 @@ div#menu-container {
   height: 100%;
   color: #bbbbbb;
   background: #222222;
-  z-index: 999;
+  z-index: 103;
   overflow: hidden;
 }
 
