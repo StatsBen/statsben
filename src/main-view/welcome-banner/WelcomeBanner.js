@@ -28,9 +28,9 @@ const Vignette = () => {
         width: 100%;
         height: ${bannerHeight}px;
         background: radial-gradient(
-          rgba(0, 0, 0, 0),
-          rgba(0, 0, 0, 0.3),
-          rgba(0, 0, 0, 0.8)
+          rgba(255, 255, 255, 0.3),
+          rgba(150, 150, 150, 0.2),
+          rgba(50, 50, 50, 0.8)
         );
         background-attachment: fixed;
         z-index: 5;
@@ -52,6 +52,7 @@ const WelcomeTextContainer = props => {
         color: ${globals.colours.darkGray};
         text-align: center;
         background-blend-mode: lighten;
+        z-index: 6;
       `}
     >
       {props.children}
@@ -66,6 +67,7 @@ const Title = props => {
         font-family: ${globals.fonts.accent};
         font-size: 3.5em;
         font-weight: 900;
+        user-select: none;
       `}
     >
       {props.children}
@@ -81,6 +83,7 @@ const SubTitle = props => {
         font-family: ${globals.fonts.accent};
         font-size: 1.2em;
         font-weight: 900;
+        user-select: none;
       `}
     >
       {props.children}
