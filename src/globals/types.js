@@ -1,4 +1,4 @@
-let types = [
+const types = [
   "alpine",
   "rock",
   "skiing",

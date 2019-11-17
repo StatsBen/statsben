@@ -1,4 +1,4 @@
-let colours = {
+const colours = {
   white: "#ffffff",
   mediumGray: "#999999",
   charcoal: "#666666",
