@@ -94,16 +94,12 @@ class MainView extends React.Component {
     const type = event.target.innerHTML;
 
     this.setState(
-      state => {
-        const updatedList = state.activeFilters;
-        updatedList.push(type);
-        return {
-          activeFilters: updatedList,
-          entries: [],
-          alreadyLoaded: null,
-          loading: true,
-          noEntries: false
-        };
+      {
+        activeFilters: [type],
+        entries: [],
+        alreadyLoaded: null,
+        loading: true,
+        noEntries: false
       },
       () => {
         this.loadEntries();
