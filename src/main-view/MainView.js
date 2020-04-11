@@ -2,11 +2,10 @@ import React from "react";
 import WelcomeBanner from "./welcome-banner/WelcomeBanner";
 import Menu from "./menu/Menu";
 import Footer from "./footer/Footer";
-import Entry from "./Entry";
-import EntriesGridContainer from "./EntriesGridContainer";
 import LoadingMessage from "./LoadingMessage";
 import LoadMoreButton from "./LoadMoreButton";
 import NoEntries from "./NoEntries";
+import SmartColumns from "./SmartColumns";
 import { firestore } from "../authentication/firebase";
 import "./styles/entries.css";
 import { globals } from "../globals";
@@ -160,11 +159,9 @@ class MainView extends React.Component {
         <div id="page-splitter">
           {/* ^ Outer container for some fancy, auto scaling FlexBox sorcery */}
 
-          <EntriesGridContainer>
-            {entries.map((entry, i) => {
-              return <Entry key={`entry-${i}`} entry={entry} />;
-            })}
-          </EntriesGridContainer>
+          <div id="content-container">
+            <SmartColumns {...entries} />
+          </div>
 
           {/*Generated Above w/ buildEntriesListOutput */}
           <Menu
