@@ -2,34 +2,37 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Entry from "./Entry";
 
-const minColWidth = 300;
+const minColWidth = 550;
 
-const SmartColumns = entries => {
-  // const pageWidth = document.body.clientWidth;
-  const nCols = 2; //Math.floor(pageWidth / minColWidth);
-  const colWidth = Math.floor((1 / nCols) * 100) - 2;
+const SmartColumns = (entries) => {
+  const pageWidth = document.body.clientWidth;
+  const nCols = Math.floor(pageWidth / minColWidth);
+  const colWidth = Math.floor((1 / nCols) * 100);
   const container = document.getElementById("content-container");
 
   // Failsafe
   // TODO make error better...
   if (!entries || !Object.keys(entries).length || !container)
-    return <span>Error...</span>;
-
-  container.innerHTML = "";
-
-  // Setup child columns
+    return <span>Loading...</span>;
   const cols = [];
-  for (let i = 0; i < nCols; i++) {
-    let newCol = document.createElement("div");
-    newCol.setAttribute("class", "column-container");
-    newCol.style.position = "relative";
-    newCol.style.float = "left";
-    newCol.style.width = colWidth + "%";
-    newCol.style.background = "brown";
-    newCol.padding = "50px 25px";
-    container.append(newCol);
-    cols[i] = { height: 0, element: newCol };
-  }
+
+  const clearContainerAndMakeCols = () => {
+    container.innerHTML = "";
+    // Setup child columns
+    for (let i = 0; i < nCols; i++) {
+      let newCol = document.createElement("div");
+      newCol.setAttribute("class", "column-container");
+      newCol.style.position = "relative";
+      newCol.style.float = "left";
+      newCol.style.minHeight = "100px";
+      newCol.style.minWidth = "10px";
+      newCol.style.width = colWidth + "%";
+      // newCol.style.background = "brown";
+      newCol.style.paddingTop = "50px";
+      container.append(newCol);
+      cols[i] = { height: 0, element: newCol };
+    }
+  };
 
   const hiddenContainyBoi = document.createElement("div");
   hiddenContainyBoi.style.position = "absolute";
@@ -37,30 +40,33 @@ const SmartColumns = entries => {
   container.appendChild(hiddenContainyBoi);
 
   const insertEntryInOrder = (col, entryElement, key) => {
+    if (!col || !entryElement) return; // Just bail...
+
     let hasBeenAdded = false;
     let keyNo = parseInt(key);
     for (let existingEntry of col.element.children) {
       let keyToCompare = existingEntry.getAttribute("index");
       if (keyNo < keyToCompare) {
-        console.log("inserting " + keyNo + " before " + keyToCompare);
+        // console.log("inserting " + keyNo + " before " + keyToCompare);
         col.element.insertBefore(entryElement, existingEntry);
         hasBeenAdded = true;
       }
     }
     if (!hasBeenAdded) {
       col.element.appendChild(entryElement);
-      console.log("inserting " + keyNo + " at the end.");
+      // console.log("inserting " + keyNo + " at the end.");
     }
     col.height += entryElement.clientHeight;
   };
 
   const addElementToColumns = (element, key) => {
+    let shortestIndex = 0;
+    cols.forEach((col, i) => {
+      if (cols[i].height < cols[shortestIndex].height) shortestIndex = i;
+    });
+
     if (element) {
-      if (cols[0].height <= cols[1].height) {
-        insertEntryInOrder(cols[0], element, key);
-      } else {
-        insertEntryInOrder(cols[1], element, key);
-      }
+      insertEntryInOrder(cols[shortestIndex], element, key);
     } else {
       console.log("ref is undef");
     }
@@ -115,12 +121,15 @@ const SmartColumns = entries => {
   });
 
   Promise.allSettled(refPromises).then(() => {
+    let preRenderScroll = window.scrollY;
+    clearContainerAndMakeCols(container, nCols, colWidth, cols);
     readyEntryElements.forEach(({ index, element }) => {
       addElementToColumns(element, index);
     });
+    window.scrollTo(0, preRenderScroll);
   });
 
-  return <span>test</span>;
+  return <span> </span>;
 };
 
 export default SmartColumns;
