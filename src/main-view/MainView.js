@@ -2,7 +2,7 @@ import React from "react";
 import WelcomeBanner from "./welcome-banner/WelcomeBanner";
 import Menu from "./menu/Menu";
 import Footer from "./footer/Footer";
-import LoadingMessage from "./LoadingMessage";
+// import LoadingMessage from "./LoadingMessage";
 import LoadMoreButton from "./LoadMoreButton";
 import NoEntries from "./NoEntries";
 import SmartColumns from "./SmartColumns";
@@ -154,7 +154,7 @@ class MainView extends React.Component {
         {noEntries ? <NoEntries /> : null}
 
         {/* Show loading component if state is loading */}
-        {loading ? <LoadingMessage /> : null}
+        {/* {loading ? <LoadingMessage /> : null} */}
 
         <div id="page-splitter">
           {/* ^ Outer container for some fancy, auto scaling FlexBox sorcery */}
@@ -174,9 +174,12 @@ class MainView extends React.Component {
         {/*<- end of Page Splitter */}
 
         {/* Only show the Load More link if the state isn't loading... */}
-        {!loading ? (
-          <LoadMoreButton loadMore={this.loadEntries} moreToLoad={moreToLoad} />
-        ) : null}
+        {console.log("loading status: " + loading)}
+        <LoadMoreButton
+          active={!loading}
+          loadMore={this.loadEntries}
+          moreToLoad={moreToLoad}
+        />
 
         <Footer />
       </div>
