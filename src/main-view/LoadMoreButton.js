@@ -27,13 +27,14 @@ const LoadMoreButton = props => {
             font-size: 14pt;
             font-style: italic;
             font-weight: 700;
-            color: ${globals.colours.darkGray};
+            color: ${props.active
+              ? globals.colours.darkGray
+              : globals.colours.lightGray};
             &:hover {
               cursor: pointer;
-              color: ${globals.colours.lightGray};
             }
           `}
-          onClick={props.loadMore}
+          onClick={props.active ? props.loadMore : null}
         >
           Load More...
         </button>
