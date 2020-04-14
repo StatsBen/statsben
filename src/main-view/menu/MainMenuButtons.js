@@ -31,7 +31,7 @@ const MainMenuButtons = props => {
         onClick={props.toggleMenu}
         css={sharedButtonCSS}
       >
-        Filter
+        {props.expanded ? "Close" : "Filter"}
       </button>
     );
   };

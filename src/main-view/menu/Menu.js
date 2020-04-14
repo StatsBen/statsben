@@ -67,6 +67,7 @@ class Menu extends React.Component {
         <MainMenuButtons
           toggleMenu={this.toggleMenu}
           scrollToTop={this.scrollToTop}
+          expanded={this.state.expanded}
         />
 
         <div id="menu-container" style={expansionW}>
