@@ -2,12 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Entry from "./Entry";
 
-const minColWidth = 550;
+const minColWidth = 650;
 
-const SmartColumns = (entries) => {
+const SmartColumns = entries => {
   const pageWidth = document.body.clientWidth;
   const nCols = Math.floor(pageWidth / minColWidth);
-  const colWidth = Math.floor((1 / nCols) * 100);
+  const marginPercent = 5; // width of the column-margins in percent
+  const nMargins = nCols + 1;
+  const margins = nMargins * marginPercent;
+  const colWidth = Math.floor((1 / nCols) * (100 - margins));
   const container = document.getElementById("content-container");
 
   // Failsafe
@@ -25,10 +28,10 @@ const SmartColumns = (entries) => {
       newCol.style.position = "relative";
       newCol.style.float = "left";
       newCol.style.minHeight = "100px";
-      newCol.style.minWidth = "10px";
       newCol.style.width = colWidth + "%";
+      newCol.style.marginLeft = marginPercent + "%";
       // newCol.style.background = "brown";
-      newCol.style.paddingTop = "50px";
+      newCol.style.marginTop = "50px";
       container.append(newCol);
       cols[i] = { height: 0, element: newCol };
     }
