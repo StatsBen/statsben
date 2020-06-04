@@ -1,5 +1,5 @@
 import React from "react";
-import WelcomeBanner from "./welcome-banner/WelcomeBanner";
+// import WelcomeBanner from "./welcome-banner/WelcomeBanner";
 import Menu from "./menu/Menu";
 import Footer from "./footer/Footer";
 // import LoadingMessage from "./LoadingMessage";
@@ -148,8 +148,6 @@ class MainView extends React.Component {
 
     return (
       <div id="main-entries-container">
-        <WelcomeBanner />
-
         {/* Show message if query returns empty snapshot... */}
         {noEntries ? <NoEntries /> : null}
 
