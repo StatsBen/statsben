@@ -3,6 +3,7 @@ import React from "react";
 import { css, jsx } from "@emotion/core";
 // import WelcomeBanner from "./welcome-banner/WelcomeBanner";
 import Menu from "./static-menu/Menu";
+import Header from "./Header";
 import Footer from "./footer/Footer";
 // import LoadingMessage from "./LoadingMessage";
 import LoadMoreButton from "./LoadMoreButton";
@@ -165,6 +166,8 @@ class MainView extends React.Component {
 
     return (
       <div css={containerCSS}>
+        <Header />
+
         {/* Show message if query returns empty snapshot... */}
         {noEntries ? <NoEntries /> : null}
 
