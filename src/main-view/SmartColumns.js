@@ -2,11 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Entry from "./Entry";
 
-const minColWidth = 650;
+const minColWidth = 700;
 
 const SmartColumns = entries => {
   const pageWidth = document.body.clientWidth;
-  const nCols = Math.floor(pageWidth / minColWidth);
+  const nCols = Math.max(Math.floor(pageWidth / minColWidth), 1);
   const marginPercent = 5; // width of the column-margins in percent
   const nMargins = nCols + 1;
   const margins = nMargins * marginPercent;
@@ -125,11 +125,13 @@ const SmartColumns = entries => {
 
   Promise.allSettled(refPromises).then(() => {
     let preRenderScroll = window.scrollY;
+    console.log("PRE RENdER SCROLL: " + preRenderScroll);
     clearContainerAndMakeCols(container, nCols, colWidth, cols);
     readyEntryElements.forEach(({ index, element }) => {
       addElementToColumns(element, index);
     });
     window.scrollTo(0, preRenderScroll);
+    console.log("AFTER: " + window.scrollY);
   });
 
   return <span> </span>;
