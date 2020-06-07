@@ -7,7 +7,7 @@ const types = [
   "running",
   "ice",
   "paddling",
-  "projects",
+  //"projects", // turn this back on if you ever fucking finish something...
   "work",
   "certifications",
   "publications",

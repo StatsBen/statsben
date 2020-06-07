@@ -1,14 +1,23 @@
 import React from "react";
+/** @jsx jsx */
+import { css, jsx } from "@emotion/core";
 // import WelcomeBanner from "./welcome-banner/WelcomeBanner";
-import Menu from "./menu/Menu";
+import Menu from "./static-menu/Menu";
 import Footer from "./footer/Footer";
 // import LoadingMessage from "./LoadingMessage";
 import LoadMoreButton from "./LoadMoreButton";
 import NoEntries from "./NoEntries";
 import SmartColumns from "./SmartColumns";
 import { firestore } from "../authentication/firebase";
-import "./styles/entries.css";
 import { globals } from "../globals";
+
+const containerCSS = css`
+  float: none;
+  width: calc(100% - 8em);
+  margin-left: 8em;
+  padding-bottom: 300px;
+  min-height: ${window.innerHeight + "px"};
+`;
 
 class MainView extends React.Component {
   constructor(props) {
@@ -30,7 +39,7 @@ class MainView extends React.Component {
     this.loadEntries();
   };
 
-  loadEntries = async () => {
+  loadEntries = async (backToTop = false) => {
     this.setState({ loading: true });
 
     let q = await firestore.collection("entries");
@@ -80,12 +89,20 @@ class MainView extends React.Component {
             moreToLoad: this.state.limit == snapshot.docs.length
           }));
         }
+
+        if (backToTop) this.scrollToTop(null);
       })
       .catch(err => {
         console.error("Firestore error!");
         console.error(err);
         // alert("Uh oh! Something just broke... please reload the page.");
       });
+  };
+
+  scrollToTop = event => {
+    if (event) event.preventDefault();
+    const top = 0; //window.innerHeight - 150;
+    window.scrollTo(0, top);
   };
 
   addTypeFilter = event => {
@@ -101,7 +118,7 @@ class MainView extends React.Component {
         noEntries: false
       },
       () => {
-        this.loadEntries();
+        this.loadEntries(true);
       }
     );
   };
@@ -131,7 +148,7 @@ class MainView extends React.Component {
         }
       },
       () => {
-        this.loadEntries();
+        this.loadEntries(true);
       }
     );
   };
@@ -147,32 +164,25 @@ class MainView extends React.Component {
     } = this.state;
 
     return (
-      <div id="main-entries-container">
+      <div css={containerCSS}>
         {/* Show message if query returns empty snapshot... */}
         {noEntries ? <NoEntries /> : null}
 
         {/* Show loading component if state is loading */}
         {/* {loading ? <LoadingMessage /> : null} */}
 
-        <div id="page-splitter">
-          {/* ^ Outer container for some fancy, auto scaling FlexBox sorcery */}
-
+        <div>
           <div id="content-container">
             <SmartColumns {...entries} />
           </div>
-
-          {/*Generated Above w/ buildEntriesListOutput */}
           <Menu
             addType={this.addTypeFilter}
             removeType={this.removeTypeFilter}
             activeFilters={activeFilters}
             types={types}
+            scrollToTop={this.scrollToTop}
           />
         </div>
-        {/*<- end of Page Splitter */}
-
-        {/* Only show the Load More link if the state isn't loading... */}
-        {console.log("loading status: " + loading)}
         <LoadMoreButton
           active={!loading}
           loadMore={this.loadEntries}
