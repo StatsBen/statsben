@@ -57,7 +57,12 @@ class MainView extends React.Component {
     console.log(this.state.activeFilters);
     console.log("length: " + this.state.activeFilters.length);
 
-    const defaultOffs = ["projects", "certifications", "publications", "work"];
+    const defaultOffs = [
+      /*"projects",*/
+      "certifications",
+      "publications",
+      "work"
+    ];
 
     defaultOffs.map(type => {
       if (this.state.activeFilters.includes(type)) return;
