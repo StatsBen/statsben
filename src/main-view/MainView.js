@@ -53,9 +53,10 @@ class MainView extends React.Component {
       q = q.orderBy("date", "desc");
       q = q.limit(this.state.limit);
     }
-    console.log("active filters are: ");
-    console.log(this.state.activeFilters);
-    console.log("length: " + this.state.activeFilters.length);
+
+    // console.log("active filters are: ");
+    // console.log(this.state.activeFilters);
+    // console.log("length: " + this.state.activeFilters.length);
 
     const defaultOffs = [
       /*"projects",*/
@@ -96,7 +97,7 @@ class MainView extends React.Component {
           }));
         }
 
-        if (backToTop) this.scrollToTop(null);
+        if (backToTop === true) this.scrollToTop(null);
       })
       .catch(err => {
         console.error("Firestore error!");
