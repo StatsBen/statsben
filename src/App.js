@@ -6,7 +6,7 @@ import Favicon from "react-favicon";
 import "./global-styles.css";
 
 const LoadableMainView = Loadable({
-  loader: () => import("./main-view/MainView"),
+  loader: () => import("./MainView"),
   loading() {
     return <p>Loading ... ... ... </p>;
   }
