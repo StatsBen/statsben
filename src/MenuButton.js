@@ -17,10 +17,16 @@ const ButtonText = styled.a`
   border-bottom: thin solid #dddddd;
 `;
 
-const MenuButtons = () => {
+const MenuButtons = props => {
+  const clickHandler = event => {
+    const { showMenu } = props;
+    event.preventDefault();
+    showMenu();
+  };
+
   return (
     <Container>
-      <ButtonText>Menu</ButtonText>
+      <ButtonText onClick={clickHandler}>Menu</ButtonText>
     </Container>
   );
 };
