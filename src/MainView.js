@@ -1,5 +1,6 @@
 import React from "react";
-import Entry from "./Entry";
+// import Entry from "./Entry";
+import Loading from "./Loading";
 import MainMenu from "./modals/MainMenu";
 import MenuButton from "./MenuButton";
 import Modal from "./Modal";
@@ -9,6 +10,7 @@ class MainView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading: true,
       showMenuModal: false
     };
   }
@@ -22,7 +24,7 @@ class MainView extends React.Component {
   };
 
   render() {
-    const { showMenuModal } = this.state;
+    const { loading, showMenuModal } = this.state;
 
     return (
       <div>
@@ -33,8 +35,12 @@ class MainView extends React.Component {
         )}
 
         <MenuButton showMenu={this.showMenu} />
-        <Entry />
-        <PaginationCarousel />
+
+        {loading && <Loading />}
+
+        {/* {<Entry />} */}
+
+        {!loading && <PaginationCarousel />}
       </div>
     );
   }
