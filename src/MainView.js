@@ -19,7 +19,6 @@ const initialState = {
   activeFilters: [],
   entries: [],
   entriesPerPage: 1, // TODO: Make this screen size dependant
-  limit: 2,
   loading: true,
   nPages: null,
   page: null,
@@ -56,9 +55,8 @@ class MainView extends React.Component {
       } else {
         const entries = action.snapshot.docs.map(doc => doc.data());
         newState.entries = entries;
-        newState.startAfter =
-          action.snapshot.docs[action.snapshot.docs.length - 1];
-        newState.startBefore = action.snapshot.docs[0];
+        newState.startAfter = action.snapshot.docs[action.snapshot.size - 1];
+        newState.endBefore = action.snapshot.docs[0];
         newState.loading = false;
       }
     }
@@ -66,20 +64,22 @@ class MainView extends React.Component {
     if (action.type === entryActionTypes.ENTRIES_REQUESTED) {
       console.log("A request for more entries has been made");
 
-      newState.loading = true;
-
-      let startBefore = null,
+      let endBefore = null,
         startAfter = null;
 
       if (action && action.direction === "next") {
+        newState.page++;
         startAfter = newState.startAfter;
       }
 
       if (action && action.direction === "prev") {
-        startBefore = newState.startBefore;
+        newState.page--;
+        endBefore = newState.endBefore;
       }
 
-      this.loadEntries(filters, startBefore, startAfter);
+      newState.loading = true;
+
+      this.loadEntries(filters, endBefore, startAfter);
     }
 
     if (action.type === entryActionTypes.FILTER_APPLIED) {
@@ -101,15 +101,15 @@ class MainView extends React.Component {
     this.customReducer(requestEntriesAction);
   };
 
-  loadEntries = async (filters, direction, startBefore, startAfter) => {
+  loadEntries = async (filters, endBefore, startAfter) => {
     // this.setState({ loading: true });
 
     let q = await firestore.collection("entries");
     q = q.orderBy("date", "desc");
-    q = q.limit(this.state.limit);
+    q = q.limit(this.state.entriesPerPage);
 
-    if (startBefore) q.startBefore(startBefore);
-    if (startAfter) q.startAfter(startAfter);
+    if (endBefore) q = q.endBefore(endBefore);
+    if (startAfter) q = q.startAfter(startAfter);
 
     const defaultOffs = [
       /*"projects",*/
@@ -156,8 +156,31 @@ class MainView extends React.Component {
     this.setState({ showMenuModal: false });
   };
 
+  next = () => {
+    const loadAction = {
+      type: entryActionTypes.ENTRIES_REQUESTED,
+      direction: "next"
+    };
+    this.customReducer(loadAction);
+  };
+
+  prev = () => {
+    const loadAction = {
+      type: entryActionTypes.ENTRIES_REQUESTED,
+      direction: "prev"
+    };
+    this.customReducer(loadAction);
+  };
+
   render() {
-    const { loading, showMenuModal } = this.state;
+    const { loading, nPages, page, showMenuModal } = this.state;
+
+    const carouselProps = {
+      nPages,
+      next: this.next,
+      page,
+      prev: this.prev
+    };
 
     return (
       <div>
@@ -173,7 +196,7 @@ class MainView extends React.Component {
 
         {/* {<Entry />} */}
 
-        {!loading && <PaginationCarousel />}
+        {!loading && <PaginationCarousel {...carouselProps} />}
       </div>
     );
   }

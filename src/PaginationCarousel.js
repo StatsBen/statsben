@@ -22,7 +22,7 @@ const Butt = styled.a`
   cursor: pointer;
 `;
 
-const PaginationCarousel = ({ nPages, selectedPage, next, previous }) => {
+const PaginationCarousel = ({ nPages, page, next, prev }) => {
   const handleNextClick = event => {
     event.preventDefault();
     next();
@@ -30,13 +30,13 @@ const PaginationCarousel = ({ nPages, selectedPage, next, previous }) => {
 
   const handlePreviousClick = event => {
     event.preventDefault();
-    previous();
+    prev();
   };
 
   return (
     <Container>
       <Butt onClick={handlePreviousClick}>prev</Butt>
-      <span>{`    (${selectedPage || 3}/${nPages || 22})    `}</span>
+      <span>{`    (${page || 3}/${nPages || 22})    `}</span>
       <Butt onClick={handleNextClick}>next</Butt>
     </Container>
   );
