@@ -41,42 +41,52 @@ class MainView extends React.Component {
       ? this.state.activeFilters
       : null;
 
-    switch (action.type) {
-      case entryActionTypes.ENTRIES_FAILED:
-        console.log("A request for more entries failed!");
-        console.error("Firestore error!");
-        console.error(action.err);
-        // TODO: show an error modal instead?
-        break;
+    if (action.type === entryActionTypes.ENTRIES_FAILED) {
+      console.log("A request for more entries failed!");
+      console.error("Firestore error!");
+      console.error(action.err);
+      // TODO: show an error modal instead?
+    }
 
-      case entryActionTypes.ENTRIES_LOADED:
-        console.log("A request for more entries just returned");
+    if (action.type === entryActionTypes.ENTRIES_LOADED) {
+      console.log("A request for more entries just returned");
 
-        if (!action.snapshot || action.snapshot.empty) {
-          // TODO: This is an error :/ handle it!
-        } else {
-          newState.entries = action.snapshot.docs.map(doc => doc.data());
-          newState.loading = false;
-        }
+      if (!action.snapshot || action.snapshot.empty) {
+        // TODO: This is an error :/ handle it!
+      } else {
+        const entries = action.snapshot.docs.map(doc => doc.data());
+        newState.entries = entries;
+        newState.startAfter =
+          action.snapshot.docs[action.snapshot.docs.length - 1];
+        newState.startBefore = action.snapshot.docs[0];
+        newState.loading = false;
+      }
+    }
 
-        break;
+    if (action.type === entryActionTypes.ENTRIES_REQUESTED) {
+      console.log("A request for more entries has been made");
 
-      case entryActionTypes.ENTRIES_REQUESTED:
-        console.log("A request for more entries has been made");
+      newState.loading = true;
 
-        newState.loading = true;
+      let startBefore = null,
+        startAfter = null;
 
-        this.loadEntries(filters);
+      if (action && action.direction === "next") {
+        startAfter = newState.startAfter;
+      }
 
-        break;
-      case entryActionTypes.FILTER_APPLIED:
-        console.log("A new filter was added to the list");
-        break;
-      case entryActionTypes.FILTER_REMOVED:
-        console.log("A filter type was removed from the list");
-        break;
-      default:
-        console.log("Custom reducer was called with an unknown action type...");
+      if (action && action.direction === "prev") {
+        startBefore = newState.startBefore;
+      }
+
+      this.loadEntries(filters, startBefore, startAfter);
+    }
+
+    if (action.type === entryActionTypes.FILTER_APPLIED) {
+      console.log("A new filter was added to the list");
+    }
+    if (action.type === entryActionTypes.FILTER_REMOVED) {
+      console.log("A filter type was removed from the list");
     }
 
     this.setState(newState);
@@ -84,18 +94,22 @@ class MainView extends React.Component {
 
   componentDidMount = async () => {
     const requestEntriesAction = {
-      type: entryActionTypes.ENTRIES_REQUESTED
+      type: entryActionTypes.ENTRIES_REQUESTED,
+      direction: null
     };
 
     this.customReducer(requestEntriesAction);
   };
 
-  loadEntries = async filters => {
+  loadEntries = async (filters, direction, startBefore, startAfter) => {
     // this.setState({ loading: true });
 
     let q = await firestore.collection("entries");
     q = q.orderBy("date", "desc");
     q = q.limit(this.state.limit);
+
+    if (startBefore) q.startBefore(startBefore);
+    if (startAfter) q.startAfter(startAfter);
 
     const defaultOffs = [
       /*"projects",*/
