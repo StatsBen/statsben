@@ -12,7 +12,7 @@ const Container = styled.div`
   color: #000000;
   text-align: center;
   word-spacing: 2em;
-  background: #FFFFFF;
+  background: #ffffff;
 `;
 
 const Butt = styled.a`
@@ -36,7 +36,7 @@ const PaginationCarousel = ({ nPages, page, next, prev }) => {
   return (
     <Container>
       <Butt onClick={handlePreviousClick}>prev</Butt>
-      <span>{`    (${page || 3}/${nPages || 22})    `}</span>
+      <span>{`    (${page || "..."}/${nPages || "..."})    `}</span>
       <Butt onClick={handleNextClick}>next</Butt>
     </Container>
   );

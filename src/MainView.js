@@ -67,6 +67,8 @@ class MainView extends React.Component {
       let endBefore = null,
         startAfter = null;
 
+      if (!newState.page) newState.page = 1;
+
       if (action && action.direction === "next") {
         newState.page++;
         startAfter = newState.startAfter;
