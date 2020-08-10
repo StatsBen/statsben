@@ -10,10 +10,15 @@ const functions = require("firebase-functions");
 
 // The Firebase Admin SDK to access Cloud Firestore.
 const admin = require("firebase-admin");
-const { ref } = require("firebase-functions/lib/providers/database");
+// const { ref } = require("firebase-functions/lib/providers/database");
 admin.initializeApp();
 
+// const cors = require('cors')({origin: true});
+
 exports.getEntriesCount = functions.https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Headers", "*");
+
   let snap = await admin
     .firestore()
     .collection("entries")
@@ -35,17 +40,19 @@ exports.getEntriesCount = functions.https.onRequest(async (req, res) => {
     );
 
     count = activeEntries.length;
-
-    res.status(200).json({
-      count,
-      types: req.query.types ? req.query.types : "all"
-    });
-    
   } else {
     count = snap.size;
-    res.status(200).json({
+  }
+
+  res.status(200).json({
+    data: {
       count,
       types: req.query.types ? req.query.types : "all"
-    });
-  }
+    }
+  });
+
+  // return {
+  //   count,
+  //   types: req.query.types ? req.query.types : "all"
+  // };
 });
