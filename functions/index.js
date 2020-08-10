@@ -19,6 +19,11 @@ exports.getEntriesCount = functions.https.onRequest(async (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
   res.set("Access-Control-Allow-Headers", "*");
 
+  let types = null;
+
+  if (req.query && req.query.types) types = req.query.types;
+  else if (req.body && req.body.data && req.body.data.types) types = req.body.data.types;
+
   let snap = await admin
     .firestore()
     .collection("entries")
@@ -26,17 +31,17 @@ exports.getEntriesCount = functions.https.onRequest(async (req, res) => {
     .catch(() => {
       res.status(500).json({
         error: "Couldn't get count",
-        types: req.query.types ? req.query.types : "all"
+        types: types ? types : "all"
       });
     });
 
   let count;
 
-  if (req.query.types) {
+  if (types) {
     const entries = await snap.docs.map(doc => doc.data());
 
     let activeEntries = entries.filter(
-      entry => entry && entry.types && entry.types[req.query.types]
+      entry => entry && entry.types && entry.types[types]
     );
 
     count = activeEntries.length;
@@ -47,7 +52,9 @@ exports.getEntriesCount = functions.https.onRequest(async (req, res) => {
   res.status(200).json({
     data: {
       count,
-      types: req.query.types ? req.query.types : "all"
+      q: req.query,
+      b: req.body,
+      types: types ? types : "all"
     }
   });
 
