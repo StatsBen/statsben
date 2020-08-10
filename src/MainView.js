@@ -152,22 +152,19 @@ class MainView extends React.Component {
   };
 
   handleGetEntriesCountResult = res => {
-    console.log("IT RETURNED!!!");
-    console.log(res);
+    const count = res.data.count;
+    this.setState({ nPages: count / this.state.entriesPerPage });
   };
 
   requestEntriesCount = (types = null) => {
-    getEntriesCount({
-      types
-      // "content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-    })
+    // console.log("requesting count of type: " + types);
+    getEntriesCount({ types: types })
       .then(res => {
         this.handleGetEntriesCountResult(res);
       })
-      .catch((e, res) => {
+      .catch(e => {
         console.error("POOOOOOOO!!!!!!!");
         console.log(e);
-        console.log(res);
       });
   };
 
