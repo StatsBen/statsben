@@ -5,7 +5,7 @@ import MainMenu from "./modals/MainMenu";
 import MenuButton from "./MenuButton";
 import Modal from "./Modal";
 import PaginationCarousel from "./PaginationCarousel";
-import { firestore } from "./authentication/firebase";
+import { getEntriesCount, firestore } from "./authentication/firebase";
 
 const entryActionTypes = Object.freeze({
   ENTRIES_FAILED: "ENTRIES_FAILED",
@@ -99,6 +99,7 @@ class MainView extends React.Component {
       type: entryActionTypes.ENTRIES_REQUESTED,
       direction: null
     };
+    this.requestEntriesCount();
 
     this.customReducer(requestEntriesAction);
   };
@@ -147,6 +148,26 @@ class MainView extends React.Component {
           err
         };
         this.customReducer(errorAction);
+      });
+  };
+
+  handleGetEntriesCountResult = res => {
+    console.log("IT RETURNED!!!");
+    console.log(res);
+  };
+
+  requestEntriesCount = (types = null) => {
+    getEntriesCount({
+      types
+      // "content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+    })
+      .then(res => {
+        this.handleGetEntriesCountResult(res);
+      })
+      .catch((e, res) => {
+        console.error("POOOOOOOO!!!!!!!");
+        console.log(e);
+        console.log(res);
       });
   };
 
