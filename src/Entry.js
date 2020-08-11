@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { fonts } from "./globals/fonts";
 // import { addCaptionToImgFromAltText } from "./utils/image-caption-script";
 
 // const demoProps = {
@@ -25,7 +26,6 @@ import styled from "styled-components";
 
 export const EntriesContainer = styled.div`
   width: 100%;
-  background: orange;
   display: flex;
   align-items: center;
   align-content: center;
@@ -38,9 +38,36 @@ export const EntryContainer = styled.div`
   max-width: 800px;
   margin: 80px auto;
   padding: 0 50px;
-  background: red;
+  border: thin solid black;
+`;
+
+const EntryDate = styled.div`
+  float: left;
+  font-family: ${fonts.accent};
+  font-size: 1.2em;
+  direction: ltr;
+  writing-mode: vertical-rl;
+  text-orientation: sideways;
+  transform: rotate(180deg);
 `;
 
 export const Entry = ({ entry }) => {
-  return <EntryContainer>{entry.name}</EntryContainer>;
+  const dateStr = buildDateString(entry);
+
+  return (
+    <EntryContainer>
+      <EntryDate>{dateStr}</EntryDate>
+      {entry.name}
+    </EntryContainer>
+  );
+};
+
+const buildDateString = entry => {
+  const date = new Date(entry.date.toDate());
+  const rawDay = date.getDay();
+  const day = rawDay < 10 ? "0" + rawDay : rawDay;
+  const rawMonth = date.getMonth();
+  const month = rawMonth < 10 ? "0" + rawMonth : rawMonth;
+  const dateStr = day + "-" + month + "-" + date.getFullYear();
+  return dateStr;
 };
