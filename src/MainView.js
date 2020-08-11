@@ -1,5 +1,6 @@
 import React from "react";
 // import Entry from "./Entry";
+import { Entry, EntriesContainer } from "./Entry";
 import Loading from "./Loading";
 import MainMenu from "./modals/MainMenu";
 import MenuButton from "./MenuButton";
@@ -100,7 +101,6 @@ class MainView extends React.Component {
       direction: null
     };
     this.requestEntriesCount();
-
     this.customReducer(requestEntriesAction);
   };
 
@@ -152,8 +152,9 @@ class MainView extends React.Component {
   };
 
   handleGetEntriesCountResult = res => {
+    const {entriesPerPage} = this.state;
     const count = res.data.count;
-    this.setState({ nPages: count / this.state.entriesPerPage });
+    this.setState({ nPages: Math.round(count / entriesPerPage) });
   };
 
   requestEntriesCount = (types = null) => {
@@ -193,7 +194,7 @@ class MainView extends React.Component {
   };
 
   render() {
-    const { loading, nPages, page, showMenuModal } = this.state;
+    const { entries, loading, nPages, page, showMenuModal } = this.state;
 
     const carouselProps = {
       nPages,
@@ -214,7 +215,13 @@ class MainView extends React.Component {
 
         {loading && <Loading />}
 
-        {/* {<Entry />} */}
+        {!loading && entries.length && (
+          <EntriesContainer>
+            {entries.map((entry, i) => (
+              <Entry key={`entry-${i}`} entry={entry} />
+            ))}
+          </EntriesContainer>
+        )}
 
         {!loading && <PaginationCarousel {...carouselProps} />}
       </div>
