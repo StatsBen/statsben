@@ -7,6 +7,7 @@ const colours = {
   paragraphText: "#777777",
   lightBlue: "#dde6eb",
   lightGray: "#aaaaaa",
+  lighterGray: "#cccccc",
   darkGray: "#333333"
 };
 

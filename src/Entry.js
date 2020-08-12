@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { colours } from "./globals/colours";
 import { fonts } from "./globals/fonts";
 import { sizes } from "./globals/sizes";
-// import { addCaptionToImgFromAltText } from "./utils/image-caption-script";
+import { addCaptionToImgFromAltText } from "./utils/image-caption-script";
+import { formatter } from "./utils/formatter";
 
 // const demoProps = {
 //   entry: {
@@ -32,7 +33,7 @@ export const EntryContainer = styled.div`
   flex-basis: auto;
   max-width: 800px;
   margin: 80px auto;
-  padding: 0 5%;
+  padding: 0 5% 100px 5%;
 
   @media (max-width: ${sizes.mobileBreakpoint}) {
     flex-direction: column;
@@ -44,10 +45,13 @@ const EntryDate = styled.div`
   flex-shrink: 0;
   flex-basis: auto;
   font-family: ${fonts.accent};
+  max-height: 10em;
+  text-align: right;
 
   @media (max-width: ${sizes.mobileBreakpoint}) {
     font-size: 0.8em;
     padding: 0.5em 0;
+    text-align: left;
   }
 
   @media (min-width: ${sizes.mobileBreakpoint}) {
@@ -71,18 +75,27 @@ const EntryContentContainer = styled.div`
 const EntryHeaderContainer = styled.div`
   display: flex;
   flex-direction: column;
+
+  @media (min-width: ${sizes.tabletBreakpoint}) {
+    flex-direction: row;
+  }
 `;
 
 const EntryTitle = styled.div`
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: auto;
   font-size: 2em;
   font-weight: 900;
   color: black;
 
   @media (max-width: ${sizes.mobileBreakpoint}) {
+    line-height: 0.8em;
     font-size: 2em;
+    padding: 0.3em 0;
   }
 
-  @media (min-width: ${sizes.mobileBreakpoint}) and (max-size: ${sizes.tabletBreakpoint}) {
+  @media (min-width: ${sizes.mobileBreakpoint}) and (max-width: ${sizes.tabletBreakpoint}) {
     font-size: 2.5em;
   }
 
@@ -91,20 +104,94 @@ const EntryTitle = styled.div`
   }
 `;
 
-export const Entry = ({ entry }) => {
-  const dateStr = buildDateString(entry);
+const EntryDetails = styled.div`
+  display: flex;
+  width: 100%;
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
 
-  return (
-    <EntryContainer>
-      <EntryDate>{dateStr}</EntryDate>
-      <EntryContentContainer>
-        <EntryHeaderContainer>
-          <EntryTitle>{entry.name}</EntryTitle>
-        </EntryHeaderContainer>
-      </EntryContentContainer>
-    </EntryContainer>
-  );
-};
+  @media (max-width: ${sizes.mobileBreakpoint}) {
+    flex-direction: column;
+  }
+
+  @media (min-width: ${sizes.mobileBreakpoint}) and (max-width: ${sizes.tabletBreakpoint}) {
+    flex-direction: row;
+  }
+
+  @media (min-width: ${sizes.tabletBreakpoint}) {
+    flex-direction: column;
+  }
+
+  div {
+    @media (max-width: ${sizes.mobileBreakpoint}) {
+      text-align: left;
+    }
+
+    @media (min-width: ${sizes.mobileBreakpoint}) and (max-width: ${sizes.tabletBreakpoint}) {
+      text-align: left;
+      padding-right: 2em;
+    }
+
+    @media (min-width: ${sizes.tabletBreakpoint}) {
+      width: 100%;
+      text-align: right;
+    }
+  }
+
+  div:first-child {
+    @media (min-width: ${sizes.tabletBreakpoint}) {
+      padding-top: 0.5em;
+    }
+  }
+
+  div:nth-child(2) {
+    @media (max-width: ${sizes.mobileBreakpoint}) {
+      text-align: left;
+    }
+  }
+`;
+
+const EntryContents = styled.div`
+  width: 100%;
+  border-top: thin solid ${colours.lighterGray};
+  padding-top: 40px;
+  margin-top: 20px;
+  @media (max-width: ${sizes.mobileBreakpoint}) {
+    padding-top: 20px;
+  }
+`;
+
+export class Entry extends React.Component {
+
+  componentDidMount() {
+    addCaptionToImgFromAltText(this.element);
+  }
+
+  render() {
+    const {entry} = this.props;
+    const dateStr = buildDateString(entry);
+    const gradeStr = buildGradeString(entry.grade);
+
+    return (
+      <EntryContainer ref={r => (this.element = r)}>
+        <EntryDate>{dateStr}</EntryDate>
+        <EntryContentContainer>
+          <EntryHeaderContainer>
+            <EntryTitle>{entry.name}</EntryTitle>
+            <EntryDetails>
+              <div>{gradeStr}</div>
+              <div>{entry.range}</div>
+            </EntryDetails>
+          </EntryHeaderContainer>
+          <EntryContents
+            dangerouslySetInnerHTML={{ __html: entry.html }}
+          ></EntryContents>
+        </EntryContentContainer>
+      </EntryContainer>
+    );
+  }
+}
 
 const buildDateString = entry => {
   const date = new Date(entry.date.toDate());
@@ -114,4 +201,25 @@ const buildDateString = entry => {
   const month = rawMonth < 10 ? "0" + rawMonth : rawMonth;
   const dateStr = day + "-" + month + "-" + date.getFullYear();
   return dateStr;
+};
+
+const buildGradeString = gradeObject => {
+  let gradeString = "(";
+  let gradeHasContents = false;
+
+  for (var grade in gradeObject) {
+    if (gradeObject.hasOwnProperty(grade)) {
+      let value = gradeObject[grade];
+      if (value) {
+        gradeString += formatter.prettyByGradeName(value, grade) + ", ";
+        gradeHasContents = true;
+      }
+    }
+  }
+
+  // Remove surrepttitiously added final comma
+  gradeString = gradeString.substring(0, gradeString.length - 2);
+
+  gradeString += ")";
+  return gradeHasContents ? gradeString : "";
 };
