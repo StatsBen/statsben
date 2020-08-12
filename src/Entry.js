@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { colours } from "./globals/colours";
 import { fonts } from "./globals/fonts";
 import { sizes } from "./globals/sizes";
 // import { addCaptionToImgFromAltText } from "./utils/image-caption-script";
@@ -32,7 +33,6 @@ export const EntryContainer = styled.div`
   max-width: 800px;
   margin: 80px auto;
   padding: 0 5%;
-  border: thin solid black;
 
   @media (max-width: ${sizes.mobileBreakpoint}) {
     flex-direction: column;
@@ -46,7 +46,8 @@ const EntryDate = styled.div`
   font-family: ${fonts.accent};
 
   @media (max-width: ${sizes.mobileBreakpoint}) {
-    font-size: 1em;
+    font-size: 0.8em;
+    padding: 0.5em 0;
   }
 
   @media (min-width: ${sizes.mobileBreakpoint}) {
@@ -55,6 +56,7 @@ const EntryDate = styled.div`
     writing-mode: vertical-rl;
     text-orientation: sideways;
     transform: rotate(180deg);
+    padding: 0 1em;
   }
 `;
 
@@ -62,6 +64,31 @@ const EntryContentContainer = styled.div`
   flex-grow: 1;
   flex-shrink: 1;
   flex-basis: auto;
+  border-left: thin solid ${colours.lightGray};
+  padding: 0 1em;
+`;
+
+const EntryHeaderContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const EntryTitle = styled.div`
+  font-size: 2em;
+  font-weight: 900;
+  color: black;
+
+  @media (max-width: ${sizes.mobileBreakpoint}) {
+    font-size: 2em;
+  }
+
+  @media (min-width: ${sizes.mobileBreakpoint}) and (max-size: ${sizes.tabletBreakpoint}) {
+    font-size: 2.5em;
+  }
+
+  @media (min-width: ${sizes.tabletBreakpoint}) {
+    font-size: 3em;
+  }
 `;
 
 export const Entry = ({ entry }) => {
@@ -70,7 +97,11 @@ export const Entry = ({ entry }) => {
   return (
     <EntryContainer>
       <EntryDate>{dateStr}</EntryDate>
-      <EntryContentContainer>{entry.name}</EntryContentContainer>
+      <EntryContentContainer>
+        <EntryHeaderContainer>
+          <EntryTitle>{entry.name}</EntryTitle>
+        </EntryHeaderContainer>
+      </EntryContentContainer>
     </EntryContainer>
   );
 };
