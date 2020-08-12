@@ -1,6 +1,7 @@
 import React from "react";
 // import Entry from "./Entry";
-import { Entry, EntriesContainer } from "./Entry";
+import { Entry } from "./Entry";
+import { EntriesContainer } from "./EntryComponents";
 import Loading from "./Loading";
 import MainMenu from "./modals/MainMenu";
 import MenuButton from "./MenuButton";
@@ -152,7 +153,7 @@ class MainView extends React.Component {
   };
 
   handleGetEntriesCountResult = res => {
-    const {entriesPerPage} = this.state;
+    const { entriesPerPage } = this.state;
     const count = res.data.count;
     this.setState({ nPages: Math.round(count / entriesPerPage) });
   };
