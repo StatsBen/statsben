@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { fonts } from "./globals/fonts";
+import { sizes } from "./globals/sizes";
 // import { addCaptionToImgFromAltText } from "./utils/image-caption-script";
 
 // const demoProps = {
@@ -16,14 +17,6 @@ import { fonts } from "./globals/fonts";
 //   }
 // };
 
-// const EntryOuterContainer = styled.div`
-//   max-width: 800px;
-//   width: 90%;
-//   height: 500px; /* STUB */
-//   margin: 80px 5% 0 5%;
-//   background: orange;
-// `;
-
 export const EntriesContainer = styled.div`
   width: 100%;
   display: flex;
@@ -32,23 +25,43 @@ export const EntriesContainer = styled.div`
 `;
 
 export const EntryContainer = styled.div`
+  display: flex;
   flex-grow: 1;
   flex-shrink: 1;
   flex-basis: auto;
   max-width: 800px;
   margin: 80px auto;
-  padding: 0 50px;
+  padding: 0 5%;
   border: thin solid black;
+
+  @media (max-width: ${sizes.mobileBreakpoint}) {
+    flex-direction: column;
+  }
 `;
 
 const EntryDate = styled.div`
-  float: left;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: auto;
   font-family: ${fonts.accent};
-  font-size: 1.2em;
-  direction: ltr;
-  writing-mode: vertical-rl;
-  text-orientation: sideways;
-  transform: rotate(180deg);
+
+  @media (max-width: ${sizes.mobileBreakpoint}) {
+    font-size: 1em;
+  }
+
+  @media (min-width: ${sizes.mobileBreakpoint}) {
+    font-size: 1.2em;
+    direction: ltr;
+    writing-mode: vertical-rl;
+    text-orientation: sideways;
+    transform: rotate(180deg);
+  }
+`;
+
+const EntryContentContainer = styled.div`
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
 `;
 
 export const Entry = ({ entry }) => {
@@ -57,7 +70,7 @@ export const Entry = ({ entry }) => {
   return (
     <EntryContainer>
       <EntryDate>{dateStr}</EntryDate>
-      {entry.name}
+      <EntryContentContainer>{entry.name}</EntryContentContainer>
     </EntryContainer>
   );
 };
