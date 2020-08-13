@@ -12,18 +12,22 @@ import { getEntriesCount, firestore } from "./authentication/firebase";
 const entryActionTypes = Object.freeze({
   ENTRIES_FAILED: "ENTRIES_FAILED",
   ENTRIES_LOADED: "ENTRIES_LOADED",
-  ENTRIES_REQUESTED: "ENTRIES_REQUESTED",
+  // ENTRIES_REQUESTED: "ENTRIES_REQUESTED",
   FILTER_APPLIED: "FILTER_APPLIED",
-  FILTER_REMOVED: "FILTER_REMOVED"
+  FILTER_REMOVED: "FILTER_REMOVED",
+  GET_PREV_ENTRIES: "GET_PREV_ENTRIES",
+  REQUEST_NEXT_ENTRY: "REQUEST_NEXT_ENTRY"
+  // NXT_ENTRIES_RETURNED: "NXT_ENTRIES_RETURNED"
 });
 
 const initialState = {
   activeFilters: [],
   entries: [],
+  entryHistory: [],
   entriesPerPage: 1, // TODO: Make this screen size dependant
   loading: true,
   nPages: null,
-  page: null,
+  page: 0,
   showMenuModal: false
 };
 
@@ -49,41 +53,55 @@ class MainView extends React.Component {
       // TODO: show an error modal instead?
     }
 
-    if (action.type === entryActionTypes.ENTRIES_LOADED) {
-      console.log("A request for more entries just returned");
-
-      if (!action.snapshot || action.snapshot.empty) {
-        // TODO: This is an error :/ handle it!
-      } else {
-        const entries = action.snapshot.docs.map(doc => doc.data());
-        newState.entries = entries;
-        newState.startAfter = action.snapshot.docs[action.snapshot.size - 1];
-        newState.endBefore = action.snapshot.docs[0];
-        newState.loading = false;
-      }
-    }
-
-    if (action.type === entryActionTypes.ENTRIES_REQUESTED) {
-      console.log("A request for more entries has been made");
-
-      let endBefore = null,
-        startAfter = null;
-
-      if (!newState.page) newState.page = 1;
-
-      if (action && action.direction === "next") {
-        newState.page++;
-        startAfter = newState.startAfter;
-      }
-
-      if (action && action.direction === "prev") {
-        newState.page--;
-        endBefore = newState.endBefore;
-      }
+    if (action.type === entryActionTypes.REQUEST_NEXT_ENTRY) {
+      if (newState.page == newState.nPages) return; // Do nothing
 
       newState.loading = true;
 
-      this.loadEntries(filters, endBefore, startAfter);
+      newState.page++;
+
+      let start = newState.entryHistory[newState.entryHistory.length - 1];
+      let end = null;
+
+      this.loadEntries(filters, start, end);
+    }
+
+    if (action.type === entryActionTypes.ENTRIES_LOADED) {
+      if (!action.snapshot || action.snapshot.empty) {
+        // TODO: This is an error :/ handle it!
+      } else {
+        newState.entryHistory = [
+          ...newState.entryHistory,
+          ...action.snapshot.docs
+        ];
+
+        newState.loading = false;
+
+        const entries = action.snapshot.docs.map(doc => doc.data());
+
+        newState.entries = entries;
+      }
+    }
+
+    if (action.type === entryActionTypes.GET_PREV_ENTRIES) {
+      if (newState.page == 1) return; // Do nothing
+
+      newState.entries = [];
+
+      // Pop off the current entry(ies) you don't want
+      for (let i = 0; i < newState.entriesPerPage; i++) {
+        newState.entryHistory.pop();
+      }
+
+      let entry, index;
+
+      for (let i = 0; i < newState.entriesPerPage; i++) {
+        index = newState.entryHistory.length - newState.entriesPerPage + i;
+        entry = newState.entryHistory[index].data();
+        newState.entries.push(entry);
+      }
+
+      newState.page--;
     }
 
     if (action.type === entryActionTypes.FILTER_APPLIED) {
@@ -98,22 +116,27 @@ class MainView extends React.Component {
 
   componentDidMount = async () => {
     const requestEntriesAction = {
-      type: entryActionTypes.ENTRIES_REQUESTED,
+      type: entryActionTypes.REQUEST_NEXT_ENTRY,
       direction: null
     };
     this.requestEntriesCount();
     this.customReducer(requestEntriesAction);
   };
 
-  loadEntries = async (filters, endBefore, startAfter) => {
-    // this.setState({ loading: true });
-
+  loadEntries = async (filters, start, end) => {
     let q = await firestore.collection("entries");
     q = q.orderBy("date", "desc");
-    q = q.limit(this.state.entriesPerPage);
 
-    if (endBefore) q = q.endBefore(endBefore);
-    if (startAfter) q = q.startAfter(startAfter);
+    if (!start && !end) {
+      q = q.limit(this.state.entriesPerPage);
+    } else if (start && !end) {
+      q = q.startAfter(start);
+      q = q.limit(this.state.entriesPerPage);
+    } else {
+      /* Note: This case may never get used... */
+      q = q.startAt(start);
+      q = q.endBefore(end);
+    }
 
     const defaultOffs = [
       /*"projects",*/
@@ -180,16 +203,14 @@ class MainView extends React.Component {
 
   next = () => {
     const loadAction = {
-      type: entryActionTypes.ENTRIES_REQUESTED,
-      direction: "next"
+      type: entryActionTypes.REQUEST_NEXT_ENTRY
     };
     this.customReducer(loadAction);
   };
 
   prev = () => {
     const loadAction = {
-      type: entryActionTypes.ENTRIES_REQUESTED,
-      direction: "prev"
+      type: entryActionTypes.GET_PREV_ENTRIES
     };
     this.customReducer(loadAction);
   };
