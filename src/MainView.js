@@ -1,6 +1,5 @@
 import React from "react";
-// import Entry from "./Entry";
-import { Entry } from "./Entry";
+import Entry from "./Entry";
 import { EntriesContainer } from "./EntryComponents";
 import Loading from "./Loading";
 import MainMenu from "./modals/MainMenu";

@@ -24,7 +24,7 @@ import { formatter } from "./utils/formatter";
 //   }
 // };
 
-export class Entry extends React.Component {
+class Entry extends React.Component {
   componentDidMount() {
     addCaptionToImgFromAltText(this.element);
   }
@@ -37,12 +37,12 @@ export class Entry extends React.Component {
     const month = rawMonth < 10 ? "0" + rawMonth : rawMonth;
     const dateStr = day + "-" + month + "-" + date.getFullYear();
     return dateStr;
-  };
+  }
 
   buildGradeString(gradeObject) {
     let gradeString = "(";
     let gradeHasContents = false;
-  
+
     for (var grade in gradeObject) {
       if (gradeObject.hasOwnProperty(grade)) {
         let value = gradeObject[grade];
@@ -52,14 +52,13 @@ export class Entry extends React.Component {
         }
       }
     }
-  
+
     // Remove surrepttitiously added final comma
     gradeString = gradeString.substring(0, gradeString.length - 2);
-  
+
     gradeString += ")";
     return gradeHasContents ? gradeString : "";
-  };
-  
+  }
 
   render() {
     const { entry } = this.props;
@@ -85,3 +84,5 @@ export class Entry extends React.Component {
     );
   }
 }
+
+export default Entry;
