@@ -8,16 +8,15 @@ import MenuButton from "./MenuButton";
 import Modal from "./Modal";
 import PaginationCarousel from "./PaginationCarousel";
 import { getEntriesCount, firestore } from "./authentication/firebase";
+import { types } from "./globals/types";
 
 const entryActionTypes = Object.freeze({
   ENTRIES_FAILED: "ENTRIES_FAILED",
   ENTRIES_LOADED: "ENTRIES_LOADED",
-  // ENTRIES_REQUESTED: "ENTRIES_REQUESTED",
   FILTER_APPLIED: "FILTER_APPLIED",
   FILTER_REMOVED: "FILTER_REMOVED",
   GET_PREV_ENTRIES: "GET_PREV_ENTRIES",
   REQUEST_NEXT_ENTRY: "REQUEST_NEXT_ENTRY"
-  // NXT_ENTRIES_RETURNED: "NXT_ENTRIES_RETURNED"
 });
 
 const initialState = {
@@ -216,7 +215,14 @@ class MainView extends React.Component {
   };
 
   render() {
-    const { entries, loading, nPages, page, showMenuModal } = this.state;
+    const {
+      activeFilters,
+      entries,
+      loading,
+      nPages,
+      page,
+      showMenuModal
+    } = this.state;
 
     const carouselProps = {
       nPages,
@@ -229,7 +235,11 @@ class MainView extends React.Component {
       <div>
         {showMenuModal && (
           <Modal>
-            <MainMenu close={this.hideMenu} />
+            <MainMenu
+              close={this.hideMenu}
+              types={types}
+              activeFilters={activeFilters}
+            />
           </Modal>
         )}
 

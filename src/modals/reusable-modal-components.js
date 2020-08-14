@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { colours } from "../globals/colours";
 import { fonts } from "../globals/fonts";
+import { sizes } from "../globals/sizes";
 
 export const ModalBackdrop = styled.div`
   position: fixed;
@@ -25,6 +26,10 @@ export const ModalContainer = styled.div`
   background: ${colours.white};
   z-index: 1000;
   border-radius: 10px;
+
+  @media (max-width: ${sizes.mobileBreakpoint}) {
+    top: 30px;
+  }
 `;
 
 export const ModalHeader = styled.h1`
@@ -53,4 +58,10 @@ export const CloseButton = styled.div`
   &:hover {
     cursor: pointer;
   }
+`;
+
+export const Clearfix = styled.div`
+  float: none;
+  clear: both;
+  width: 100%;
 `;
