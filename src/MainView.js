@@ -104,10 +104,45 @@ class MainView extends React.Component {
     }
 
     if (action.type === entryActionTypes.FILTER_APPLIED) {
-      console.log("A new filter was added to the list");
+      if (!action.typeToAdd) {
+        console.error("POOOO");
+        return;
+      }
+
+      newState.activeFilters = [action.typeToAdd]; // yeah, overwrite the array for now...
+      newState.loading = true;
+      newState.entryHistory = [];
+      newState.entries = [];
+      newState.nPages = null;
+      newState.page = 1;
+
+      this.loadEntries(newState.activeFilters, null, null);
+      this.requestEntriesCount(action.typeToAdd);
     }
+
     if (action.type === entryActionTypes.FILTER_REMOVED) {
-      console.log("A filter type was removed from the list");
+      if (!action.typeToRemove) {
+        console.error('that action needs a "typeToRemove" property');
+        return;
+      }
+
+      const indexToRemove = newState.activeFilters.indexOf(action.typeToRemove);
+
+      if (indexToRemove >= 0) {
+        newState.activeFilters.splice(indexToRemove, 1);
+        newState.loading = true;
+        newState.entryHistory = [];
+        newState.entries = [];
+        newState.nPages = null;
+        newState.page = 1;
+        this.loadEntries(newState.activeFilters, null, null);
+        this.requestEntriesCount(action.typeToAdd);
+      } else {
+        console.error(
+          "You're trying to remove an active filter that doesn't exist"
+        );
+        return;
+      }
     }
 
     this.setState(newState);
@@ -214,6 +249,26 @@ class MainView extends React.Component {
     this.customReducer(loadAction);
   };
 
+  addFilter = type => {
+    // console.log(`Adding ${type}`);
+    const action = {
+      type: entryActionTypes.FILTER_APPLIED,
+      typeToAdd: type
+    };
+
+    this.customReducer(action);
+  };
+
+  removeFilter = type => {
+    // console.log(`Removing ${type}`);
+    const action = {
+      type: entryActionTypes.FILTER_REMOVED,
+      typeToRemove: type
+    };
+
+    this.customReducer(action);
+  };
+
   render() {
     const {
       activeFilters,
@@ -231,15 +286,19 @@ class MainView extends React.Component {
       prev: this.prev
     };
 
+    const mainMenuProps = {
+      activeFilters,
+      addFilter: this.addFilter,
+      close: this.hideMenu,
+      removeFilter: this.removeFilter,
+      types
+    };
+
     return (
       <div>
         {showMenuModal && (
           <Modal>
-            <MainMenu
-              close={this.hideMenu}
-              types={types}
-              activeFilters={activeFilters}
-            />
+            <MainMenu {...mainMenuProps} />
           </Modal>
         )}
 

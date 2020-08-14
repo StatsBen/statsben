@@ -21,7 +21,15 @@ import {
 import packageJSON from "../../package.json";
 
 const SuccessMessage = props => {
-  const { types, activeFilters } = props;
+  const { activeFilters, addFilter, removeFilter, types } = props;
+
+  const handleFilterClick = type => {
+    if (activeFilters.includes(type)) {
+      removeFilter(type);
+    } else {
+      addFilter(type);
+    }
+  };
 
   return (
     <ModalBackdrop>
@@ -49,6 +57,7 @@ const SuccessMessage = props => {
             <FilterByLink
               key={`filter-type-${i}`}
               className={activeFilters.includes(type) ? "active" : ""}
+              onClick={() => {handleFilterClick(type)}}
             >
               {type}
             </FilterByLink>

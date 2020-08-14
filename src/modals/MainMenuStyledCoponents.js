@@ -49,7 +49,7 @@ export const FilterByLink = styled(MenuLink)`
   clear: both;
   margin-left: 10%;
   text-decoration: none;
-  .active {
+  &.active {
     color: ${colours.accentBlue};
     text-decoration: underline;
   }
