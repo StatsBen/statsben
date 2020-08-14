@@ -29,6 +29,7 @@ const MainMenu = props => {
     } else {
       addFilter(type);
     }
+    props.close();
   };
 
   return (
@@ -39,15 +40,21 @@ const MainMenu = props => {
         <MenuSection>
           <MenuLink onClick={about}>About</MenuLink>
           <Clearfix />
-          <MenuLink>Resume</MenuLink>
+          <MenuLink target="_blank" href={"http://statsben.github.io/"}>Resume</MenuLink>
           <Clearfix />
         </MenuSection>
 
         <MenuSection>
           <MenuSectionHeader>Contact: </MenuSectionHeader>
-          <MenuLink>Email</MenuLink>
-          <MenuLink>LinkedIn</MenuLink>
-          <MenuLink>Instagram</MenuLink>
+          <MenuLink onClick={() => alert("ben.clark456@gmail.com")}>
+            Email
+          </MenuLink>
+          <MenuLink target="_blank" href={"https://www.linkedin.com/in/ben-clark-970907101/"}>
+            LinkedIn
+          </MenuLink>
+          <MenuLink target="_blank" href={"https://www.instagram.com/splittercracks/"}>
+            Instagram
+          </MenuLink>
           <Clearfix />
         </MenuSection>
 
@@ -57,7 +64,9 @@ const MainMenu = props => {
             <FilterByLink
               key={`filter-type-${i}`}
               className={activeFilters.includes(type) ? "active" : ""}
-              onClick={() => {handleFilterClick(type)}}
+              onClick={() => {
+                handleFilterClick(type);
+              }}
             >
               {type}
             </FilterByLink>
