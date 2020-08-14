@@ -1,6 +1,6 @@
 {
   "name": "adventures-v2",
-  "version": "3.0.1",
+  "version": "3.0.0",
   "description": "My personal website",
   "jest": {
     "testPathIgnorePatterns": [
@@ -16,7 +16,8 @@
     "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
     "dev": "parcel src/index.html",
     "build": "parcel build src/index.html",
-    "deploy": "npm version patch && git push && parcel build src/index.html && firebase deploy"
+    "deploy": "npm version patch && git push && parcel build src/index.html && firebase deploy --only hosting:bendclark-456",
+    "deploy:functions": "firebase deploy --only functions:adventures-v2"
   },
   "keywords": [],
   "author": "Ben Clark",
