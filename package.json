@@ -1,7 +1,7 @@
 {
   "name": "adventures-v2",
-  "version": "2.1.2",
-  "description": "",
+  "version": "3.0.0",
+  "description": "My personal website",
   "jest": {
     "testPathIgnorePatterns": [
       "/node_modules",
@@ -19,10 +19,9 @@
     "deploy": "npm version patch && git push && parcel build src/index.html && firebase deploy"
   },
   "keywords": [],
-  "author": "",
+  "author": "Ben Clark",
   "license": "ISC",
   "dependencies": {
-    "@emotion/core": "^10.0.28",
     "@reach/router": "^1.3.4",
     "eslint-plugin-react-hooks": "^4.0.8",
     "firebase": "^7.17.1",
