@@ -20,8 +20,8 @@ import {
 
 import packageJSON from "../../package.json";
 
-const SuccessMessage = props => {
-  const { activeFilters, addFilter, removeFilter, types } = props;
+const MainMenu = props => {
+  const { about, activeFilters, addFilter, removeFilter, types } = props;
 
   const handleFilterClick = type => {
     if (activeFilters.includes(type)) {
@@ -37,7 +37,7 @@ const SuccessMessage = props => {
         <CloseButton onClick={props.close}>X</CloseButton>
 
         <MenuSection>
-          <MenuLink>About</MenuLink>
+          <MenuLink onClick={about}>About</MenuLink>
           <Clearfix />
           <MenuLink>Resume</MenuLink>
           <Clearfix />
@@ -76,4 +76,4 @@ const SuccessMessage = props => {
   );
 };
 
-export default SuccessMessage;
+export default MainMenu;

@@ -8,6 +8,7 @@ import Modal from "./Modal";
 import PaginationCarousel from "./PaginationCarousel";
 import { getEntriesCount, firestore } from "./authentication/firebase";
 import { types } from "./globals/types";
+import AboutModal from "./modals/About";
 
 const entryActionTypes = Object.freeze({
   ENTRIES_FAILED: "ENTRIES_FAILED",
@@ -26,6 +27,7 @@ const initialState = {
   loading: true,
   nPages: null,
   page: 0,
+  showAboutModal: true,
   showMenuModal: false
 };
 
@@ -226,12 +228,20 @@ class MainView extends React.Component {
       });
   };
 
+  showAbout = () => {
+    this.setState({ showAboutModal: true, showMenuModal: false });
+  };
+
+  hideAbout = () => {
+    this.setState({ showAboutModal: false, showMenuModal: false });
+  };
+
   showMenu = () => {
-    this.setState({ showMenuModal: true });
+    this.setState({ showAboutModal: false, showMenuModal: true });
   };
 
   hideMenu = () => {
-    this.setState({ showMenuModal: false });
+    this.setState({ showAboutModal: false, showMenuModal: false });
   };
 
   next = () => {
@@ -275,6 +285,7 @@ class MainView extends React.Component {
       loading,
       nPages,
       page,
+      showAboutModal,
       showMenuModal
     } = this.state;
 
@@ -285,7 +296,12 @@ class MainView extends React.Component {
       prev: this.prev
     };
 
+    const aboutModalProps = {
+      close: this.hideAbout
+    };
+
     const mainMenuProps = {
+      about: this.showAbout,
       activeFilters,
       addFilter: this.addFilter,
       close: this.hideMenu,
@@ -295,6 +311,12 @@ class MainView extends React.Component {
 
     return (
       <div>
+        {showAboutModal && (
+          <Modal>
+            <AboutModal {...aboutModalProps} />
+          </Modal>
+        )}
+
         {showMenuModal && (
           <Modal>
             <MainMenu {...mainMenuProps} />
