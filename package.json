@@ -16,16 +16,18 @@
     "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
     "dev": "parcel src/index.html",
     "build": "parcel build src/index.html",
-    "deploy": "npm version patch && git push && parcel build src/index.html && firebase deploy --only hosting:bendclark-456",
-    "deploy:functions": "firebase deploy --only functions:adventures-v2"
+    "deploy": "npm version patch && git push && parcel build src/index.html && firebase use --add bendclark-456 && firebase deploy --only hosting",
+    "deploy:functions": "firebase use --add adventures-41a0 && firebase deploy --only functions"
   },
   "keywords": [],
   "author": "Ben Clark",
   "license": "ISC",
   "dependencies": {
+    "@emotion/core": "^10.0.35",
     "@reach/router": "^1.3.4",
     "eslint-plugin-react-hooks": "^4.0.8",
     "firebase": "^7.17.1",
+    "firebase-functions": "^3.9.1",
     "moment": "^2.27.0",
     "parcel-bundler": "^1.12.4",
     "react": "^16.13.1",
