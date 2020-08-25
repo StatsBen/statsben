@@ -5,6 +5,10 @@ import Loadable from "react-loadable";
 import Favicon from "react-favicon";
 import "./global-styles.css";
 
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("./sw.js");
+}
+
 const LoadableMainView = Loadable({
   loader: () => import("./MainView"),
   loading() {

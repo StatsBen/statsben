@@ -27,7 +27,7 @@ const initialState = {
   loading: true,
   nPages: null,
   page: 0,
-  showAboutModal: true,
+  showAboutModal: false,
   showMenuModal: false
 };
 
@@ -156,6 +156,12 @@ class MainView extends React.Component {
     };
     this.requestEntriesCount();
     this.customReducer(requestEntriesAction);
+
+    let hasVisited = await caches.open("v1").then(async cache => {
+      return cache.match("hasVisited");
+    });
+
+    if (!hasVisited) this.setState({ showAboutModal: true });
   };
 
   loadEntries = async (filters, start, end) => {
