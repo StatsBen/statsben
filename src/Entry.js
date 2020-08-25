@@ -31,7 +31,7 @@ class Entry extends React.Component {
 
   buildDateString(entry) {
     const date = new Date(entry.date.toDate());
-    const rawDay = date.getDay();
+    const rawDay = date.getDate();
     const day = rawDay < 10 ? "0" + rawDay : rawDay;
     const rawMonth = date.getMonth();
     const month = rawMonth < 10 ? "0" + rawMonth : rawMonth;
