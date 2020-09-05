@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Error from "./Error";
 import { firestore } from "../authentication/firebase";
 
 const SummaryView = () => {
@@ -12,6 +13,11 @@ const SummaryView = () => {
       setAwaitingData(false);
     };
 
+    const handleError = err => {
+      setError(err);
+      setAwaitingData(false);
+    };
+
     setAwaitingData(true);
 
     firestore
@@ -21,8 +27,7 @@ const SummaryView = () => {
         handleDataResult(res);
       })
       .catch(err => {
-        console.error(err);
-        setError(err);
+        handleError(err);
       });
   }, []);
 
@@ -31,6 +36,7 @@ const SummaryView = () => {
       <h1>Adventure Log</h1>
       {awaitingData && "Loading..."}
       {entryData && `There are ${entryData.length} entries.`}
+      {error && <Error {...error} />}
     </div>
   );
 };
