@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Error from "./Error";
+import Pie from "./PieChart";
 import { firestore } from "../authentication/firebase";
 
 const SummaryView = () => {
@@ -35,8 +36,8 @@ const SummaryView = () => {
     <div>
       <h1>Adventure Log</h1>
       {awaitingData && "Loading..."}
-      {entryData && `There are ${entryData.length} entries.`}
       {error && <Error {...error} />}
+      {entryData && <Pie {...{ entryData }} />}
     </div>
   );
 };
