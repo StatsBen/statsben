@@ -23,6 +23,13 @@ const LoadableAdminPortal = Loadable({
   }
 });
 
+const LoadableSummaryView = Loadable({
+  loader: () => import ("./summary-view/"),
+  loading() {
+    return <div>Loading ... ... ...</div>
+  }
+})
+
 class App extends React.Component {
   render() {
     return (
@@ -35,6 +42,7 @@ class App extends React.Component {
         <Router>
           <LoadableMainView path="/" />
           <LoadableAdminPortal path="/admin" />
+          <LoadableSummaryView path="/summary" />
         </Router>
       </div>
     );
