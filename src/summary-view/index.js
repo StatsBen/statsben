@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Error from "./Error";
 import Pie from "./PieChart";
 import { firestore } from "../authentication/firebase";
+import AccordionEntry from "./AccordionEntry";
 
 const SummaryView = () => {
   const [awaitingData, setAwaitingData] = useState(false);
@@ -38,6 +39,10 @@ const SummaryView = () => {
       {awaitingData && "Loading..."}
       {error && <Error {...error} />}
       {entryData && <Pie {...{ entryData }} />}
+      {entryData &&
+        entryData.map((entry, i) => (
+          <AccordionEntry key={`e-${i}`} {...{ entry }} />
+        ))}
     </div>
   );
 };
