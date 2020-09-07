@@ -1,3 +1,26 @@
+export const getListOfAllTypes = entries => {
+  if (!entries) return null;
+
+  let results = [],
+    types;
+
+  entries.map(entry => {
+    if (!entry.types || !Object.keys(entry.types).length) return;
+
+    types = Object.keys(entry.types).filter(typeName => entry.types[typeName]);
+
+    types.map(type => {
+      if (!results.includes(type)) {
+        results.push(type);
+      }
+    });
+  });
+
+  console.log("All types are: ");
+  console.log(results);
+  return results;
+};
+
 export const getCountsByTypes = entries => {
   if (!entries) return null;
 
@@ -78,6 +101,6 @@ export const getCountsByRanges = entries => {
       count: counts[rangeName]
     });
   });
-  
+
   return results;
 };
