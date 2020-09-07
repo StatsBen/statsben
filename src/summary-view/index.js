@@ -3,14 +3,20 @@ import Error from "./Error";
 // import Pie from "./PieChart";
 import { firestore } from "../authentication/firebase";
 import AccordionEntry from "./AccordionEntry";
-// import {
-//   rangeCountsSelector,
-//   rangesListSelector,
-//   typesCountSelector,
-//   typesListSelector
-// } from "./entryFilterSelectors";
+import Controls from "./Controls";
+import {
+  rangeCountsSelector,
+  rangesListSelector,
+  typesCountSelector,
+  typesListSelector
+} from "./entryFilterSelectors";
+import { isOfType, logCountsNStuff } from "./mathHelpers";
+
+const typesOffByDefault = ["work", "projects", "publications"];
 
 const SummaryView = () => {
+  const [activeRangeFilters, setActiveRangeFilters] = useState([]);
+  const [activeTypeFilters, setActiveTypeFilters] = useState([]);
   const [awaitingData, setAwaitingData] = useState(false);
   const [entryData, setEntryData] = useState(null);
   const [error, setError] = useState(null);
@@ -40,12 +46,36 @@ const SummaryView = () => {
       });
   };
 
-  useEffect(getAllEntryData, []);
+  const applyTypeFilters = () => {
+    if (!entryData || !activeTypeFilters) return;
+    if (activeTypeFilters && activeTypeFilters.length) {
+      activeTypeFilters.forEach(type => {
+        entryData.filter(entry => isOfType(entry, type));
+      });
+    } else {
+      typesOffByDefault.forEach(type => {
+        entryData.filter(entry => isOfType(entry, type));
+      });
+    }
+  };
 
-  // const types = typesListSelector(entryData);
-  // const countsByType = typesCountSelector(entryData);
-  // const ranges = rangesListSelector(entryData);
-  // const countsByRange = rangeCountsSelector(entryData);
+  useEffect(getAllEntryData, []);
+  useEffect(applyTypeFilters);
+
+  const types = typesListSelector(entryData);
+  const countsByType = typesCountSelector(entryData);
+  const ranges = rangesListSelector(entryData);
+  const countsByRange = rangeCountsSelector(entryData);
+  logCountsNStuff(types, ranges, countsByType, countsByRange);
+
+  const controlsProps = {
+    activeRangeFilters,
+    activeTypeFilters,
+    ranges,
+    types,
+    setActiveRangeFilters,
+    setActiveTypeFilters
+  };
 
   return (
     <div>
@@ -53,7 +83,7 @@ const SummaryView = () => {
       {awaitingData && "Loading..."}
       {error && <Error {...error} />}
       {/* entryData && <Pie {...{ entryData }} /> */}
-      {/* FILTER_BY CONTROLS GO HERE */}
+      <Controls {...controlsProps} />
       {/* AN APPROPRIATE AGGREGATION OF THE CHOSEN TYPES GOES HERE */}
       {entryData &&
         entryData.map((entry, i) => (
