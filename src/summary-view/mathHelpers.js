@@ -15,9 +15,7 @@ export const getListOfAllTypes = entries => {
       }
     });
   });
-
-  console.log("All types are: ");
-  console.log(results);
+  
   return results;
 };
 
