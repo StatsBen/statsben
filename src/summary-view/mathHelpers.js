@@ -104,5 +104,16 @@ export const getCountsByRanges = entries => {
 };
 
 export const isOfType = (entry, typeName) => {
-  return (!entry || !entry.types || !entry.types[typeName])
-}
+  return !entry || !entry.types || !entry.types[typeName];
+};
+
+export const logCountsNStuff = (types, ranges, typeCounts, rangeCounts) => {
+  console.log("List of ranges: ");
+  console.log(ranges);
+  console.log("List of types: ");
+  console.log(types);
+  console.log("Counts by range: ");
+  console.log(rangeCounts);
+  console.log("Counts by type: ");
+  console.log(typeCounts);
+};
