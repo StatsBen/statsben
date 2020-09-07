@@ -44,6 +44,40 @@ export const getListOfAllRanges = entries => {
     range = entry.range;
     if (!ranges.includes(range)) ranges.push(range);
   });
-  
+
   return ranges;
+};
+
+export const getCountsByRanges = entries => {
+  if (!entries) return null;
+
+  let counts = {},
+    range;
+
+  entries.map(entry => {
+    // if (!entry.range) throw new Error("No range data found for: " + entry.name);
+    if (!entry.range) {
+      console.warn("No range data found for: " + entry.name);
+      return;
+    }
+
+    range = entry.range;
+
+    if (!counts.hasOwnProperty(range)) {
+      counts[range] = 0;
+    }
+
+    counts[range]++;
+  });
+
+  let results = [];
+
+  Object.keys(counts).map(rangeName => {
+    results.push({
+      name: rangeName,
+      count: counts[rangeName]
+    });
+  });
+  
+  return results;
 };
