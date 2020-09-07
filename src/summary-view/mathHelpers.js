@@ -15,7 +15,7 @@ export const getListOfAllTypes = entries => {
       }
     });
   });
-  
+
   return results;
 };
 
@@ -102,3 +102,7 @@ export const getCountsByRanges = entries => {
 
   return results;
 };
+
+export const isOfType = (entry, typeName) => {
+  return (!entry || !entry.types || !entry.types[typeName])
+}
