@@ -31,8 +31,19 @@ export const getCountsByTypes = entries => {
     });
   });
 
-  console.log("RESULTS ARE: ");
-  console.log(results);
-  console.log(resultsAsArray);
   return resultsAsArray;
+};
+
+export const getListOfAllRanges = entries => {
+  if (!entries) return null;
+
+  let ranges = [],
+    range;
+
+  entries.map(entry => {
+    range = entry.range;
+    if (!ranges.includes(range)) ranges.push(range);
+  });
+  
+  return ranges;
 };
