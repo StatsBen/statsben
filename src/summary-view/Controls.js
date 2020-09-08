@@ -30,7 +30,21 @@ const Controls = props => {
   let className;
 
   const handleTypeClick = type => {
-    setActiveTypeFilters([type]);
+    if (!type) return;
+
+    if (activeTypeFilters.length > 2) {
+      setActiveTypeFilters([type]);
+    } else if (activeTypeFilters.length == 2) {
+      if (activeTypeFilters.includes(type)) {
+        setActiveTypeFilters(activeTypeFilters.filter(t => t !== type));
+      }
+    } else {
+      if (activeTypeFilters.includes(type)) {
+        setActiveTypeFilters(activeTypeFilters.filter(t => t !== type));
+      } else {
+        setActiveTypeFilters([...activeTypeFilters, type]);
+      }
+    }
   };
 
   const rangeSelectProps = {
