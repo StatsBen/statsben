@@ -15,7 +15,7 @@ import { isOfType, logCountsNStuff } from "./mathHelpers";
 const typesOffByDefault = ["work", "projects", "publications"];
 
 const SummaryView = () => {
-  const [activeRangeFilters, setActiveRangeFilters] = useState([]);
+  const [activeRangeFilters, setActiveRangeFilters] = useState("");
   const [activeTypeFilters, setActiveTypeFilters] = useState([]);
   const [awaitingData, setAwaitingData] = useState(false);
   const [entryData, setEntryData] = useState(null);
@@ -66,12 +66,11 @@ const SummaryView = () => {
     }
   }
 
-  console.log(filteredEntryData);
   const types = typesListSelector(entryData); // yes, get these sans filter
   const countsByType = typesCountSelector(filteredEntryData);
   const ranges = rangesListSelector(filteredEntryData);
   const countsByRange = rangeCountsSelector(filteredEntryData);
-  logCountsNStuff(types, ranges, countsByType, countsByRange);
+  // logCountsNStuff(types, ranges, countsByType, countsByRange);
 
   const controlsProps = {
     activeRangeFilters,
