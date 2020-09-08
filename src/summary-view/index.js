@@ -53,8 +53,8 @@ const SummaryView = () => {
   if (entryData) {
     if (activeTypeFilters && activeTypeFilters.length) {
       activeTypeFilters.forEach(type => {
-        filteredEntryData = filteredEntryData.filter(entry =>
-          isOfType(entry, type)
+        filteredEntryData = filteredEntryData.filter(
+          entry => !isOfType(entry, type)
         );
       });
     } else {
@@ -75,10 +75,7 @@ const SummaryView = () => {
 
   const controlsProps = {
     activeRangeFilters,
-    activeTypeFilters:
-      activeTypeFilters.length || !types
-        ? activeTypeFilters
-        : types.filter(type => !typesOffByDefault.includes(type)),
+    activeTypeFilters,
     ranges,
     types,
     setActiveRangeFilters,
