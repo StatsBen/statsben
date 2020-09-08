@@ -46,31 +46,39 @@ const SummaryView = () => {
       });
   };
 
-  const applyTypeFilters = () => {
-    if (!entryData || !activeTypeFilters) return;
+  useEffect(getAllEntryData, []);
+
+  let filteredEntryData = entryData;
+
+  if (entryData) {
     if (activeTypeFilters && activeTypeFilters.length) {
       activeTypeFilters.forEach(type => {
-        entryData.filter(entry => isOfType(entry, type));
+        filteredEntryData = filteredEntryData.filter(entry =>
+          isOfType(entry, type)
+        );
       });
     } else {
       typesOffByDefault.forEach(type => {
-        entryData.filter(entry => isOfType(entry, type));
+        filteredEntryData = filteredEntryData.filter(entry =>
+          isOfType(entry, type)
+        );
       });
     }
-  };
+  }
 
-  useEffect(getAllEntryData, []);
-  useEffect(applyTypeFilters);
-
-  const types = typesListSelector(entryData);
-  const countsByType = typesCountSelector(entryData);
-  const ranges = rangesListSelector(entryData);
-  const countsByRange = rangeCountsSelector(entryData);
+  console.log(filteredEntryData);
+  const types = typesListSelector(entryData); // yes, get these sans filter
+  const countsByType = typesCountSelector(filteredEntryData);
+  const ranges = rangesListSelector(filteredEntryData);
+  const countsByRange = rangeCountsSelector(filteredEntryData);
   logCountsNStuff(types, ranges, countsByType, countsByRange);
 
   const controlsProps = {
     activeRangeFilters,
-    activeTypeFilters,
+    activeTypeFilters:
+      activeTypeFilters.length || !types
+        ? activeTypeFilters
+        : types.filter(type => !typesOffByDefault.includes(type)),
     ranges,
     types,
     setActiveRangeFilters,
@@ -82,11 +90,11 @@ const SummaryView = () => {
       <h1>Adventure Log</h1>
       {awaitingData && "Loading..."}
       {error && <Error {...error} />}
-      {/* entryData && <Pie {...{ entryData }} /> */}
+      {/* entryData && <Pie {...{ filteredEntryData }} /> */}
       <Controls {...controlsProps} />
       {/* AN APPROPRIATE AGGREGATION OF THE CHOSEN TYPES GOES HERE */}
-      {entryData &&
-        entryData.map((entry, i) => (
+      {filteredEntryData &&
+        filteredEntryData.map((entry, i) => (
           <AccordionEntry key={`e-${i}`} {...{ entry }} />
         ))}
     </div>
