@@ -63,7 +63,7 @@ export const getListOfAllRanges = entries => {
 
   entries.map(entry => {
     range = entry.range;
-    if (!ranges.includes(range)) ranges.push(range);
+    if (range && !ranges.includes(range)) ranges.push(range);
   });
 
   return ranges;
