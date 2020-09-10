@@ -12,6 +12,9 @@ const EntryViewerContainer = styled.div`
 const Tiles = styled.div`
   width: 30%;
   max-width: 200px;
+  max-height: ${screen.height - 400 + "px"};
+  overflow: auto;
+  direction: rtl;
   flex-grow: 1;
   flex-shrink: 0;
   flex-basis: 200px;
@@ -83,6 +86,13 @@ const EntryViewer = props => {
         </Tiles>
         <ActiveEntry>
           <Entry entry={activeEntry} />
+          <CarouselContainer>
+            <Butt onClick={handlePrevClick}>prev</Butt>
+            <i>{` ( ${entries.indexOf(activeEntry) + 1} / ${
+              entries.length
+            } ) `}</i>
+            <Butt onClick={handleNextClick}>next</Butt>
+          </CarouselContainer>
         </ActiveEntry>
       </EntryViewerContainer>
     </div>

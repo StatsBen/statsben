@@ -3,12 +3,15 @@ import styled from "styled-components";
 import { globals } from "../globals";
 
 const Container = styled.div`
+  width: calc(100% - 35px);
+  margin: 10px;
   padding: 10px;
   font-family: ${globals.fonts.accent};
   font-size: 0.8em;
   color: ${globals.colours.charcoal};
   border-bottom: thin solid ${globals.colours.lighterGray};
   user-select: none;
+  direction: ltr;
   &:hover {
     cursor: pointer;
     background: ${globals.colours.lighterGray};
