@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Entry from "./Entry";
 import EntryTile from "./EntryTile";
+import { globals } from "../globals";
 
 const EntryViewerContainer = styled.div`
   width: 100%;
@@ -22,6 +23,24 @@ const ActiveEntry = styled.div`
   flex-basis: auto;
 `;
 
+const CarouselContainer = styled.div`
+  width: 100%;
+  padding: 10px 0;
+  text-align: center;
+  color: ${globals.colours.darkGray};
+  font-family: ${globals.fonts.accent};
+`;
+
+const Butt = styled.span`
+  padding: 0 2em;
+  text-decoration: underline;
+  user-select: none;
+  &:hover {
+    cursor: pointer;
+    color: ${globals.colours.charcoal};
+  }
+`;
+
 const EntryViewer = props => {
   const entries = props.filteredEntryData;
   const [activeEntry, setActiveEntry] = useState(entries[0]);
@@ -30,22 +49,43 @@ const EntryViewer = props => {
     setActiveEntry(entries[0]);
   }
 
+  const handleNextClick = () => {
+    if (!activeEntry || !entries.length) return;
+    const i = entries.indexOf(activeEntry);
+    const newI = Math.min(i + 1, entries.length - 1);
+    setActiveEntry(entries[newI]);
+  };
+
+  const handlePrevClick = () => {
+    if (!activeEntry || !entries.length) return;
+    const i = entries.indexOf(activeEntry);
+    const newI = Math.max(i - 1, 0);
+    setActiveEntry(entries[newI]);
+  };
+
   return (
-    <EntryViewerContainer>
-      <Tiles>
-        {entries.map((entry, i) => (
-          <EntryTile
-            key={`e-tile-${i}`}
-            entry={entry}
-            clickHandler={() => setActiveEntry(entry)}
-            isActive={entry === activeEntry}
-          ></EntryTile>
-        ))}
-      </Tiles>
-      <ActiveEntry>
-        <Entry entry={activeEntry} />
-      </ActiveEntry>
-    </EntryViewerContainer>
+    <div>
+      <CarouselContainer>
+        <Butt onClick={handlePrevClick}>prev</Butt>
+        <i>{` ( ${entries.indexOf(activeEntry) + 1} / ${entries.length} ) `}</i>
+        <Butt onClick={handleNextClick}>next</Butt>
+      </CarouselContainer>
+      <EntryViewerContainer>
+        <Tiles>
+          {entries.map((entry, i) => (
+            <EntryTile
+              key={`e-tile-${i}`}
+              entry={entry}
+              clickHandler={() => setActiveEntry(entry)}
+              isActive={entry === activeEntry}
+            ></EntryTile>
+          ))}
+        </Tiles>
+        <ActiveEntry>
+          <Entry entry={activeEntry} />
+        </ActiveEntry>
+      </EntryViewerContainer>
+    </div>
   );
 };
 
