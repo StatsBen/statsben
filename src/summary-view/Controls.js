@@ -32,7 +32,7 @@ const Controls = props => {
   const {
     activeTypeFilters,
     ranges,
-    setActiveRangeFilters,
+    setactiveRangeFilter,
     setActiveTypeFilters,
     types
   } = props;
@@ -69,7 +69,7 @@ const Controls = props => {
               isClearable={true}
               options={rangeOptions}
               onChange={value =>
-                setActiveRangeFilters(value ? value.value : "")
+                setactiveRangeFilter(value ? value.value : "")
               }
             />
           )}

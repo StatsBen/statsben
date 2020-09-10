@@ -19,7 +19,7 @@ import {
 const typesOffByDefault = ["work", "projects", "publications"];
 
 const SummaryView = () => {
-  const [activeRangeFilters, setActiveRangeFilters] = useState("");
+  const [activeRangeFilter, setactiveRangeFilter] = useState("");
   const [activeTypeFilters, setActiveTypeFilters] = useState([]);
   const [awaitingData, setAwaitingData] = useState(false);
   const [entryData, setEntryData] = useState(null);
@@ -69,6 +69,12 @@ const SummaryView = () => {
         );
       });
     }
+
+    if (activeRangeFilter && activeRangeFilter.length) {
+      filteredEntryData = filteredEntryData.filter(
+        entry => entry.range == activeRangeFilter
+      );
+    }
   }
 
   const types = typesListSelector(entryData); // yes, get these sans filter
@@ -78,11 +84,11 @@ const SummaryView = () => {
   // logCountsNStuff(types, ranges, countsByType, countsByRange);
 
   const controlsProps = {
-    activeRangeFilters,
+    activeRangeFilter,
     activeTypeFilters,
     ranges,
     types,
-    setActiveRangeFilters,
+    setactiveRangeFilter,
     setActiveTypeFilters
   };
 
