@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Entry from "./Entry";
+import EntryTile from "./EntryTile";
 
 const EntryViewerContainer = styled.div`
   width: 100%;
@@ -8,14 +9,11 @@ const EntryViewerContainer = styled.div`
 `;
 
 const Tiles = styled.div`
+  width: 30%;
+  max-width: 200px;
   flex-grow: 1;
   flex-shrink: 0;
-  flex-basis: auto;
-  width: 30%;
-  max-width: 300px;
-`;
-
-const EntryTile = styled.div`
+  flex-basis: 200px;
 `;
 
 const ActiveEntry = styled.div`
@@ -28,6 +26,10 @@ const EntryViewer = props => {
   const entries = props.filteredEntryData;
   const [activeEntry, setActiveEntry] = useState(entries[0]);
 
+  if (entries.length && !entries.includes(activeEntry)) {
+    setActiveEntry(entries[0]);
+  }
+
   return (
     <EntryViewerContainer>
       <Tiles>
@@ -35,10 +37,9 @@ const EntryViewer = props => {
           <EntryTile
             key={`e-tile-${i}`}
             entry={entry}
-            onClick={() => setActiveEntry(entry)}
-          >
-            {entry.name}
-          </EntryTile>
+            clickHandler={() => setActiveEntry(entry)}
+            isActive={entry === activeEntry}
+          ></EntryTile>
         ))}
       </Tiles>
       <ActiveEntry>
