@@ -1,8 +1,32 @@
 import React from "react";
 import styled from "styled-components";
 import { RangesSelector, TypeButton } from "./InputComponents";
+import { globals } from "../globals";
 
-const TypesControlsContainer = styled.div``;
+const ControlsContainer = styled.div`
+  width: calc(100% - 60px);
+  margin: 20px 50px;
+  border-bottom: thin solid ${globals.colours.lighterGray};
+`;
+
+const ControlInputContainer = styled.div`
+  display: flex;
+  padding: 30px 0;
+`;
+
+const ControlLabel = styled.span`
+  display: block;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: auto;
+`;
+
+const ControlInput = styled.span`
+  display: block;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
+`;
 
 const Controls = props => {
   const {
@@ -21,37 +45,37 @@ const Controls = props => {
 
   const rangeOptions = formatRangesHelper(ranges);
 
-  let className;
-
   return (
-    <div>
-      <TypesControlsContainer>
-        {types.map(type => {
-          className = "";
-
-          if (activeTypeFilters.includes(type)) {
-            className += "active";
-          }
-
-          return (
+    <ControlsContainer>
+      <ControlInputContainer>
+        <ControlLabel>Filter by type: </ControlLabel>
+        <ControlInput>
+          {types.map(type => (
             <TypeButton
-              className={className}
+              className={activeTypeFilters.includes(type) ? "active" : ""}
               key={`button-for-type-${type}`}
               onClick={() => handleTypeClick(type)}
             >
               {type}
             </TypeButton>
-          );
-        })}
-      </TypesControlsContainer>
-      {ranges && ranges.length && (
-        <RangesSelector
-          isClearable={true}
-          options={rangeOptions}
-          onChange={value => setActiveRangeFilters(value ? value.value : "")}
-        />
-      )}
-    </div>
+          ))}
+        </ControlInput>
+      </ControlInputContainer>
+      <ControlInputContainer>
+        <ControlLabel>Filter by range/region: </ControlLabel>
+        <ControlInput>
+          {ranges && ranges.length && (
+            <RangesSelector
+              isClearable={true}
+              options={rangeOptions}
+              onChange={value =>
+                setActiveRangeFilters(value ? value.value : "")
+              }
+            />
+          )}
+        </ControlInput>
+      </ControlInputContainer>
+    </ControlsContainer>
   );
 };
 

@@ -11,13 +11,13 @@ const EntryViewerContainer = styled.div`
 
 const Tiles = styled.div`
   width: 30%;
-  max-width: 200px;
+  max-width: 280px;
   max-height: ${screen.height - 400 + "px"};
   overflow: auto;
   direction: rtl;
   flex-grow: 1;
   flex-shrink: 0;
-  flex-basis: 200px;
+  flex-basis: 280px;
 `;
 
 const ActiveEntry = styled.div`
@@ -68,11 +68,6 @@ const EntryViewer = props => {
 
   return (
     <div>
-      <CarouselContainer>
-        <Butt onClick={handlePrevClick}>prev</Butt>
-        <i>{` ( ${entries.indexOf(activeEntry) + 1} / ${entries.length} ) `}</i>
-        <Butt onClick={handleNextClick}>next</Butt>
-      </CarouselContainer>
       <EntryViewerContainer>
         <Tiles>
           {entries.map((entry, i) => (
@@ -85,6 +80,13 @@ const EntryViewer = props => {
           ))}
         </Tiles>
         <ActiveEntry>
+          <CarouselContainer>
+            <Butt onClick={handlePrevClick}>prev</Butt>
+            <i>{` ( ${entries.indexOf(activeEntry) + 1} / ${
+              entries.length
+            } ) `}</i>
+            <Butt onClick={handleNextClick}>next</Butt>
+          </CarouselContainer>
           <Entry entry={activeEntry} />
           <CarouselContainer>
             <Butt onClick={handlePrevClick}>prev</Butt>
