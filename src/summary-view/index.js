@@ -11,8 +11,8 @@ import {
   // typesCountSelector,
   typesListSelector
 } from "./entryFilterSelectors";
-import { 
-  isOfType,
+import {
+  isOfType
   // logCountsNStuff
 } from "./mathHelpers";
 
@@ -41,6 +41,7 @@ const SummaryView = () => {
 
     firestore
       .collection("entries")
+      .orderBy("date", "desc")
       .get()
       .then(res => {
         handleDataResult(res);
@@ -93,7 +94,7 @@ const SummaryView = () => {
       {/* entryData && <Pie {...{ filteredEntryData }} /> */}
       <Controls {...controlsProps} />
       {/* AN APPROPRIATE AGGREGATION OF THE CHOSEN TYPES GOES HERE */}
-      { /* filteredEntryData &&
+      {/* filteredEntryData &&
         filteredEntryData.map((entry, i) => (
           <AccordionEntry key={`e-${i}`} {...{ entry }} />
         )) */}
