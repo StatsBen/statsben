@@ -40,7 +40,11 @@ const Controls = props => {
   if (!types || !activeTypeFilters) return <div>loading controls...</div>;
 
   const handleTypeClick = type => {
-    typeFilterSelectReducer(activeTypeFilters, setActiveTypeFilters, type);
+    if (activeTypeFilters.includes(type)) {
+      setActiveTypeFilters([]);
+    } else {
+      setActiveTypeFilters([type]);
+    }
   };
 
   const rangeOptions = formatRangesHelper(ranges);
@@ -68,9 +72,7 @@ const Controls = props => {
             <RangesSelector
               isClearable={true}
               options={rangeOptions}
-              onChange={value =>
-                setactiveRangeFilter(value ? value.value : "")
-              }
+              onChange={value => setactiveRangeFilter(value ? value.value : "")}
             />
           )}
         </ControlInput>
