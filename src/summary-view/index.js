@@ -2,15 +2,19 @@ import React, { useState, useEffect } from "react";
 import Error from "./Error";
 // import Pie from "./PieChart";
 import { firestore } from "../authentication/firebase";
-import AccordionEntry from "./AccordionEntry";
+// import AccordionEntry from "./AccordionEntry";
 import Controls from "./Controls";
+import EntryViewer from "./EntryViewer";
 import {
-  rangeCountsSelector,
+  // rangeCountsSelector,
   rangesListSelector,
-  typesCountSelector,
+  // typesCountSelector,
   typesListSelector
 } from "./entryFilterSelectors";
-import { isOfType, logCountsNStuff } from "./mathHelpers";
+import { 
+  isOfType,
+  // logCountsNStuff
+} from "./mathHelpers";
 
 const typesOffByDefault = ["work", "projects", "publications"];
 
@@ -67,9 +71,9 @@ const SummaryView = () => {
   }
 
   const types = typesListSelector(entryData); // yes, get these sans filter
-  const countsByType = typesCountSelector(filteredEntryData);
+  // const countsByType = typesCountSelector(filteredEntryData);
   const ranges = rangesListSelector(filteredEntryData);
-  const countsByRange = rangeCountsSelector(filteredEntryData);
+  // const countsByRange = rangeCountsSelector(filteredEntryData);
   // logCountsNStuff(types, ranges, countsByType, countsByRange);
 
   const controlsProps = {
@@ -89,10 +93,11 @@ const SummaryView = () => {
       {/* entryData && <Pie {...{ filteredEntryData }} /> */}
       <Controls {...controlsProps} />
       {/* AN APPROPRIATE AGGREGATION OF THE CHOSEN TYPES GOES HERE */}
-      {filteredEntryData &&
+      { /* filteredEntryData &&
         filteredEntryData.map((entry, i) => (
           <AccordionEntry key={`e-${i}`} {...{ entry }} />
-        ))}
+        )) */}
+      {entryData && <EntryViewer {...{ filteredEntryData }} />}
     </div>
   );
 };
