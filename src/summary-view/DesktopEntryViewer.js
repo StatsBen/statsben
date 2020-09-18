@@ -7,6 +7,9 @@ import { globals } from "../globals";
 const EntryViewerContainer = styled.div`
   width: 100%;
   display: flex;
+  @media (max-width: ${globals.sizes.mobileBreakpoint}) {
+    display: none;
+  }
 `;
 
 const Tiles = styled.div`
@@ -44,7 +47,7 @@ const Butt = styled.span`
   }
 `;
 
-const EntryViewer = props => {
+const DesktopEntryViewer = props => {
   const entries = props.filteredEntryData;
   const [activeEntry, setActiveEntry] = useState(entries[0]);
 
@@ -67,7 +70,6 @@ const EntryViewer = props => {
   };
 
   return (
-    <div>
       <EntryViewerContainer>
         <Tiles>
           {entries.map((entry, i) => (
@@ -97,8 +99,7 @@ const EntryViewer = props => {
           </CarouselContainer>
         </ActiveEntry>
       </EntryViewerContainer>
-    </div>
   );
 };
 
-export default EntryViewer;
+export default DesktopEntryViewer;

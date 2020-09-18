@@ -20,6 +20,10 @@ export const TypeButton = styled.button`
   &:focus {
     border: none;
   }
+  &:hover {
+    cursor: pointer;
+    color: ${globals.colours.paragraphText};
+  }
 `;
 
 export const RangesSelector = styled(Select)`

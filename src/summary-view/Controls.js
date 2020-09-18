@@ -1,32 +1,11 @@
 import React from "react";
-import styled from "styled-components";
 import { RangesSelector, TypeButton } from "./InputComponents";
-import { globals } from "../globals";
-
-const ControlsContainer = styled.div`
-  width: calc(100% - 60px);
-  margin: 20px 50px;
-  border-bottom: thin solid ${globals.colours.lighterGray};
-`;
-
-const ControlInputContainer = styled.div`
-  display: flex;
-  padding: 30px 0;
-`;
-
-const ControlLabel = styled.span`
-  display: block;
-  flex-grow: 0;
-  flex-shrink: 0;
-  flex-basis: auto;
-`;
-
-const ControlInput = styled.span`
-  display: block;
-  flex-grow: 1;
-  flex-shrink: 1;
-  flex-basis: auto;
-`;
+import {
+  ControlsContainer,
+  ControlInputContainer,
+  ControlInput,
+  ControlLabel
+} from "./ControlComponents";
 
 const Controls = props => {
   const {
@@ -91,25 +70,3 @@ const formatRangesHelper = ranges =>
         label: range
       }))
     : [];
-
-const typeFilterSelectReducer = (
-  activeTypeFilters,
-  setActiveTypeFilters,
-  type
-) => {
-  if (!type) return;
-
-  if (activeTypeFilters.length > 2) {
-    setActiveTypeFilters([type]);
-  } else if (activeTypeFilters.length == 2) {
-    if (activeTypeFilters.includes(type)) {
-      setActiveTypeFilters(activeTypeFilters.filter(t => t !== type));
-    }
-  } else {
-    if (activeTypeFilters.includes(type)) {
-      setActiveTypeFilters(activeTypeFilters.filter(t => t !== type));
-    } else {
-      setActiveTypeFilters([...activeTypeFilters, type]);
-    }
-  }
-};

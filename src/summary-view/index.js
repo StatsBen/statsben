@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import Error from "./Error";
 // import Pie from "./PieChart";
 import { firestore } from "../authentication/firebase";
-// import AccordionEntry from "./AccordionEntry";
+import styled from "styled-components";
+import AccordionViewer from "./AccordionViewer";
 import Controls from "./Controls";
-import EntryViewer from "./EntryViewer";
+import DesktopEntryViewer from "./DesktopEntryViewer";
 import {
   // rangeCountsSelector,
   rangesListSelector,
@@ -15,8 +16,22 @@ import {
   isOfType
   // logCountsNStuff
 } from "./mathHelpers";
+import { globals } from "../globals";
 
 const typesOffByDefault = ["work", "projects", "publications"];
+
+const Container = styled.div`
+  max-width: ${globals.sizes.tabletBreakpoint};
+  margin: 0 auto;
+  @media (max-width: ${globals.sizes.tabletBreakpoint}) {
+    width: 100%;
+    padding: 0 0;
+  }
+  @media (min-width: ${globals.sizes.tabletBreakpoint}) {
+    width: 90%;
+    padding: 0 5%;
+  }
+`;
 
 const SummaryView = () => {
   const [activeRangeFilter, setactiveRangeFilter] = useState("");
@@ -93,7 +108,7 @@ const SummaryView = () => {
   };
 
   return (
-    <div>
+    <Container>
       <h1>Adventure Log</h1>
       {awaitingData && "Loading..."}
       {error && <Error {...error} />}
@@ -104,8 +119,9 @@ const SummaryView = () => {
         filteredEntryData.map((entry, i) => (
           <AccordionEntry key={`e-${i}`} {...{ entry }} />
         )) */}
-      {entryData && <EntryViewer {...{ filteredEntryData }} />}
-    </div>
+      {entryData && <DesktopEntryViewer {...{ filteredEntryData }} />}
+      {entryData && <AccordionViewer entryData={filteredEntryData} />}
+    </Container>
   );
 };
 
