@@ -1,10 +1,30 @@
 import React from "react";
-// import Entry from "../Entry";
-import styled from "styled-components";
+import Entry from "./Entry";
+import styled, { keyframes } from "styled-components";
 import { globals } from "../globals";
 import { buildDateString } from "../utils/buildDateString";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+
+const appear = keyframes`
+  0% {
+    max-height: 0;
+  }
+
+  100% {
+    max-height: 2000px;
+  }
+`;
+
+const disappear = keyframes`
+  0% {
+    max-height: 2000px;
+  }
+
+  100% {
+    max-height: 0px;
+  }
+`;
 
 const AccordionViewerContainer = styled.div`
   width: calc(100% - 100px);
@@ -65,6 +85,37 @@ const CollapsedChevron = styled.div`
   }
 `;
 
+const ExpandedEntryContainer = styled.div`
+  width: 100%;
+  border-bottom: thin solid ${globals.colours.lighterGray};
+  animation: ${appear} 1s ease 0s 1 none;
+  overflow: hidden;
+  div {
+    /* Select the close button way down in there... */
+    span {
+      &:active {
+        animation: ${disappear} 1s ease 0s 1 none;
+      }
+    }
+  }
+`;
+
+const CloseButtContainer = styled.div`
+  width: 100%;
+  padding: 20px 0;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+`;
+
+const CloseButton = styled.span`
+  width: 100%;
+  color: black;
+  font-family: ${globals.fonts.accent};
+  text-align: center;
+  text-decoration: underline;
+`;
+
 class AccordionEntry extends React.Component {
   constructor(props) {
     super(props);
@@ -72,12 +123,18 @@ class AccordionEntry extends React.Component {
   }
 
   handleClick = () => {
-    this.setState({ expanded: !this.state.expanded });
-  }
+    if (this.state.expanded) {
+      setTimeout(() => {
+        this.setState({ expanded: !this.state.expanded });
+      }, 1000); // Just enough time for the 'disappear' animation to run
+    } else {
+      this.setState({ expanded: !this.state.expanded });
+    }
+  };
 
-  static Collapsed = ({ entry }) => {
+  static Collapsed = ({ entry, clickHandler }) => {
     return (
-      <CollapsedEntryContainer>
+      <CollapsedEntryContainer onClick={clickHandler}>
         <CollapsedEntryDate>
           <span>{buildDateString(entry)}</span>
         </CollapsedEntryDate>
@@ -93,7 +150,14 @@ class AccordionEntry extends React.Component {
     );
   };
 
-  static Expanded = () => <div>lil test</div>;
+  static Expanded = ({ entry, clickHandler }) => (
+    <ExpandedEntryContainer>
+      <Entry entry={entry} />
+      <CloseButtContainer>
+        <CloseButton onClick={clickHandler}>close</CloseButton>
+      </CloseButtContainer>
+    </ExpandedEntryContainer>
+  );
 
   render() {
     const { expanded } = this.state;
@@ -101,7 +165,7 @@ class AccordionEntry extends React.Component {
     const ps = { entry, clickHandler: this.handleClick };
 
     return (
-      <div onClick={this.handleClick}>
+      <div>
         {expanded && <AccordionEntry.Expanded {...ps} />}
         {!expanded && <AccordionEntry.Collapsed {...ps} />}
       </div>

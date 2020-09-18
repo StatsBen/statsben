@@ -16,8 +16,8 @@ export const EntryContainer = styled.div`
   flex-shrink: 1;
   flex-basis: auto;
   max-width: 800px;
-  margin: 80px auto;
-  padding: 0 5% 100px 5%;
+  margin: 0 auto;
+  padding: 0 5% 0 5%;
 
   @media (max-width: ${sizes.mobileBreakpoint}) {
     flex-direction: column;
