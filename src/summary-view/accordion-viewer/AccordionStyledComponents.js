@@ -3,7 +3,8 @@ import { globals } from "../../globals";
 
 export const AccordionViewerContainer = styled.div`
   width: calc(100% - 100px);
-  margin: 0 50px;
+  margin: 0 50px 100px 50px;
+  /* This whole component will be removed from the DOM in sizes > mobile */
   @media (min-width: ${globals.sizes.mobileBreakpoint}) {
     display: none;
   }
