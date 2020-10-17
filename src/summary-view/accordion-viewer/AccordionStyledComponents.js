@@ -87,3 +87,15 @@ export const CloseIcon = styled.div`
   right: 0;
   width: 2em;
 `;
+
+export const ShowMoreButton = styled.div`
+  clear: both;
+  float: none;
+  width: 100%;
+  text-align: center;
+  color: ${globals.colours.darkGray};
+  padding: 5em 0;
+  font-size: 1.2em;
+  text-decoration: underline;
+  font-style: italic;
+`;
