@@ -22,7 +22,7 @@ const AccordionViewer = props => {
       setEntries(entries);
       setNVisible(PAGINATION_SIZE);
     }
-  });
+  }, [entries]);
 
   const handlShowMoreClick = () => {
     const newN = Math.min(nVisible + PAGINATION_SIZE, storedEntries.length);
@@ -40,7 +40,9 @@ const AccordionViewer = props => {
 
       {moreToShow && (
         <ShowMoreButton>
-          <button onClick={handlShowMoreClick}>show more...</button>
+          <button onClick={handlShowMoreClick}>
+            show {Math.min(PAGINATION_SIZE, entries.length - nVisible)} more...
+          </button>
         </ShowMoreButton>
       )}
     </AccordionViewerContainer>

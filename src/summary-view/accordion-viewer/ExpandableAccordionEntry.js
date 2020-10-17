@@ -25,6 +25,11 @@ const ExpandableAccordionEntry = ({ entry }) => {
     return window.removeEventListener("resize", setContentHeight(height));
   }, [height]);
 
+  // Ensure 'expanded' is set to 'false' on first load
+  useEffect(() => {
+    setExpanded(false);
+  }, [entry]);
+
   const expand = useSpring({
     height: expanded ? `${contentHeight}px` : defaultHeight,
     overflow: "hidden"
