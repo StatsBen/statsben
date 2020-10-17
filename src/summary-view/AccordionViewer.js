@@ -1,119 +1,21 @@
 import React from "react";
 import Entry from "./Entry";
-import styled, { keyframes } from "styled-components";
 import { globals } from "../globals";
 import { buildDateString } from "../utils/buildDateString";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown, faTimes } from "@fortawesome/free-solid-svg-icons";
 
-const appear = keyframes`
-  0% {
-    max-height: 0;
-  }
-
-  100% {
-    max-height: 2000px;
-  }
-`;
-
-const disappear = keyframes`
-  0% {
-    max-height: 2000px;
-  }
-
-  100% {
-    max-height: 0px;
-  }
-`;
-
-const AccordionViewerContainer = styled.div`
-  width: calc(100% - 100px);
-  margin: 0 50px;
-  @media (min-width: ${globals.sizes.mobileBreakpoint}) {
-    display: none;
-  }
-`;
-
-const CollapsedEntryContainer = styled.div`
-  display: flex;
-  align-items: center;
-  width: calc(100% - 20px);
-  padding: 15px;
-  font-family: ${globals.fonts.accent};
-  border-bottom: thin solid ${globals.colours.lighterGray};
-  user-select: none;
-  &:hover {
-    cursor: pointer;
-    background: ${globals.colours.lighterGray};
-  }
-  &:active {
-    background: ${globals.colours.mediumGray};
-    color: ${globals.colours.white};
-  }
-`;
-
-const CollapsedEntryDate = styled.div`
-  flex-grow: 0;
-  flex-shrink: 0;
-  flex-basis: 113px;
-  width: 113px;
-  padding: 0;
-  vertical-align: middle;
-  span {
-    height: 100%;
-  }
-`;
-
-const CollapsedEntryTitle = styled.div`
-  flex-grow: 1;
-  flex-shrink: 1;
-  flex-basis: auto;
-  padding: 0 0 0 12px;
-  border-left: thin solid ${globals.colours.lighterGray};
-`;
-
-const CollapsedChevron = styled.div`
-  flex-grow: 0;
-  flex-shrink: 0;
-  flex-basis: auto;
-  padding: 0 0 0 12px;
-  vertical-align: middle;
-  svg {
-    width: 1em;
-    height: 100%;
-  }
-`;
-
-const ExpandedEntryContainer = styled.div`
-  width: 100%;
-  border-bottom: thin solid ${globals.colours.lighterGray};
-  animation: ${appear} 1s ease 0s 1 none;
-  overflow: hidden;
-  div {
-    /* Select the close button way down in there... */
-    span {
-      &:active {
-        animation: ${disappear} 1s ease 0s 1 none;
-      }
-    }
-  }
-`;
-
-const CloseButtContainer = styled.div`
-  width: 100%;
-  padding: 20px 0;
-  text-align: center;
-  cursor: pointer;
-  user-select: none;
-`;
-
-const CloseButton = styled.span`
-  width: 100%;
-  color: black;
-  font-family: ${globals.fonts.accent};
-  text-align: center;
-  text-decoration: underline;
-`;
+import {
+  AccordionViewerContainer,
+  CloseButton,
+  CloseButtContainer,
+  CloseIcon,
+  CollapsedChevron,
+  CollapsedEntryContainer,
+  CollapsedEntryDate,
+  CollapsedEntryTitle,
+  ExpandedEntryContainer
+} from "./AccordionComponents";
 
 class AccordionEntry extends React.Component {
   constructor(props) {
@@ -151,6 +53,13 @@ class AccordionEntry extends React.Component {
 
   static Expanded = ({ entry, clickHandler }) => (
     <ExpandedEntryContainer>
+      <CloseIcon onClick={clickHandler}>
+        <FontAwesomeIcon
+          icon={faTimes}
+          style={{}}
+          color={globals.colours.charcoal}
+        />
+      </CloseIcon>
       <Entry entry={entry} />
       <CloseButtContainer>
         <CloseButton onClick={clickHandler}>close</CloseButton>
