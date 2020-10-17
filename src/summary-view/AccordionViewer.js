@@ -36,6 +36,7 @@ const AccordionViewerContainer = styled.div`
 
 const CollapsedEntryContainer = styled.div`
   display: flex;
+  align-items: center;
   width: calc(100% - 20px);
   padding: 15px;
   font-family: ${globals.fonts.accent};
@@ -56,12 +57,9 @@ const CollapsedEntryDate = styled.div`
   flex-shrink: 0;
   flex-basis: 113px;
   width: 113px;
-  background: yellow;
   padding: 0;
-  border-right: thin solid ${globals.colours.ligherGray};
   vertical-align: middle;
   span {
-    background: orange;
     height: 100%;
   }
 `;
@@ -71,6 +69,7 @@ const CollapsedEntryTitle = styled.div`
   flex-shrink: 1;
   flex-basis: auto;
   padding: 0 0 0 12px;
+  border-left: thin solid ${globals.colours.lighterGray};
 `;
 
 const CollapsedChevron = styled.div`
