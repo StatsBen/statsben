@@ -1,7 +1,7 @@
 import React from "react";
-import Entry from "./Entry";
-import { globals } from "../globals";
-import { buildDateString } from "../utils/buildDateString";
+import Entry from "../Entry";
+import { globals } from "../../globals";
+import { buildDateString } from "../../utils/buildDateString";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faTimes } from "@fortawesome/free-solid-svg-icons";
 import {

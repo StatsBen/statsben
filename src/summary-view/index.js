@@ -3,7 +3,7 @@ import Error from "./Error";
 // import Pie from "./PieChart";
 import { firestore } from "../authentication/firebase";
 import styled from "styled-components";
-import AccordionViewer from "./AccordionViewer";
+import AccordionViewer from "./accordion-viewer/AccordionViewer";
 import Controls from "./Controls";
 import DesktopEntryViewer from "./DesktopEntryViewer";
 import {

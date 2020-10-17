@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { globals } from "../globals";
+import { globals } from "../../globals";
 
 export const AccordionViewerContainer = styled.div`
   width: calc(100% - 100px);
