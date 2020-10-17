@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   AccordionViewerContainer,
   ShowMoreButton
@@ -10,21 +10,27 @@ const PAGINATION_SIZE = 20;
 const AccordionViewer = props => {
   const entries = props.entryData;
 
-  // TODO: Come up with some effect hook to reset nVisible when a filter is applied :/
-
+  const [storedEntries, setEntries] = useState(props.entryData);
   const [nVisible, setNVisible] = useState(PAGINATION_SIZE);
-  const [moreToShow, setMoreToShow] = useState(
-    Boolean(nVisible < entries.length)
-  );
+
+  useEffect(() => {
+    /**
+     * If the list of entries provided by props changes, then reset the
+     * number of entries shown back to the default size.
+     */
+    if (storedEntries !== entries) {
+      setEntries(entries);
+      setNVisible(PAGINATION_SIZE);
+    }
+  });
 
   const handlShowMoreClick = () => {
-    const newN = Math.min(nVisible + PAGINATION_SIZE, entries.length);
+    const newN = Math.min(nVisible + PAGINATION_SIZE, storedEntries.length);
     setNVisible(newN);
-    if (newN === entries.length) setMoreToShow(false);
-    else setMoreToShow(true);
   };
 
   const entriesToShow = entries.slice(0, nVisible);
+  const moreToShow = Boolean(nVisible < entries.length);
 
   return (
     <AccordionViewerContainer>
@@ -33,8 +39,8 @@ const AccordionViewer = props => {
       ))}
 
       {moreToShow && (
-        <ShowMoreButton onClick={handlShowMoreClick}>
-          show more...
+        <ShowMoreButton>
+          <button onClick={handlShowMoreClick}>show more...</button>
         </ShowMoreButton>
       )}
     </AccordionViewerContainer>
