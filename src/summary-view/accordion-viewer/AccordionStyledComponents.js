@@ -92,10 +92,18 @@ export const ShowMoreButton = styled.div`
   clear: both;
   float: none;
   width: 100%;
-  text-align: center;
-  color: ${globals.colours.darkGray};
   padding: 5em 0;
-  font-size: 1.2em;
-  text-decoration: underline;
-  font-style: italic;
+  text-align: center;
+  button {
+    background: none;
+    border: none;
+    color: ${globals.colours.darkGray};
+    font-size: 1.2em;
+    text-decoration: underline;
+    font-style: italic;
+    &:hover {
+      cursor: pointer;
+      color: ${globals.colours.charcoal};
+    }
+  }
 `;
