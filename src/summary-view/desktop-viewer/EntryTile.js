@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { globals } from "../globals";
-import { buildDateString } from "../utils/buildDateString";
+import { globals } from "../../globals";
+import { buildDateString } from "../../utils/buildDateString";
 
 const Container = styled.div`
   width: calc(100% - 35px);

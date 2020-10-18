@@ -5,7 +5,7 @@ import { firestore } from "../authentication/firebase";
 import styled from "styled-components";
 import AccordionViewer from "./accordion-viewer/AccordionViewer";
 import Controls from "./Controls";
-import DesktopEntryViewer from "./DesktopEntryViewer";
+import DesktopEntryViewer from "./desktop-viewer/DesktopEntryViewer";
 import {
   // rangeCountsSelector,
   rangesListSelector,

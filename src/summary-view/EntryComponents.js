@@ -33,9 +33,10 @@ export const EntryDate = styled.div`
   text-align: right;
 
   @media (max-width: ${sizes.mobileBreakpoint}) {
-    font-size: 0.8em;
+    display: none; /* hide in the mobile view - it's redundant */
+    /* font-size: 0.8em;
     padding: 0.5em 0;
-    text-align: left;
+    text-align: left; */
   }
 
   @media (min-width: ${sizes.mobileBreakpoint}) {
@@ -52,8 +53,8 @@ export const EntryContentContainer = styled.div`
   flex-grow: 1;
   flex-shrink: 1;
   flex-basis: auto;
-  border-left: thin solid ${colours.lightGray};
-  padding: 0 1em;
+  /* border-left: thin solid ${colours.lightGray}; */
+  /* padding: 0 1em; */
 `;
 
 export const EntryHeaderContainer = styled.div`
