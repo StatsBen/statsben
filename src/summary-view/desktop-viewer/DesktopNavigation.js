@@ -1,68 +1,46 @@
 import React from "react";
-import styled from "styled-components";
 import EntryTile from "./EntryTile";
-import { globals } from "../../globals";
+import {
+  Butt,
+  CarouselContainer,
+  NavContainer,
+  Tiles
+} from "./DesktopStyledComponents";
 
 const NAV_MAX_WIDTH = "280px";
 
-const NavContainer = styled.div`
-  width: 30%;
-  max-width: ${NAV_MAX_WIDTH};
-`;
+const DesktopNavigation = props => {
+  const {
+    activeEntry,
+    entries,
+    handleNextClick,
+    handlePrevClick,
+    setActiveEntry
+  } = props;
 
-const Tiles = styled.div`
-  width: 100%;
-  max-width: ${NAV_MAX_WIDTH};
-  max-height: ${screen.height - 400 + "px"};
-  overflow: auto;
-  direction: rtl;
-`;
+  const paginationString = ` ( ${entries.indexOf(activeEntry) + 1} / ${
+    entries.length
+  } ) `;
 
-const CarouselContainer = styled.div`
-  width: 100%;
-  max-width: ${NAV_MAX_WIDTH};
-  padding: 20px 0;
-  margin-bottom: 30px;
-  text-align: center;
-  color: ${globals.colours.darkGray};
-  font-family: ${globals.fonts.accent};
-  border-bottom: thin solid ${globals.colours.lighterGray};
-`;
-
-const Butt = styled.span`
-  padding: 0 1em;
-  text-decoration: underline;
-  user-select: none;
-  &:hover {
-    cursor: pointer;
-    color: ${globals.colours.charcoal};
-  }
-`;
-
-const DesktopNavigation = ({
-  activeEntry,
-  entries,
-  handleNextClick,
-  handlePrevClick,
-  setActiveEntry
-}) => (
-  <NavContainer>
-    <CarouselContainer>
-      <Butt onClick={handlePrevClick}>prev</Butt>
-      <i>{` ( ${entries.indexOf(activeEntry) + 1} / ${entries.length} ) `}</i>
-      <Butt onClick={handleNextClick}>next</Butt>
-    </CarouselContainer>
-    <Tiles>
-      {entries.map((entry, i) => (
-        <EntryTile
-          key={`e-tile-${i}`}
-          entry={entry}
-          clickHandler={() => setActiveEntry(entry)}
-          isActive={entry === activeEntry}
-        ></EntryTile>
-      ))}
-    </Tiles>
-  </NavContainer>
-);
+  return (
+    <NavContainer maxWidth={NAV_MAX_WIDTH}>
+      <CarouselContainer maxWidth={NAV_MAX_WIDTH}>
+        <Butt onClick={handlePrevClick}>prev</Butt>
+        <i>{paginationString}</i>
+        <Butt onClick={handleNextClick}>next</Butt>
+      </CarouselContainer>
+      <Tiles maxWidth={NAV_MAX_WIDTH}>
+        {entries.map((entry, i) => (
+          <EntryTile
+            key={`e-tile-${i}`}
+            entry={entry}
+            clickHandler={() => setActiveEntry(entry)}
+            isActive={entry === activeEntry}
+          />
+        ))}
+      </Tiles>
+    </NavContainer>
+  );
+};
 
 export default DesktopNavigation;

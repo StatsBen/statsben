@@ -1,23 +1,7 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import Entry from "../Entry";
-import { globals } from "../../globals";
 import DesktopNavigation from "./DesktopNavigation";
-
-const EntryViewerContainer = styled.div`
-  width: 100%;
-  display: flex;
-  margin-bottom: 50px;
-  @media (max-width: ${globals.sizes.mobileBreakpoint}) {
-    display: none;
-  }
-`;
-
-const ActiveEntry = styled.div`
-  flex-grow: 1;
-  flex-shrink: 1;
-  flex-basis: auto;
-`;
+import { ActiveEntry, EntryViewerContainer } from "./DesktopStyledComponents";
 
 const DesktopEntryViewer = props => {
   const entries = props.filteredEntryData;
@@ -41,7 +25,7 @@ const DesktopEntryViewer = props => {
     setActiveEntry(entries[newI]);
   };
 
-  const desktopNavProps = {
+  const navProps = {
     activeEntry,
     entries,
     handleNextClick,
@@ -51,7 +35,7 @@ const DesktopEntryViewer = props => {
 
   return (
     <EntryViewerContainer>
-      <DesktopNavigation {...desktopNavProps} />
+      <DesktopNavigation {...navProps} />
       <ActiveEntry>
         <Entry entry={activeEntry} />
       </ActiveEntry>
