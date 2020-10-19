@@ -10,13 +10,22 @@ export const AccordionViewerContainer = styled.div`
   }
 `;
 
+export const WholeEntryContainer = styled.div`
+  &:first-child {
+    border-top: thin solid ${globals.colours.lighterGray};
+  }
+`;
+
 export const CollapsedEntryContainer = styled.div`
   display: flex;
   align-items: center;
-  width: calc(100% - 20px);
+  width: calc(100% - 30px);
   padding: 15px;
   font-family: ${globals.fonts.accent};
-  border-bottom: thin solid ${globals.colours.lighterGray};
+  font-weight: ${props => (props.expanded ? "900" : "300")};
+  color: ${props => (props.expanded ? "black" : "auto")};
+  border-bottom: ${props =>
+    props.expanded ? `none` : `thin solid ${globals.colours.lighterGray}`};
   user-select: none;
   &:hover {
     cursor: pointer;

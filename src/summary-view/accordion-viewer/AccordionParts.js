@@ -16,7 +16,7 @@ import {
 
 export const AccordionBanner = ({ entry, clickHandler, expanded }) => {
   return (
-    <CollapsedEntryContainer onClick={clickHandler}>
+    <CollapsedEntryContainer onClick={clickHandler} expanded={expanded}>
       <CollapsedEntryDate>
         <span>{buildDateString(entry)}</span>
       </CollapsedEntryDate>

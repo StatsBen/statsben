@@ -62,24 +62,24 @@ class Entry extends React.Component {
 
   render() {
     const { entry } = this.props;
-    const dateStr = this.buildDateString(entry);
+    // const dateStr = this.buildDateString(entry);
     const gradeStr = this.buildGradeString(entry.grade);
 
     return (
       <EntryContainer ref={r => (this.element = r)}>
-        <EntryDate>{dateStr}</EntryDate>
         <EntryContentContainer>
           <EntryHeaderContainer>
             <EntryTitle>{entry.name}</EntryTitle>
             <EntryDetails>
-              <div>{gradeStr}</div>
               <div>{entry.range}</div>
+              <div>{gradeStr}</div>
             </EntryDetails>
           </EntryHeaderContainer>
           <EntryContents
             dangerouslySetInnerHTML={{ __html: entry.html }}
           ></EntryContents>
         </EntryContentContainer>
+        {/* <EntryDate>{dateStr}</EntryDate> */}
       </EntryContainer>
     );
   }

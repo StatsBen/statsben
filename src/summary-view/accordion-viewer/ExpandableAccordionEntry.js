@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSpring, animated } from "react-spring";
 import { useMeasure } from "react-use";
-import {} from "./AccordionStyledComponents";
+import { WholeEntryContainer } from "./AccordionStyledComponents";
 import { AccordionBanner, AccordionContents } from "./AccordionParts";
 
 const ExpandableAccordionEntry = ({ entry }) => {
@@ -46,7 +46,7 @@ const ExpandableAccordionEntry = ({ entry }) => {
   const ps = { clickHandler: toggleExpanded, entry, expanded };
 
   return (
-    <div>
+    <WholeEntryContainer>
       <AccordionBanner {...ps} />
       {/* wrapper? */}
       <animated.div style={expand}>
@@ -56,7 +56,7 @@ const ExpandableAccordionEntry = ({ entry }) => {
           <AccordionContents {...ps} />
         </div>
       </animated.div>
-    </div>
+    </WholeEntryContainer>
   );
 };
 
