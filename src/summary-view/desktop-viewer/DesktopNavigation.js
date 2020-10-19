@@ -7,7 +7,7 @@ import {
   Tiles
 } from "./DesktopStyledComponents";
 
-const NAV_MAX_WIDTH = "280px";
+const NAV_MAX_WIDTH = "250px";
 
 const DesktopNavigation = props => {
   const {
@@ -15,6 +15,7 @@ const DesktopNavigation = props => {
     entries,
     handleNextClick,
     handlePrevClick,
+    height,
     setActiveEntry
   } = props;
 
@@ -23,13 +24,13 @@ const DesktopNavigation = props => {
   } ) `;
 
   return (
-    <NavContainer maxWidth={NAV_MAX_WIDTH}>
+    <NavContainer maxWidth={NAV_MAX_WIDTH} >
       <CarouselContainer maxWidth={NAV_MAX_WIDTH}>
         <Butt onClick={handlePrevClick}>prev</Butt>
         <i>{paginationString}</i>
         <Butt onClick={handleNextClick}>next</Butt>
       </CarouselContainer>
-      <Tiles maxWidth={NAV_MAX_WIDTH}>
+      <Tiles maxWidth={NAV_MAX_WIDTH} height={height}>
         {entries.map((entry, i) => (
           <EntryTile
             key={`e-tile-${i}`}

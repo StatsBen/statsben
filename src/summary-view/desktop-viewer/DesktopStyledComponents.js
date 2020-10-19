@@ -14,19 +14,27 @@ export const ActiveEntry = styled.div`
   flex-grow: 1;
   flex-shrink: 1;
   flex-basis: auto;
+  background: yellow;
 `;
 
 export const NavContainer = styled.div`
-  width: 30%;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: ${props => props.maxWidth};
+  height: 300px; /* <- this is the effective min-height */
   max-width: ${props => props.maxWidth};
+  top: 0;
+  background: sienna;
 `;
 
 export const Tiles = styled.div`
+  position: inline;
   width: 100%;
   max-width: ${props => props.maxWidth};
-  max-height: ${screen.height - 400 + "px"};
+  height: ${props => Math.max(props.height - 91, 300) + "px"};
   overflow: auto;
   direction: rtl;
+  background: teal;
 `;
 
 export const CarouselContainer = styled.div`
