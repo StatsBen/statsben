@@ -14,7 +14,6 @@ export const ActiveEntry = styled.div`
   flex-grow: 1;
   flex-shrink: 1;
   flex-basis: auto;
-  background: yellow;
 `;
 
 export const NavContainer = styled.div`
@@ -24,7 +23,6 @@ export const NavContainer = styled.div`
   height: 300px; /* <- this is the effective min-height */
   max-width: ${props => props.maxWidth};
   top: 0;
-  background: sienna;
 `;
 
 export const Tiles = styled.div`
@@ -34,7 +32,6 @@ export const Tiles = styled.div`
   height: ${props => Math.max(props.height - 91, 300) + "px"};
   overflow: auto;
   direction: rtl;
-  background: teal;
 `;
 
 export const CarouselContainer = styled.div`
