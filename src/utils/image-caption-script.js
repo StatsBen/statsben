@@ -4,6 +4,10 @@ import { globals } from "../globals";
  ** and finds all IMG elements, reads their "alt" attribute text, and
  ** generates a caption for the photo from the text.  **/
 const addCaptionToImgFromAltText = entryElement => {
+
+  // Just bail if the element is null or whatever...
+  if (!entryElement) return;
+  
   const imgs = entryElement.getElementsByTagName("img");
 
   for (let i = 0; i < imgs.length; i++) {
