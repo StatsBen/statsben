@@ -46,69 +46,12 @@ a:hover {
   color: #5fc4d8;
 }
 
-/*********** Widescreen UI *************/
-@media (min-width: 1400px) {
-  /* Common classes for images throughout the app */
-  .large {
-    display: block;
-    position: relative;
-    float: none;
-    clear: both;
-    width: 96%;
-    max-width: 1300px;
-    margin: 40px 2% 40px 2%;
-  }
-
-  /* Common classes for images throughout the app */
-  .aside {
-    display: block;
-    position: relative;
-    float: left;
-    width: 100%;
-    margin: 20px 3% 20px 0;
-  }
-}
-
-/*********** Standard UID **************/
-@media (max-width: 1400px) {
-  /* Common classes for images throughout the app */
-  .large {
-    display: block;
-    position: relative;
-    float: none;
-    clear: both;
-    width: 100%;
-    max-width: 1300px;
-    margin: 20px 0 0 0;
-  }
-
-  /* Common classes for images throughout the app */
-  @media (min-width: 900px) {
-    .aside {
-      display: block;
-      position: relative;
-      float: left;
-      width: 48%;
-      margin: 1% 2% 1% 0;
-    }
-  }
-
-  /* Common classes for images throughout the app */
-  @media (max-width: 900px) {
-    .aside {
-      display: block;
-      position: relative;
-      float: left;
-      width: 100%;
-      margin: 2% 0 2% 0;
-    }
-  }
-}
-
-/** This is a suuuper weird hack to make the Masonry
-    Component CSS library work. Don't ask me how, it
-    was just in the docs... Don't delete as long as
-    you're keeping the Masonry library! **/
-.my-masonry-grid_column {
-  padding-left: 30px;
+.large, .aside {
+  display: block;
+  position: relative;
+  float: none;
+  clear: both;
+  width: 100%;
+  max-width: 1300px;
+  margin: 30px 0;
 }
