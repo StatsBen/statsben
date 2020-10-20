@@ -30,7 +30,6 @@ const DesktopEntryViewer = props => {
   const [ref, { height }] = useMeasure();
 
   useEffect(() => {
-    console.log(height);
     //Sets initial height
     setNavHeight(height);
 
