@@ -1,7 +1,6 @@
 import React from "react";
 import {
   EntryContainer,
-  EntryDate,
   EntryContentContainer,
   EntryContents,
   EntryHeaderContainer,
@@ -29,16 +28,6 @@ class Entry extends React.Component {
     addCaptionToImgFromAltText(this.element);
   }
 
-  buildDateString(entry) {
-    const date = new Date(entry.date.toDate());
-    const rawDay = date.getDate();
-    const day = rawDay < 10 ? "0" + rawDay : rawDay;
-    const rawMonth = date.getMonth() + 1;
-    const month = rawMonth < 10 ? "0" + rawMonth : rawMonth;
-    const dateStr = day + "-" + month + "-" + date.getFullYear();
-    return dateStr;
-  }
-
   buildGradeString(gradeObject) {
     let gradeString = "(";
     let gradeHasContents = false;
@@ -62,11 +51,13 @@ class Entry extends React.Component {
 
   render() {
     const { entry } = this.props;
-    // const dateStr = this.buildDateString(entry);
     const gradeStr = this.buildGradeString(entry.grade);
 
     return (
       <EntryContainer ref={r => (this.element = r)}>
+        <div id="former-date" />
+        {/* ^ Since removing the date here, a new element
+              is needed for the image caption script thing...*/}
         <EntryContentContainer>
           <EntryHeaderContainer>
             <EntryTitle>{entry.name}</EntryTitle>
