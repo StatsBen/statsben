@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import {
   EntryContainer,
   EntryContentContainer,
@@ -23,57 +23,53 @@ import { formatter } from "../utils/formatter";
 //   }
 // };
 
-class Entry extends React.Component {
-  componentDidMount() {
-    addCaptionToImgFromAltText(this.element);
-  }
+const Entry = ({ entry }) => {
+  const entryContainerRef = useRef(null);
 
-  buildGradeString(gradeObject) {
-    let gradeString = "(";
-    let gradeHasContents = false;
+  useEffect(() => {
+    if (entryContainerRef && entryContainerRef.current)
+    addCaptionToImgFromAltText(entryContainerRef.current);
+  }, [entry]);
 
-    for (var grade in gradeObject) {
-      if (gradeObject.hasOwnProperty(grade)) {
-        let value = gradeObject[grade];
-        if (value) {
-          gradeString += formatter.prettyByGradeName(value, grade) + ", ";
-          gradeHasContents = true;
-        }
+  const gradeStr = buildGradeString(entry.grade);
+
+  return (
+    <EntryContainer ref={entryContainerRef}>
+      <EntryContentContainer>
+        <EntryHeaderContainer>
+          <EntryTitle>{entry.name}</EntryTitle>
+          <EntryDetails>
+            <div>{entry.range}</div>
+            <div>{gradeStr}</div>
+          </EntryDetails>
+        </EntryHeaderContainer>
+        <EntryContents
+          dangerouslySetInnerHTML={{ __html: entry.html }}
+        ></EntryContents>
+      </EntryContentContainer>
+    </EntryContainer>
+  );
+};
+
+const buildGradeString = gradeObject => {
+  let gradeString = "(";
+  let gradeHasContents = false;
+
+  for (var grade in gradeObject) {
+    if (gradeObject.hasOwnProperty(grade)) {
+      let value = gradeObject[grade];
+      if (value) {
+        gradeString += formatter.prettyByGradeName(value, grade) + ", ";
+        gradeHasContents = true;
       }
     }
-
-    // Remove surrepttitiously added final comma
-    gradeString = gradeString.substring(0, gradeString.length - 2);
-
-    gradeString += ")";
-    return gradeHasContents ? gradeString : "";
   }
 
-  render() {
-    const { entry } = this.props;
-    const gradeStr = this.buildGradeString(entry.grade);
+  // Remove surrepttitiously added final comma
+  gradeString = gradeString.substring(0, gradeString.length - 2);
 
-    return (
-      <EntryContainer ref={r => (this.element = r)}>
-        <div id="former-date" />
-        {/* ^ Since removing the date here, a new element
-              is needed for the image caption script thing...*/}
-        <EntryContentContainer>
-          <EntryHeaderContainer>
-            <EntryTitle>{entry.name}</EntryTitle>
-            <EntryDetails>
-              <div>{entry.range}</div>
-              <div>{gradeStr}</div>
-            </EntryDetails>
-          </EntryHeaderContainer>
-          <EntryContents
-            dangerouslySetInnerHTML={{ __html: entry.html }}
-          ></EntryContents>
-        </EntryContentContainer>
-        {/* <EntryDate>{dateStr}</EntryDate> */}
-      </EntryContainer>
-    );
-  }
-}
+  gradeString += ")";
+  return gradeHasContents ? gradeString : "";
+};
 
 export default Entry;
