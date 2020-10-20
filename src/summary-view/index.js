@@ -39,6 +39,9 @@ const SummaryView = () => {
   const [awaitingData, setAwaitingData] = useState(false);
   const [entryData, setEntryData] = useState(null);
   const [error, setError] = useState(null);
+  const [isMobile, setIsMobile] = useState(
+    window.innerWidth < parseInt(globals.sizes.mobileBreakpoint)
+  );
 
   /* Request the dataset and handle result */
   const getAllEntryData = () => {
@@ -98,6 +101,30 @@ const SummaryView = () => {
   // const countsByRange = rangeCountsSelector(filteredEntryData);
   // logCountsNStuff(types, ranges, countsByType, countsByRange);
 
+  const switchViewIfNecessary = () => {
+    // if (
+    //   isMobile &&
+    //   window.innerWidth > parseInt(globals.sizes.mobileBreakpoint)
+    // ) {
+    //   console.log("switching to desktop");
+    //   setIsMobile(false);
+    // } else if (
+    //   !isMobile &&
+    //   window.innerWidth < parseInt(globals.sizes.mobileBreakpoint)
+    // ) {
+    //   console.log("switching to mobile");
+    //   setIsMobile(true);
+    // }
+    /* ^ Doesn't work, not sure why :'(  */
+    setIsMobile(window.innerWidth < parseInt(globals.sizes.mobileBreakpoint));
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      switchViewIfNecessary();
+    });
+  }, []);
+
   const controlsProps = {
     activeRangeFilter,
     activeTypeFilters,
@@ -106,6 +133,10 @@ const SummaryView = () => {
     setactiveRangeFilter,
     setActiveTypeFilters
   };
+
+  const showMobile = entryData && isMobile;
+
+  const showDesktop = entryData && !isMobile;
 
   return (
     <Container>
@@ -119,8 +150,8 @@ const SummaryView = () => {
         filteredEntryData.map((entry, i) => (
           <AccordionEntry key={`e-${i}`} {...{ entry }} />
         )) */}
-      {entryData && <DesktopEntryViewer {...{ filteredEntryData }} />}
-      {entryData && <AccordionViewer entryData={filteredEntryData} />}
+      {showMobile && <AccordionViewer {...{ filteredEntryData }} />}
+      {showDesktop && <DesktopEntryViewer {...{ filteredEntryData }} />}
     </Container>
   );
 };

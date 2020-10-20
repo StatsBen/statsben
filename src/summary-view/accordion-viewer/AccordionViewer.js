@@ -8,7 +8,7 @@ import ExpandableAccordionEntry from "./ExpandableAccordionEntry";
 const PAGINATION_SIZE = 20;
 
 const AccordionViewer = props => {
-  const entries = props.entryData;
+  const entries = props.filteredEntryData;
 
   const [storedEntries, setEntries] = useState(props.entryData);
   const [nVisible, setNVisible] = useState(PAGINATION_SIZE);
