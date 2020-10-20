@@ -20,31 +20,6 @@ export const EntryContainer = styled.div`
   }
 `;
 
-// export const EntryDate = styled.div`
-//   flex-grow: 0;
-//   flex-shrink: 0;
-//   flex-basis: auto;
-//   font-family: ${fonts.accent};
-//   max-height: 10em;
-//   text-align: right;
-
-//   @media (max-width: ${sizes.mobileBreakpoint}) {
-//     display: none; /* hide in the mobile view - it's redundant */
-//     /* font-size: 0.8em;
-//     padding: 0.5em 0;
-//     text-align: left; */
-//   }
-
-//   @media (min-width: ${sizes.mobileBreakpoint}) {
-//     font-size: 1.2em;
-//     direction: ltr;
-//     writing-mode: vertical-rl;
-//     text-orientation: sideways;
-//     transform: rotate(180deg);
-//     padding: 0 1em;
-//   }
-// `;
-
 export const EntryContentContainer = styled.div`
   flex-grow: 1;
   flex-shrink: 1;
@@ -56,10 +31,6 @@ export const EntryContentContainer = styled.div`
 export const EntryHeaderContainer = styled.div`
   display: flex;
   flex-direction: column;
-
-  /* @media (min-width: ${sizes.tabletBreakpoint}) {
-    flex-direction: row;
-  } */
 `;
 
 export const EntryTitle = styled.div`
@@ -72,9 +43,6 @@ export const EntryTitle = styled.div`
 
   @media (max-width: ${sizes.mobileBreakpoint}) {
     display: none; /* hide in the mobile view - it's redundant */
-    /* line-height: 0.8em;
-    font-size: 2em;
-    padding: 0.3em 0; */
   }
 
   @media (min-width: ${sizes.mobileBreakpoint}) and (max-width: ${sizes.tabletBreakpoint}) {
@@ -106,9 +74,9 @@ export const EntryDetails = styled.div`
     flex-grow: 0;
     flex-shrink: 0;
     flex-basis: auto;
-    padding-right: 0.5em;
     /* background: orange; */
     @media (min-width: ${sizes.mobileBreakpoint}) {
+    padding-right: 0.5em;
       &:after {
         content: ",";
       }
@@ -116,10 +84,22 @@ export const EntryDetails = styled.div`
   }
 
   div:nth-child(2) {
+    @media (min-width: ${sizes.mobileBreakpoint}) {
+      display: none;
+    }
     flex-grow: 1;
     flex-shrink: 1;
     flex-basis: auto;
-    /* background: green; */
+    height: 0.6em;
+    margin: 0 0.5em;
+    border-bottom: thin solid ${colours.lightGray};
+  }
+
+  div:nth-child(3) {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: auto;
+    padding-right: 0.25em; /* Stops the italicized parenthesis from being clipped */
     @media (max-width: ${sizes.mobileBreakpoint}) {
       text-align: right;
     }
@@ -135,6 +115,6 @@ export const EntryContents = styled.div`
 
   @media (max-width: ${sizes.mobileBreakpoint}) {
     border-top: none;
-    margin-top: 0;
+    margin-top: 1em;
   }
 `;

@@ -28,7 +28,7 @@ const Entry = ({ entry }) => {
 
   useEffect(() => {
     if (entryContainerRef && entryContainerRef.current)
-    addCaptionToImgFromAltText(entryContainerRef.current);
+      addCaptionToImgFromAltText(entryContainerRef.current);
   }, [entry]);
 
   const gradeStr = buildGradeString(entry.grade);
@@ -40,6 +40,8 @@ const Entry = ({ entry }) => {
           <EntryTitle>{entry.name}</EntryTitle>
           <EntryDetails>
             <div>{entry.range}</div>
+            <div></div>
+            {/* ^ middle bar on mobile */}
             <div>{gradeStr}</div>
           </EntryDetails>
         </EntryHeaderContainer>
