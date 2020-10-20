@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { colours } from "../globals/colours";
-import { fonts } from "../globals/fonts";
-import { sizes } from "../globals/sizes";
+import { colours } from "../../globals/colours";
+import { fonts } from "../../globals/fonts";
+import { sizes } from "../../globals/sizes";
 
 export const EntryContainer = styled.div`
   display: flex;

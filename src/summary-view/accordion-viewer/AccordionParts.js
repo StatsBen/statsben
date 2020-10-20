@@ -1,5 +1,5 @@
 import React from "react";
-import Entry from "../Entry";
+import Entry from "../entry/Entry";
 import { globals } from "../../globals";
 import { buildDateString } from "../../utils/buildDateString";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

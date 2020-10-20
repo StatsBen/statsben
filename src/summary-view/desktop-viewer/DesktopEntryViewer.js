@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Entry from "../Entry";
+import Entry from "../entry/Entry";
 import DesktopNavigation from "./DesktopNavigation";
 import { ActiveEntry, EntryViewerContainer } from "./DesktopStyledComponents";
 import { useMeasure } from "react-use";
@@ -47,10 +47,6 @@ const DesktopEntryViewer = props => {
   useEffect(() => {
     setActiveEntry(entries[0]);
   }, [entries]);
-
-  // useEffect(() => {
-  //   console.log(activeEntryRef);
-  // }, [activeEntry]);
 
   const navProps = {
     activeEntry,

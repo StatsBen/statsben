@@ -7,8 +7,8 @@ import {
   EntryTitle,
   EntryDetails
 } from "./EntryComponents";
-import { addCaptionToImgFromAltText } from "../utils/image-caption-script";
-import { formatter } from "../utils/formatter";
+import { addCaptionToImgFromAltText } from "../../utils/image-caption-script";
+import { formatter } from "../../utils/formatter";
 
 // const demoProps = {
 //   entry: {
