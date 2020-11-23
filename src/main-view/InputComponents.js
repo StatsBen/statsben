@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Select from "react-select";
-import { globals } from "../globals/";
+import { globals } from "../globals";
 
 export const TypeButton = styled.button`
   margin-left: 5px;

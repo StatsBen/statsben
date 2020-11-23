@@ -33,7 +33,22 @@ const Container = styled.div`
   }
 `;
 
-const SummaryView = () => {
+const Banner = styled.h1`
+  @media (max-width: ${globals.sizes.tabletBreakpoint}) {
+    width: 90%;
+    padding: 0 5%;
+  }
+`;
+
+const Tagline = styled.p`
+  width: calc(100% - 100px);
+  margin-left: 50px;
+  padding-bottom: 1.5em;
+  color: ${globals.colours.charcoal};
+  font-family: ${globals.fonts.accent};
+`;
+
+const MainView = () => {
   const [activeRangeFilter, setactiveRangeFilter] = useState("");
   const [activeTypeFilters, setActiveTypeFilters] = useState([]);
   const [awaitingData, setAwaitingData] = useState(false);
@@ -140,7 +155,11 @@ const SummaryView = () => {
 
   return (
     <Container>
-      <h1>Adventure Log</h1>
+      <Banner>Adventure Log</Banner>
+      <Tagline>
+        Hello, I&apos;m Ben. Welcome to my website. Here&apos;s a log of things
+        I&apos;ve done (mostly climbing-related).
+      </Tagline>
       {awaitingData && "Loading..."}
       {error && <Error {...error} />}
       {/* entryData && <Pie {...{ filteredEntryData }} /> */}
@@ -156,4 +175,4 @@ const SummaryView = () => {
   );
 };
 
-export default SummaryView;
+export default MainView;

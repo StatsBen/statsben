@@ -10,7 +10,7 @@ if ("serviceWorker" in navigator) {
 }
 
 const LoadableMainView = Loadable({
-  loader: () => import("./MainView"),
+  loader: () => import("./main-view"),
   loading() {
     return <p>Loading ... ... ... </p>;
   }
@@ -22,13 +22,6 @@ const LoadableAdminPortal = Loadable({
     return <p>Admin&#146;ll be ready in a sec, Ben!</p>;
   }
 });
-
-const LoadableSummaryView = Loadable({
-  loader: () => import ("./summary-view/"),
-  loading() {
-    return <div>Loading ... ... ...</div>
-  }
-})
 
 class App extends React.Component {
   render() {
@@ -42,7 +35,6 @@ class App extends React.Component {
         <Router>
           <LoadableMainView path="/" />
           <LoadableAdminPortal path="/admin" />
-          <LoadableSummaryView path="/summary" />
         </Router>
       </div>
     );
