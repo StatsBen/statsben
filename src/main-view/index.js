@@ -18,7 +18,7 @@ import {
 } from "./mathHelpers";
 import { globals } from "../globals";
 
-const typesOffByDefault = ["work", "projects", "publications"];
+const typesOffByDefault = ["work", "projects", "publications", "certifications"];
 
 const Container = styled.div`
   max-width: ${globals.sizes.tabletBreakpoint};
