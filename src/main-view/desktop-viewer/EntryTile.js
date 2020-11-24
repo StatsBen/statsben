@@ -19,7 +19,7 @@ const Container = styled.div`
   }
   &.active {
     color: ${globals.colours.accentBlue};
-    background: ${globals.colours.lightBlue};
+    background: #eeeeee;
   }
 `;
 

@@ -13,6 +13,7 @@ export const EntryContainer = styled.div`
 
   @media (max-width: ${sizes.mobileBreakpoint}) {
     flex-direction: column;
+    padding: 20px 0;
   }
 
   @media (min-width: ${sizes.mobileBreakpoint}) {
