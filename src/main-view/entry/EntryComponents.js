@@ -44,6 +44,7 @@ export const EntryTitle = styled.div`
   flex-basis: auto;
   font-size: 2em;
   font-weight: 900;
+  letter-spacing: -0.05em;
   color: black;
 
   @media (max-width: ${sizes.mobileBreakpoint}) {
