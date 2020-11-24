@@ -35,6 +35,8 @@ export const Tiles = styled.div`
 `;
 
 export const CarouselContainer = styled.div`
+  position: sticky;
+  top: 0;
   width: 100%;
   max-width: ${props => props.maxWidth};
   padding: 20px 0;
@@ -42,6 +44,7 @@ export const CarouselContainer = styled.div`
   text-align: center;
   color: ${globals.colours.darkGray};
   font-family: ${globals.fonts.accent};
+  background: white;
   border-bottom: thin solid ${globals.colours.lighterGray};
 `;
 
