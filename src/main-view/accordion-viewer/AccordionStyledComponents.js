@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import { globals } from "../../globals";
+import { fullWidthMobile } from "../FullWidthMobileDiv";
 
 export const AccordionViewerContainer = styled.div`
-  width: calc(100% - 100px);
-  margin: 0 50px 100px 50px;
+  ${fullWidthMobile};
+  margin-bottom: 100%;
   /* This whole component will be removed from the DOM in sizes > mobile */
   @media (min-width: ${globals.sizes.mobileBreakpoint}) {
     display: none;

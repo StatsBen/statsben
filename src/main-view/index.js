@@ -17,32 +17,40 @@ import {
   // logCountsNStuff
 } from "./mathHelpers";
 import { globals } from "../globals";
+import { fullWidthMobile } from "./FullWidthMobileDiv";
 
-const typesOffByDefault = ["work", "projects", "publications", "certifications"];
+const typesOffByDefault = [
+  "work",
+  "projects",
+  "publications",
+  "certifications"
+];
 
 const Container = styled.div`
   max-width: ${globals.sizes.tabletBreakpoint};
   margin: 0 auto;
-  @media (max-width: ${globals.sizes.tabletBreakpoint}) {
+  width: 90%;
+  padding: 0 5%;
+  @media (max-width: ${globals.sizes.mobileBreakpoint}) {
     width: 100%;
     padding: 0 0;
-  }
-  @media (min-width: ${globals.sizes.tabletBreakpoint}) {
-    width: 90%;
-    padding: 0 5%;
   }
 `;
 
 const Banner = styled.h1`
-  @media (max-width: ${globals.sizes.tabletBreakpoint}) {
-    width: 90%;
-    padding: 0 5%;
+  ${fullWidthMobile};
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  padding: 80px 0 0 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  @media (max-width: ${globals.sizes.mobileBreakpoint}) {
+    font-size: 2em;
   }
 `;
 
 const Tagline = styled.p`
-  width: calc(100% - 100px);
-  margin-left: 50px;
+  ${fullWidthMobile};
   padding-bottom: 1.5em;
   color: ${globals.colours.charcoal};
   font-family: ${globals.fonts.accent};
@@ -157,8 +165,8 @@ const MainView = () => {
     <Container>
       <Banner>Adventure Log</Banner>
       <Tagline>
-        Hello, I&apos;m Ben. Welcome to my website. Here&apos;s a log of things
-        I&apos;ve done (mostly climbing-related).
+        {/* Hello, I&apos;m Ben. Welcome to my website. */}Here&apos;s a log of
+        things I&apos;ve done (mostly climbing-related).
       </Tagline>
       {awaitingData && "Loading..."}
       {error && <Error {...error} />}

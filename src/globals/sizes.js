@@ -3,7 +3,7 @@ const sizes = {
   menuWidth: 200,
   entryPageBorderRadius: "5px",
   borderRadius: "5px",
-  mobileBreakpoint: "650px",
+  mobileBreakpoint: "800px",
   tabletBreakpoint: "1100px",
 };
 
