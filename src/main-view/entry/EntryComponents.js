@@ -118,6 +118,7 @@ export const EntryContents = styled.div`
   font-size: 1.1em;
   color: ${colours.charcoal};
   text-align: justify;
+  line-height: 1.5em;
 
   @media (max-width: ${sizes.mobileBreakpoint}) {
     border-top: none;
