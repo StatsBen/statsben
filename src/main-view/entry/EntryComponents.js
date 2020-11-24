@@ -16,7 +16,11 @@ export const EntryContainer = styled.div`
   }
 
   @media (min-width: ${sizes.mobileBreakpoint}) {
-    padding: 0 50px;
+    padding: 50px 50px;
+    margin: 0 50px 100px 50px;
+    box-shadow: 1px 1px 15px #eeeeee;
+    border: thin solid #ececec;
+    border-radius: 10px;
   }
 `;
 
