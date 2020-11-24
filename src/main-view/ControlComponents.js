@@ -14,7 +14,11 @@ export const ControlsContainer = styled.div`
 
 export const ControlInputContainer = styled.div`
   display: flex;
-  padding: 30px 0;
+  width: 100%;
+  padding-bottom: 2.5em;
+  &:first-child {
+    padding-top: 2.5em;
+  }
 `;
 
 export const ControlLabel = styled.span`
