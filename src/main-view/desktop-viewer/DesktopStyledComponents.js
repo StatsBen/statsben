@@ -17,26 +17,25 @@ export const ActiveEntry = styled.div`
 `;
 
 export const NavContainer = styled.div`
+  position: sticky;
+  top: 0;
   flex-grow: 0;
   flex-shrink: 0;
   flex-basis: ${props => props.maxWidth};
-  height: 300px; /* <- this is the effective min-height */
+  height: ${window.innerHeight - 50 + "px"};
   max-width: ${props => props.maxWidth};
-  top: 0;
 `;
 
 export const Tiles = styled.div`
   position: inline;
   width: 100%;
   max-width: ${props => props.maxWidth};
-  height: ${props => Math.max(props.height - 91, 300) + "px"};
+  height: ${window.innerHeight - 120 + "px"};
   overflow: auto;
   direction: rtl;
 `;
 
 export const CarouselContainer = styled.div`
-  position: sticky;
-  top: 0;
   width: 100%;
   max-width: ${props => props.maxWidth};
   padding: 20px 0;
@@ -44,7 +43,6 @@ export const CarouselContainer = styled.div`
   text-align: center;
   color: ${globals.colours.darkGray};
   font-family: ${globals.fonts.accent};
-  background: white;
   border-bottom: thin solid ${globals.colours.lighterGray};
 `;
 

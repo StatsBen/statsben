@@ -7,7 +7,7 @@ import {
   Tiles
 } from "./DesktopStyledComponents";
 
-const NAV_MAX_WIDTH = "250px";
+const NAV_MAX_WIDTH = "280px";
 
 const DesktopNavigation = props => {
   const {
