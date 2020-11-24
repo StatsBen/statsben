@@ -19,6 +19,9 @@ export const ControlInputContainer = styled.div`
   &:first-child {
     padding-top: 2.5em;
   }
+  @media (max-width: ${globals.sizes.mobileBreakpoint}) {
+    flex-direction: column;
+  }
 `;
 
 export const ControlLabel = styled.span`
@@ -26,6 +29,7 @@ export const ControlLabel = styled.span`
   flex-grow: 0;
   flex-shrink: 0;
   flex-basis: auto;
+  padding: 0.5em  0;
 `;
 
 export const ControlInput = styled.span`
