@@ -9,17 +9,18 @@ const Container = styled.div`
   padding: 10px;
   font-family: ${globals.fonts.accent};
   font-size: 0.8em;
-  color: ${globals.colours.charcoal};
-  border-bottom: thin solid ${globals.colours.lighterGray};
+  color: ${globals.colours.mediumGray};
+  border-bottom: thin solid ${globals.colours.charcoal};
   user-select: none;
   direction: ltr;
   &:hover {
     cursor: pointer;
-    background: ${globals.colours.lighterGray};
+    color: white;
   }
   &.active {
     color: ${globals.colours.accentBlue};
-    background: #eeeeee;
+    font-weight: 900;
+    border-color: ${globals.colours.lightBlue};
   }
 `;
 
