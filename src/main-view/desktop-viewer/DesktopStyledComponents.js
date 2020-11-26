@@ -32,7 +32,7 @@ export const NavContainer = styled.div`
 
 export const Tiles = styled.div`
   position: inline;
-  height: ${window.innerHeight - 120 + "px"};
+  height: ${window.innerHeight - 130 + "px"};
   width: calc(100% = 30px);
   padding: 0 15px;
   overflow: auto;
