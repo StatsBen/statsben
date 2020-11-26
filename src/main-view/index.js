@@ -6,6 +6,7 @@ import styled from "styled-components";
 import AccordionViewer from "./accordion-viewer/AccordionViewer";
 import Controls from "./Controls";
 import DesktopEntryViewer from "./desktop-viewer/DesktopEntryViewer";
+import NothingToShow from "./NothingToShow";
 import {
   // rangeCountsSelector,
   rangesListSelector,
@@ -96,31 +97,43 @@ const MainView = () => {
 
   let filteredEntryData = entryData;
 
+  let entryDataFilteredByType = entryData; // <- needed to compute available ranges.
+
+  let entryDataFilteredByRange = entryData; // <- needed to compute available types.
+
   if (entryData) {
     if (activeTypeFilters && activeTypeFilters.length) {
       activeTypeFilters.forEach(type => {
-        filteredEntryData = filteredEntryData.filter(
+        // on each iteration, subtract out the ones of the type 'type' (above).
+        entryDataFilteredByType = entryDataFilteredByType.filter(
           entry => !isOfType(entry, type)
         );
       });
     } else {
       typesOffByDefault.forEach(type => {
-        filteredEntryData = filteredEntryData.filter(entry =>
+        // Like above, 'subtract out' the entries of type 'type'.
+        entryDataFilteredByType = entryDataFilteredByType.filter(entry =>
           isOfType(entry, type)
         );
       });
     }
 
     if (activeRangeFilter && activeRangeFilter.length) {
-      filteredEntryData = filteredEntryData.filter(
+      // First, get the entries filtered only by range
+      entryDataFilteredByRange = entryDataFilteredByRange.filter(
+        entry => entry.range == activeRangeFilter
+      );
+
+      // Next, compond the range filter onto the previous results from type filter.
+      filteredEntryData = entryDataFilteredByType.filter(
         entry => entry.range == activeRangeFilter
       );
     }
   }
 
-  const types = typesListSelector(entryData); // yes, get these sans filter
+  const types = typesListSelector(entryDataFilteredByRange);
   // const countsByType = typesCountSelector(filteredEntryData);
-  const ranges = rangesListSelector(filteredEntryData);
+  const ranges = rangesListSelector(entryDataFilteredByType);
   // const countsByRange = rangeCountsSelector(filteredEntryData);
   // logCountsNStuff(types, ranges, countsByType, countsByRange);
 
@@ -161,6 +174,8 @@ const MainView = () => {
 
   const showDesktop = entryData && !isMobile;
 
+  const somethingToShow = filteredEntryData && filteredEntryData.length > 0;
+
   return (
     <Container>
       <Banner>Adventure Log</Banner>
@@ -177,8 +192,13 @@ const MainView = () => {
         filteredEntryData.map((entry, i) => (
           <AccordionEntry key={`e-${i}`} {...{ entry }} />
         )) */}
-      {showMobile && <AccordionViewer {...{ filteredEntryData }} />}
-      {showDesktop && <DesktopEntryViewer {...{ filteredEntryData }} />}
+      {somethingToShow && showMobile && (
+        <AccordionViewer {...{ filteredEntryData }} />
+      )}
+      {somethingToShow && showDesktop && (
+        <DesktopEntryViewer {...{ filteredEntryData }} />
+      )}
+      {!somethingToShow && <NothingToShow />}
     </Container>
   );
 };

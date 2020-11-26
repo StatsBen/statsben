@@ -61,7 +61,7 @@ const DesktopEntryViewer = props => {
     <EntryViewerContainer>
       <DesktopNavigation {...navProps} />
       <ActiveEntry ref={ref}>
-        <Entry entry={activeEntry} />
+        {activeEntry && <Entry entry={activeEntry} />}
       </ActiveEntry>
     </EntryViewerContainer>
   );

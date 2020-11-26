@@ -4,17 +4,19 @@ export const getListOfAllTypes = entries => {
   let results = [],
     types;
 
-  entries.map(entry => {
+  entries.forEach(entry => {
     if (!entry.types || !Object.keys(entry.types).length) return;
 
     types = Object.keys(entry.types).filter(typeName => entry.types[typeName]);
 
-    types.map(type => {
+    types.forEach(type => {
       if (!results.includes(type)) {
         results.push(type);
       }
     });
   });
+
+  console.log(results);
 
   return results;
 };

@@ -28,6 +28,8 @@ const Controls = props => {
 
   const rangeOptions = formatRangesHelper(ranges);
 
+  const rangesToShow = ranges && ranges.length > 0;
+
   return (
     <ControlsContainer>
       <ControlInputContainer>
@@ -47,7 +49,7 @@ const Controls = props => {
       <ControlInputContainer>
         <ControlLabel>Filter by range/region: </ControlLabel>
         <ControlInput>
-          {ranges && ranges.length && (
+          {rangesToShow && (
             <RangesSelector
               isClearable={true}
               options={rangeOptions}
