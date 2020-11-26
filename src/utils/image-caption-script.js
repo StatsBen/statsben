@@ -4,10 +4,9 @@ import { globals } from "../globals";
  ** and finds all IMG elements, reads their "alt" attribute text, and
  ** generates a caption for the photo from the text.  **/
 const addCaptionToImgFromAltText = entryElement => {
-
   // Just bail if the element is null or whatever...
   if (!entryElement) return;
-  
+
   const imgs = entryElement.getElementsByTagName("img");
 
   for (let i = 0; i < imgs.length; i++) {
@@ -25,10 +24,12 @@ const addCaptionToImgFromAltText = entryElement => {
     newImg.setAttribute("style", "width: 100%;");
 
     let captionStyle =
-      "font-family: " +
+      "display:block;" + // <- ensures the line-height (below) takes effect.
+      "font-family:" +
       globals.fonts.accent +
-      "; font-size: 0.8em;" +
-      "color: " +
+      ";font-size: 0.7em; " +
+      "line-height: 1;" +
+      "color:" +
       globals.colours.mediumGray +
       ";";
 
