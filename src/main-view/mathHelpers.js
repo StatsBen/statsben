@@ -16,8 +16,6 @@ export const getListOfAllTypes = entries => {
     });
   });
 
-  console.log(results);
-
   return results;
 };
 
