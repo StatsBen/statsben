@@ -128,6 +128,9 @@ const MainView = () => {
       filteredEntryData = entryDataFilteredByType.filter(
         entry => entry.range == activeRangeFilter
       );
+    } else {
+      // just set filteredEntryData directly since this won't get done otherwise
+      filteredEntryData = entryDataFilteredByType;
     }
   }
 
