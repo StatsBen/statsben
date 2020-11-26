@@ -21,32 +21,34 @@ export const NavContainer = styled.div`
   top: 30px;
   flex-grow: 0;
   flex-shrink: 0;
+  margin-bottom: 20px;
   flex-basis: ${props => props.maxWidth};
   height: ${window.innerHeight - 50 + "px"};
-  max-width: ${props => props.maxWidth};
-  background: ${globals.colours.darkGray};
+  width: ${props => props.maxWidth};
   border-radius: 5px;
-  border: thin solid black;
+  border: thin solid #eaeaea;
   box-shadow: 1px 1px 10px #eeeeee;
 `;
 
 export const Tiles = styled.div`
   position: inline;
-  width: 100%;
-  max-width: ${props => props.maxWidth};
   height: ${window.innerHeight - 120 + "px"};
+  width: calc(100% = 30px);
+  padding: 0 15px;
   overflow: auto;
   direction: rtl;
-  background: ${globals.colours.darkGray};
+  ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
 `;
 
 export const CarouselContainer = styled.div`
-  width: 100%;
   max-width: ${props => props.maxWidth};
-  padding: 20px 0;
+  padding: 25px 0;
   margin-bottom: 0;
   text-align: center;
-  color: white;
+  color: ${globals.colours.darkGray};
   font-family: ${globals.fonts.copy};
   border-bottom: thin solid ${globals.colours.lighterGray};
 `;
