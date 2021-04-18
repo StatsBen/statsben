@@ -6,6 +6,8 @@
 
 /src/authentication/keys.js
 
+.parcel-cache
+
 /migration
 
 /.firebase

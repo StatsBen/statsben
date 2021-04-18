@@ -1,27 +1,27 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Router } from "@reach/router";
-import Loadable from "react-loadable";
+import Loadable from "@loadable/component";
 import Favicon from "react-favicon";
 import "./global-styles.css";
 
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("./sw.js");
+  navigator.serviceWorker.register(new URL('./sw.js', import.meta.url))
 }
 
-const LoadableMainView = Loadable({
-  loader: () => import("./MainView"),
-  loading() {
-    return <p>Loading ... ... ... </p>;
+const LoadableMainView = Loadable(
+  () => import("./MainView"),
+  {
+    fallback: <p>Loading ... ... ... </p>
   }
-});
+);
 
-const LoadableAdminPortal = Loadable({
-  loader: () => import("./admin-portal/AdminPortal"),
-  loading() {
-    return <p>Admin&#146;ll be ready in a sec, Ben!</p>;
+const LoadableAdminPortal = Loadable(
+  () => import("./admin-portal/AdminPortal"),
+  {
+    fallback: <p>Admin&#146;ll be ready in a sec, Ben!</p>
   }
-});
+);
 
 class App extends React.Component {
   render() {
